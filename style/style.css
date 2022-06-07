@@ -25,10 +25,10 @@
   row-gap: 24px;
   -moz-column-gap: 24px;
        column-gap: 24px;
-  padding-block: 6.2857142857%;
+  padding-block: 48px;
 }
 .grid--padding {
-  padding-inline: 6.7142857143%;
+  padding-inline: 6.2857142857%;
 }
 .grid__item {
   display: flex;
@@ -258,6 +258,9 @@ h1 {
          column-gap: 16px;
     padding-block: 32px;
   }
+  .grid--padding {
+    padding-inline: 32px;
+  }
   .grid__item {
     row-gap: 16px;
   }
@@ -325,7 +328,9 @@ h1 {
 @media (max-width: 599px) {
   .grid {
     grid-template-columns: repeat(4, 1fr);
-    padding-block: 16px;
+  }
+  .grid--padding {
+    padding-inline: 16px;
   }
   .grid__item:first-child:nth-last-child(1) {
     grid-column: auto/span 4;

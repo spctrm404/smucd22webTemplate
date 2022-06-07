@@ -143,6 +143,29 @@ h1 {
 @media (max-width: 767px) {
   .grid {
     column-gap: 16px;
+    &__item {
+      &:first-child:nth-last-child(1) {
+        grid-column: auto / span 12;
+      }
+      @for $i from 2 through 12 {
+        @if (12 % $i == 0) {
+          &:first-child:nth-last-child(#{$i}),
+          &:first-child:nth-last-child(#{$i}) ~ & {
+            grid-column: auto / span 12;
+          }
+        }
+      }
+      @for $i from 1 through 12 {
+        &--w-#{$i} {
+          grid-column: auto / span 12 !important;
+        }
+      }
+      @for $i from 1 through 12 {
+        &--x-#{$i} {
+          grid-column-start: auto !important;
+        }
+      }
+    }
   }
   :root {
     font-size: 12px;

@@ -217,6 +217,96 @@ h1 {
     -moz-column-gap: 16px;
          column-gap: 16px;
   }
+  .grid__item:first-child:nth-last-child(1) {
+    grid-column: auto/span 12;
+  }
+  .grid__item:first-child:nth-last-child(2), .grid__item:first-child:nth-last-child(2) ~ .grid__item {
+    grid-column: auto/span 12;
+  }
+  .grid__item:first-child:nth-last-child(3), .grid__item:first-child:nth-last-child(3) ~ .grid__item {
+    grid-column: auto/span 12;
+  }
+  .grid__item:first-child:nth-last-child(4), .grid__item:first-child:nth-last-child(4) ~ .grid__item {
+    grid-column: auto/span 12;
+  }
+  .grid__item:first-child:nth-last-child(6), .grid__item:first-child:nth-last-child(6) ~ .grid__item {
+    grid-column: auto/span 12;
+  }
+  .grid__item:first-child:nth-last-child(12), .grid__item:first-child:nth-last-child(12) ~ .grid__item {
+    grid-column: auto/span 12;
+  }
+  .grid__item--w-1 {
+    grid-column: auto/span 12 !important;
+  }
+  .grid__item--w-2 {
+    grid-column: auto/span 12 !important;
+  }
+  .grid__item--w-3 {
+    grid-column: auto/span 12 !important;
+  }
+  .grid__item--w-4 {
+    grid-column: auto/span 12 !important;
+  }
+  .grid__item--w-5 {
+    grid-column: auto/span 12 !important;
+  }
+  .grid__item--w-6 {
+    grid-column: auto/span 12 !important;
+  }
+  .grid__item--w-7 {
+    grid-column: auto/span 12 !important;
+  }
+  .grid__item--w-8 {
+    grid-column: auto/span 12 !important;
+  }
+  .grid__item--w-9 {
+    grid-column: auto/span 12 !important;
+  }
+  .grid__item--w-10 {
+    grid-column: auto/span 12 !important;
+  }
+  .grid__item--w-11 {
+    grid-column: auto/span 12 !important;
+  }
+  .grid__item--w-12 {
+    grid-column: auto/span 12 !important;
+  }
+  .grid__item--x-1 {
+    grid-column-start: auto !important;
+  }
+  .grid__item--x-2 {
+    grid-column-start: auto !important;
+  }
+  .grid__item--x-3 {
+    grid-column-start: auto !important;
+  }
+  .grid__item--x-4 {
+    grid-column-start: auto !important;
+  }
+  .grid__item--x-5 {
+    grid-column-start: auto !important;
+  }
+  .grid__item--x-6 {
+    grid-column-start: auto !important;
+  }
+  .grid__item--x-7 {
+    grid-column-start: auto !important;
+  }
+  .grid__item--x-8 {
+    grid-column-start: auto !important;
+  }
+  .grid__item--x-9 {
+    grid-column-start: auto !important;
+  }
+  .grid__item--x-10 {
+    grid-column-start: auto !important;
+  }
+  .grid__item--x-11 {
+    grid-column-start: auto !important;
+  }
+  .grid__item--x-12 {
+    grid-column-start: auto !important;
+  }
 
   :root {
     font-size: 12px;

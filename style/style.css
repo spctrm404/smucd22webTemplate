@@ -22,10 +22,10 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  row-gap: 30px;
+  row-gap: 24px;
   -moz-column-gap: 24px;
        column-gap: 24px;
-  min-height: 60px;
+  padding-block: 24px;
 }
 .grid--padding {
   padding-inline: 6.7142857143%;
@@ -33,7 +33,7 @@
 .grid__item {
   display: flex;
   flex-flow: column nowrap;
-  row-gap: 30px;
+  row-gap: 12px;
   align-items: flex-start;
   justify-content: center;
   width: 100%;
@@ -166,8 +166,13 @@ h1 {
 
 @media (max-width: 991px) {
   .grid {
+    row-gap: 20px;
     -moz-column-gap: 20px;
          column-gap: 20px;
+    padding-block: 20px;
+  }
+  .grid__item {
+    row-gap: 10px;
   }
 
   :root {
@@ -214,8 +219,13 @@ h1 {
 }
 @media (max-width: 767px) {
   .grid {
+    row-gap: 16px;
     -moz-column-gap: 16px;
          column-gap: 16px;
+    padding-block: 16px;
+  }
+  .grid__item {
+    row-gap: 8px;
   }
   .grid__item:first-child:nth-last-child(1) {
     grid-column: auto/span 12;

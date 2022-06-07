@@ -20,11 +20,12 @@
 }
 
 .grid {
+  $gapUnit: 24px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  row-gap: 30px;
-  column-gap: 24px;
-  min-height: 60px;
+  row-gap: $gapUnit;
+  column-gap: $gapUnit;
+  padding-block: $gapUnit; // need to check
   // background-color: rgba($color: #ff0000, $alpha: 0.1); //debug
   &--padding {
     padding-inline: 6.71428571428571%;
@@ -32,7 +33,7 @@
   &__item {
     display: flex;
     flex-flow: column nowrap;
-    row-gap: 30px;
+    row-gap: $gapUnit * 0.5;
     align-items: flex-start;
     justify-content: center;
     width: 100%;
@@ -99,8 +100,14 @@ h1 {
 }
 
 @media (max-width: 991px) {
+  $gapUnit: 20px;
   .grid {
-    column-gap: 20px;
+    row-gap: $gapUnit;
+    column-gap: $gapUnit;
+    padding-block: $gapUnit;
+    &__item {
+      row-gap: $gapUnit * 0.5;
+    }
   }
   :root {
     font-size: 14px;
@@ -141,9 +148,13 @@ h1 {
 }
 
 @media (max-width: 767px) {
+  $gapUnit: 16px;
   .grid {
-    column-gap: 16px;
+    row-gap: $gapUnit;
+    column-gap: $gapUnit;
+    padding-block: $gapUnit;
     &__item {
+      row-gap: $gapUnit * 0.5;
       &:first-child:nth-last-child(1) {
         grid-column: auto / span 12;
       }

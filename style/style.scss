@@ -20,12 +20,11 @@
 }
 
 .grid {
-  $gapUnit: 24px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  row-gap: $gapUnit;
-  column-gap: $gapUnit;
-  padding-block: $gapUnit; // need to check
+  row-gap: 24px;
+  column-gap: 24px;
+  padding-block: calc(88 / 1400 * 100%);
   // background-color: rgba($color: #ff0000, $alpha: 0.1); //debug
   &--padding {
     padding-inline: 6.71428571428571%;
@@ -33,7 +32,7 @@
   &__item {
     display: flex;
     flex-flow: column nowrap;
-    row-gap: $gapUnit * 0.5;
+    row-gap: 24px;
     align-items: flex-start;
     justify-content: center;
     width: 100%;
@@ -99,16 +98,7 @@ h1 {
   letter-spacing: -0.25px;
 }
 
-@media (max-width: 991px) {
-  $gapUnit: 20px;
-  .grid {
-    row-gap: $gapUnit;
-    column-gap: $gapUnit;
-    padding-block: $gapUnit;
-    &__item {
-      row-gap: $gapUnit * 0.5;
-    }
-  }
+@media (max-width: 1439px) {
   :root {
     font-size: 14px;
     font-weight: 400;
@@ -147,14 +137,13 @@ h1 {
   }
 }
 
-@media (max-width: 767px) {
-  $gapUnit: 16px;
+@media (max-width: 904px) {
   .grid {
-    row-gap: $gapUnit;
-    column-gap: $gapUnit;
-    padding-block: $gapUnit;
+    row-gap: 16px;
+    column-gap: 16px;
+    padding-block: 32px;
     &__item {
-      row-gap: $gapUnit * 0.5;
+      row-gap: 16px;
       &:first-child:nth-last-child(1) {
         grid-column: auto / span 12;
       }
@@ -215,5 +204,8 @@ h1 {
     letter-spacing: 0px;
   }
 }
-// @media (max-width: 478px) {
-// }
+@media (max-width: 599px) {
+  .grid {
+    padding-block: 16px;
+  }
+}

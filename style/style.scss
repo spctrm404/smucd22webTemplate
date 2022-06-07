@@ -1,0 +1,185 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  background-color: black; //debug
+}
+
+.container {
+  max-width: 1400px;
+  margin-inline: auto;
+  background-color: white; //debug
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  row-gap: 30px;
+  column-gap: 24px;
+  min-height: 60px;
+  // background-color: rgba($color: #ff0000, $alpha: 0.1); //debug
+  &--padding {
+    padding-inline: 6.71428571428571%;
+  }
+  &__item {
+    display: flex;
+    flex-flow: column nowrap;
+    row-gap: 30px;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    > * {
+      // background-color: rgba($color: #0000ff, $alpha: 0.1); //debug
+    }
+    &:first-child:nth-last-child(1) {
+      grid-column: auto / span 12;
+    }
+    @for $i from 2 through 12 {
+      @if (12 % $i == 0) {
+        &:first-child:nth-last-child(#{$i}),
+        &:first-child:nth-last-child(#{$i}) ~ & {
+          grid-column: auto / span calc(12 / $i);
+        }
+      }
+    }
+    @for $i from 1 through 12 {
+      &--w-#{$i} {
+        grid-column: auto / span #{$i} !important;
+      }
+    }
+    @for $i from 1 through 12 {
+      &--x-#{$i} {
+        grid-column-start: #{$i} !important;
+      }
+    }
+  }
+}
+
+p {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+}
+
+h6 {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+}
+
+h3 {
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0px;
+}
+
+h2 {
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 40px;
+  letter-spacing: 0px;
+}
+
+h1 {
+  font-size: 57px;
+  font-weight: 400;
+  line-height: 64px;
+  letter-spacing: -0.25px;
+}
+
+@media (max-width: 991px) {
+  .grid {
+    column-gap: 20px;
+  }
+  :root {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+  }
+  p {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+  }
+  h6 {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+  }
+  h3 {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.1px;
+  }
+  h2 {
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 36px;
+    letter-spacing: 0px;
+  }
+  h1 {
+    font-size: 45px;
+    font-weight: 400;
+    line-height: 52px;
+    letter-spacing: 0px;
+  }
+}
+
+@media (max-width: 767px) {
+  .grid {
+    column-gap: 16px;
+  }
+  :root {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+  }
+  p {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+  }
+  h6 {
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+  }
+  h3 {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+  }
+  h2 {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 32px;
+    letter-spacing: 0px;
+  }
+  h1 {
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 44px;
+    letter-spacing: 0px;
+  }
+}
+// @media (max-width: 478px) {
+// }

@@ -98,6 +98,7 @@ h1 {
   letter-spacing: -0.25px;
 }
 
+//laptop - medium
 @media (max-width: 1439px) {
   :root {
     font-size: 14px;
@@ -137,36 +138,8 @@ h1 {
   }
 }
 
-@media (max-width: 904px) {
-  .grid {
-    row-gap: 16px;
-    column-gap: 16px;
-    padding-block: 32px;
-    &__item {
-      row-gap: 16px;
-      &:first-child:nth-last-child(1) {
-        grid-column: auto / span 12;
-      }
-      @for $i from 2 through 12 {
-        @if (12 % $i == 0) {
-          &:first-child:nth-last-child(#{$i}),
-          &:first-child:nth-last-child(#{$i}) ~ & {
-            grid-column: auto / span 12;
-          }
-        }
-      }
-      @for $i from 1 through 12 {
-        &--w-#{$i} {
-          grid-column: auto / span 12 !important;
-        }
-      }
-      @for $i from 1 through 12 {
-        &--x-#{$i} {
-          grid-column-start: auto !important;
-        }
-      }
-    }
-  }
+//tabletL - small
+@media (max-width: 1239px) {
   :root {
     font-size: 12px;
     font-weight: 400;
@@ -204,8 +177,68 @@ h1 {
     letter-spacing: 0px;
   }
 }
+
+//tabletS - small
+@media (max-width: 904px) {
+  .grid {
+    grid-template-columns: repeat(8, 1fr);
+    row-gap: 16px;
+    column-gap: 16px;
+    padding-block: 32px;
+    &__item {
+      row-gap: 16px;
+      &:first-child:nth-last-child(1) {
+        grid-column: auto / span 8;
+      }
+      @for $i from 2 through 8 {
+        @if (8 % $i == 0) {
+          &:first-child:nth-last-child(#{$i}),
+          &:first-child:nth-last-child(#{$i}) ~ & {
+            grid-column: auto / span 8;
+          }
+        }
+      }
+      @for $i from 1 through 8 {
+        &--w-#{$i} {
+          grid-column: auto / span 8 !important;
+        }
+      }
+      @for $i from 1 through 8 {
+        &--x-#{$i} {
+          grid-column-start: auto !important;
+        }
+      }
+    }
+  }
+}
+
+//phone - small
 @media (max-width: 599px) {
   .grid {
+    grid-template-columns: repeat(4, 1fr);
     padding-block: 16px;
+    &__item {
+      &:first-child:nth-last-child(1) {
+        grid-column: auto / span 4;
+      }
+      @for $i from 2 through 4 {
+        @if (8 % $i == 0) {
+          &:first-child:nth-last-child(#{$i}),
+          &:first-child:nth-last-child(#{$i}) ~ & {
+            grid-column: auto / span 4;
+          }
+        }
+      }
+      @for $i from 1 through 4 {
+        &--w-#{$i} {
+          grid-column: auto / span 4 !important;
+        }
+      }
+      @for $i from 1 through 4 {
+        &--x-#{$i} {
+          grid-column-start: auto !important;
+        }
+      }
+    }
   }
 }

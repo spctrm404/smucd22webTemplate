@@ -1,4 +1,4 @@
-@import "mixin";
+@import "mixinFlex";
 
 * {
   box-sizing: border-box;
@@ -23,12 +23,13 @@
 
 //laptop - medium
 @media (max-width: 1439px) {
-  @include type--m;
+  // @include type--m;
 }
 
 //tabletL - small
 @media (max-width: 1239px) {
-  @include type--s;
+  // @include type--s;
+  @include type--m;
 }
 
 //tabletS - small
@@ -38,5 +39,6 @@
 
 //phone - small
 @media (max-width: 599px) {
+  @include type--s;
   @include grid--xs;
 }

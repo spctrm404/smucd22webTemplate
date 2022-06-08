@@ -1,0 +1,9 @@
+.grid {
+  &__item.override {
+    @for $i from 1 through 12 {
+      &:nth-child(#{$i}) {
+        background-color: rgb(255, calc(255 / 12 * $i), 0);
+      }
+    }
+  }
+}

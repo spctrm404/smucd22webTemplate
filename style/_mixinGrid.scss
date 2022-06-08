@@ -1,45 +1,38 @@
-@mixin grid() {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 @mixin grid--l() {
-  $columnGap: 24px;
-  $rowGap: $columnGap;
-  $paddingBlock: $columnGap;
   .grid {
-    @include grid;
-    row-gap: $rowGap;
-    column-gap: $columnGap;
-    padding-block: $paddingBlock;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    row-gap: 24px;
+    column-gap: 24px;
+    padding-block: 24px;
     &--padding {
       padding-inline: calc(88 / 1400 * 100%);
     }
     &__item {
       display: flex;
       flex-flow: column nowrap;
-      row-gap: $rowGap * 0.5;
+      row-gap: 12px;
       align-items: center;
       justify-content: center;
       &:first-child:nth-last-child(1) {
-        width: 100%;
+        grid-column: auto / span 12;
       }
       @for $i from 2 through 12 {
         @if (12 % $i == 0) {
           &:first-child:nth-last-child(#{$i}),
           &:first-child:nth-last-child(#{$i}) ~ & {
-            width: calc(
-              (100% - $columnGap * 11) / $i + $columnGap * (12 / $i - 1)
-            );
+            grid-column: auto / span calc(12 / $i);
           }
         }
       }
       @for $i from 1 through 12 {
         &--w-#{$i} {
-          width: calc(
-            (100% - $columnGap * 11) / 12 * $i + $columnGap * ($i - 1)
-          ) !important;
+          grid-column: auto / span #{$i} !important;
+        }
+      }
+      @for $i from 1 through 12 {
+        &--x-#{$i} {
+          grid-column-start: #{$i} !important;
         }
       }
     }
@@ -47,41 +40,40 @@
 }
 
 @mixin grid--s() {
-  $columnGap: 16px;
-  $rowGap: $columnGap;
-  $paddingBlock: $columnGap;
   .grid {
-    @include grid;
-    row-gap: $rowGap;
-    column-gap: $columnGap;
-    padding-block: $paddingBlock;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    row-gap: 16px;
+    column-gap: 16px;
+    padding-block: 16px;
     &--padding {
       padding-inline: 32px;
     }
     &__item {
       display: flex;
       flex-flow: column nowrap;
-      row-gap: $rowGap * 0.5;
+      row-gap: 8px;
       align-items: center;
       justify-content: center;
       &:first-child:nth-last-child(1) {
-        width: 100%;
+        grid-column: auto / span 12;
       }
       @for $i from 2 through 12 {
         @if (12 % $i == 0) {
           &:first-child:nth-last-child(#{$i}),
           &:first-child:nth-last-child(#{$i}) ~ & {
-            width: calc(
-              (100% - $columnGap * 11) / $i + $columnGap * (12 / $i - 1)
-            );
+            grid-column: auto / span calc(12 / $i);
           }
         }
       }
       @for $i from 1 through 12 {
         &--w-#{$i} {
-          width: calc(
-            (100% - $columnGap * 11) / 12 * $i + $columnGap * ($i - 1)
-          ) !important;
+          grid-column: auto / span #{$i} !important;
+        }
+      }
+      @for $i from 1 through 12 {
+        &--x-#{$i} {
+          grid-column-start: #{$i} !important;
         }
       }
     }
@@ -89,41 +81,40 @@
 }
 
 @mixin grid--xs() {
-  $columnGap: 16px;
-  $rowGap: $columnGap;
-  $paddingBlock: $columnGap;
   .grid {
-    @include grid;
-    row-gap: $rowGap;
-    column-gap: $columnGap;
-    padding-block: $paddingBlock;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    row-gap: 16px;
+    column-gap: 16px;
+    padding-block: 16px;
     &--padding {
       padding-inline: 16px;
     }
     &__item {
       display: flex;
       flex-flow: column nowrap;
-      row-gap: $rowGap * 0.5;
+      row-gap: 8px;
       align-items: center;
       justify-content: center;
       &:first-child:nth-last-child(1) {
-        width: 100%;
+        grid-column: auto / span 12;
       }
       @for $i from 2 through 12 {
         @if (12 % $i == 0) {
           &:first-child:nth-last-child(#{$i}),
           &:first-child:nth-last-child(#{$i}) ~ & {
-            width: calc(
-              (100% - $columnGap * 11) / $i + $columnGap * (12 / $i - 1)
-            );
+            grid-column: auto / span calc(12 / $i);
           }
         }
       }
       @for $i from 1 through 12 {
         &--w-#{$i} {
-          width: calc(
-            (100% - $columnGap * 11) / 12 * $i + $columnGap * ($i - 1)
-          ) !important;
+          grid-column: auto / span #{$i} !important;
+        }
+      }
+      @for $i from 1 through 12 {
+        &--x-#{$i} {
+          grid-column-start: #{$i} !important;
         }
       }
     }

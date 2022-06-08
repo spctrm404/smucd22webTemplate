@@ -76,6 +76,8 @@ h1 {
 .grid__item img {
   width: 100%;
   height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .grid--padding {
   padding-inline: 6.2857142857%;
@@ -249,6 +251,8 @@ p {
   .grid__item img {
     width: 100%;
     height: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
   }
   .grid--padding {
     padding-inline: 32px;
@@ -421,6 +425,8 @@ p {
   .grid__item img {
     width: 100%;
     height: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
   }
   .grid--padding {
     padding-inline: 16px;

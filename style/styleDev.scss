@@ -6,23 +6,36 @@
   margin: 0;
 }
 
-@include applyFontToTag(1);
+:root {
+  font-family: 'Noto Sans KR', sans-serif;
+}
 
 .section {
   display: flex;
   flex-flow: row nowrap;
   align-items: stretch;
-  justify-content: stretch;
-  width: 100%;
+  justify-content: center;
   .container {
-    flex-grow: 0;
-    flex-shrink: 0;
-    width: 100%;
-    max-width: 1440px;
+    flex: 0 1 auto;
+    .grid {
+      display: grid;
+      > * {
+        background-color: lightskyblue;
+      }
+    }
+    .flex {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: stretch;
+      justify-content: center;
+      > * {
+        flex: 1 1 auto;
+        background-color: lightcoral;
+      }
+    }
   }
   > .margin {
-    flex-grow: 1;
-    flex-shrink: 1;
+    flex: 1 1 auto;
     &__l {
       background-color: red;
     }
@@ -30,4 +43,30 @@
       background-color: blue;
     }
   }
+}
+
+@include hnd;
+@include tbl;
+@include lpt;
+@include dsk;
+@include dskStable;
+
+// hnd
+@media (max-width: #{$bpTbl - 1px}) {
+}
+
+// tbl
+@media (min-width: #{$bpTbl}) and (max-width: #{$bpLpt - 1px}) {
+}
+
+// lpt
+@media (min-width: #{$bpLpt}) and (max-width: #{$bpDsk - 1px}) {
+}
+
+// dsk
+@media (min-width: #{$bpDsk}) and (max-width: #{$bpDskStable - 1px}) {
+}
+
+// dskStable
+@media (min-width: #{$bpDskStable}) {
 }

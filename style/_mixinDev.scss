@@ -1,3 +1,8 @@
+$bpTbl: 600px;
+$bpLpt: 905px;
+$bpDsk: 1240px;
+$bpDskStable: 1440px;
+
 @mixin font($size, $hierarchy) {
   $fontSize: 12px;
   $fontWeight: 400;
@@ -98,6 +103,168 @@
   @for $i from 1 through 6 {
     h#{$i} {
       @include font($size, max(0, 5 - $i));
+    }
+  }
+}
+
+@mixin gridItemMod($prefix, $through) {
+  @for $i from 1 through $through {
+    .#{$prefix}-gridX-#{$i} {
+      grid-column-start: $i;
+    }
+    .#{$prefix}-gridW-#{$i} {
+      grid-column: auto / span $i;
+    }
+  }
+}
+
+@mixin hnd {
+  $column: 4;
+  $columnGap: 16px;
+  $rowGap: 16px;
+  $margin: 16px;
+  $fontSize: 1;
+  @media (max-width: #{$bpTbl - 1px}) {
+    @include applyFontToTag($fontSize);
+    .section {
+      .container {
+        .grid,
+        .flex {
+          row-gap: $rowGap;
+          column-gap: $columnGap;
+          margin-inline: $margin;
+        }
+        .grid {
+          grid-template-columns: repeat($column, 1fr);
+          > * {
+            @include gridItemMod('hnd', $column);
+          }
+        }
+      }
+      .margin {
+        display: none;
+      }
+    }
+  }
+}
+
+@mixin tbl {
+  $column: 8;
+  $columnGap: 24px;
+  $rowGap: 24px;
+  $margin: 32px;
+  $fontSize: 2;
+  @media (min-width: #{$bpTbl}) and (max-width: #{$bpLpt - 1px}) {
+    @include applyFontToTag($fontSize);
+    .section {
+      .container {
+        .grid,
+        .flex {
+          row-gap: $rowGap;
+          column-gap: $columnGap;
+          margin-inline: $margin;
+        }
+        .grid {
+          grid-template-columns: repeat($column, 1fr);
+          > * {
+            @include gridItemMod('tbl', $column);
+          }
+        }
+      }
+      .margin {
+        display: none;
+      }
+    }
+  }
+}
+
+@mixin lpt {
+  $column: 12;
+  $columnGap: 24px;
+  $rowGap: 24px;
+  // $margin: 0;
+  $margin: 32px;
+  $fontSize: 2;
+  @media (min-width: #{$bpLpt}) and (max-width: #{$bpDsk - 1px}) {
+    @include applyFontToTag($fontSize);
+    .section {
+      .container {
+        // width: 840px;
+        width: 904px;
+        .grid,
+        .flex {
+          row-gap: $rowGap;
+          column-gap: $columnGap;
+          margin-inline: $margin;
+        }
+        .grid {
+          grid-template-columns: repeat($column, 1fr);
+          > * {
+            @include gridItemMod('lpt', $column);
+          }
+        }
+      }
+      // .margin {
+      //   display: none;
+      // }
+    }
+  }
+}
+@mixin dsk {
+  $column: 12;
+  $columnGap: 24px;
+  $rowGap: 24px;
+  $margin: calc(84 / 1440 * 100%);
+  $fontSize: 2;
+  @media (min-width: #{$bpDsk}) and (max-width: #{$bpDskStable - 1px}) {
+    @include applyFontToTag($fontSize);
+    .section {
+      .container {
+        width: 100%;
+        .grid,
+        .flex {
+          row-gap: $rowGap;
+          column-gap: $columnGap;
+          margin-inline: $margin;
+        }
+        .grid {
+          grid-template-columns: repeat($column, 1fr);
+          > * {
+            @include gridItemMod('dsk', $column);
+          }
+        }
+      }
+      .margin {
+        display: none;
+      }
+    }
+  }
+}
+
+@mixin dskStable {
+  $column: 12;
+  $columnGap: 24px;
+  $rowGap: 24px;
+  $margin: 84px;
+  $fontSize: 2;
+  @media (min-width: #{$bpDskStable}) {
+    @include applyFontToTag($fontSize);
+    .section {
+      .container {
+        width: 1440px;
+        .grid,
+        .flex {
+          row-gap: $rowGap;
+          column-gap: $columnGap;
+          margin-inline: $margin;
+        }
+        .grid {
+          grid-template-columns: repeat($column, 1fr);
+          > * {
+            @include gridItemMod('dsk', $column);
+          }
+        }
+      }
     }
   }
 }

@@ -1,0 +1,79 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+:root,
+p {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+}
+
+h1 {
+  font-size: 45px;
+  font-weight: 400;
+  line-height: 52px;
+  letter-spacing: 0px;
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: 0px;
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.1px;
+}
+
+h4 {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+}
+
+h5 {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+}
+
+h6 {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+}
+
+.section {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+  justify-content: stretch;
+  width: 100%;
+}
+.section .container {
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 1440px;
+}
+.section > .margin {
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+.section > .margin__l {
+  background-color: red;
+}
+.section > .margin__r {
+  background-color: blue;
+}

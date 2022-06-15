@@ -1,0 +1,33 @@
+@import 'mixinDev';
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+@include applyFontToTag(1);
+
+.section {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+  justify-content: stretch;
+  width: 100%;
+  .container {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 1440px;
+  }
+  > .margin {
+    flex-grow: 1;
+    flex-shrink: 1;
+    &__l {
+      background-color: red;
+    }
+    &__r {
+      background-color: blue;
+    }
+  }
+}

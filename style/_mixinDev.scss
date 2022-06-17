@@ -1,3 +1,14 @@
+// hidden
+// padding
+// oject-fit
+// fullHeight
+// autoLayout
+// fixed
+// fill
+// hug
+// max
+// min
+
 $bpTbl: 600px;
 $bpLpt: 905px;
 $bpDsk: 1240px;
@@ -107,137 +118,168 @@ $bpDskStable: 1440px;
   }
 }
 
-@mixin gridItemMod($prefix, $through) {
-  @for $i from 1 through $through {
-    .#{$prefix}-gridX-#{$i} {
-      grid-column-start: $i;
+@mixin gridItemModClasses($prefix: '', $column) {
+  @if ($prefix== '') {
+    @for $i from 1 through 12 {
+      $calibratedI: $i;
+      @if ($i > $column) {
+        $calibratedI: $column;
+      }
+      > .gridW-#{$i} {
+        grid-column: auto / span $calibratedI;
+      }
     }
-    .#{$prefix}-gridW-#{$i} {
-      grid-column: auto / span $i;
+  } @else {
+    @for $i from 1 through $column {
+      > .#{$prefix}-gridX-#{$i} {
+        grid-column-start: $i;
+      }
+      > .#{$prefix}-gridW-#{$i} {
+        grid-column: auto / span $i;
+      }
+    }
+  }
+}
+
+@mixin flexItemWidthDistribution($column, $columnGap) {
+  @for $i from 1 through 12 {
+    & > *:first-child:nth-last-child(#{$i}),
+    & > *:first-child:nth-last-child(#{$i}) ~ * {
+      @if ($i > $column) {
+        width: calc((100% - $columnGap * ($column - 1)) / $column);
+      } @else {
+        $calibratedI: (($i - 1) % $column) + 1;
+        width: calc((100% - $columnGap * ($calibratedI - 1)) / $calibratedI);
+      }
+    }
+  }
+}
+
+@mixin flexItemModClasses($prefix: '', $column, $columnGap) {
+  @if ($prefix== '') {
+    @for $divisor from 1 through $column {
+      @for $dividend from 1 through $divisor {
+        & > .flexW-#{$dividend}x#{$divisor} {
+          width: calc(
+            ((100% - $columnGap * ($divisor - 1)) / $divisor) *
+              $dividend +
+              $columnGap *
+              ($dividend - 1)
+          ) !important;
+        }
+      }
+    }
+  } @else {
+    @for $divisor from 1 through $column {
+      @for $dividend from 1 through $divisor {
+        & > .#{$prefix}-flexW-#{$dividend}x#{$divisor} {
+          width: calc(
+            ((100% - $columnGap * ($divisor - 1)) / $divisor) *
+              $dividend +
+              $columnGap *
+              ($dividend - 1)
+          ) !important;
+        }
+      }
+    }
+  }
+}
+
+@mixin mediaQuery(
+  $bpName,
+  $width: auto,
+  $fontSize,
+  $column,
+  $columnGap,
+  $rowGap,
+  $marginInline,
+  $displayMargin: true
+) {
+  @include applyFontToTag($fontSize);
+  .section {
+    .container {
+      width: $width;
+      .frame {
+        row-gap: $rowGap;
+        column-gap: $columnGap;
+        margin-inline: $marginInline;
+        &--grid {
+          grid-template-columns: repeat(
+            $column,
+            calc((100% - $columnGap * ($column - 1)) / $column)
+          );
+        }
+        @include gridItemModClasses($column: $column);
+        @include gridItemModClasses($bpName, $column);
+        &--flex {
+          @include flexItemWidthDistribution($column, $columnGap);
+          @include flexItemModClasses($column: $column, $columnGap: $columnGap);
+          @include flexItemModClasses($bpName, $column, $columnGap);
+        }
+      }
+    }
+    @if ($displayMargin == false) {
+      .margin {
+        display: none;
+      }
     }
   }
 }
 
 @mixin hnd {
-  $column: 4;
-  $columnGap: 16px;
-  $rowGap: 16px;
-  $margin: 16px;
-  $fontSize: 1;
   @media (max-width: #{$bpTbl - 1px}) {
-    @include applyFontToTag($fontSize);
-    .section {
-      .container {
-        .grid,
-        .flex {
-          row-gap: $rowGap;
-          column-gap: $columnGap;
-          margin-inline: $margin;
-        }
-        .grid {
-          grid-template-columns: repeat($column, 1fr);
-          > * {
-            @include gridItemMod('hnd', $column);
-          }
-        }
-      }
-      .margin {
-        display: none;
-      }
-    }
+    @include mediaQuery(
+      $bpName: 'hnd',
+      $width: 100%,
+      $fontSize: 1,
+      $column: 4,
+      $columnGap: 16px,
+      $rowGap: 16px,
+      $marginInline: 16px,
+      $displayMargin: false
+    );
   }
 }
 
 @mixin tbl {
-  $column: 8;
-  $columnGap: 24px;
-  $rowGap: 24px;
-  $margin: 32px;
-  $fontSize: 2;
   @media (min-width: #{$bpTbl}) and (max-width: #{$bpLpt - 1px}) {
-    @include applyFontToTag($fontSize);
-    .section {
-      .container {
-        .grid,
-        .flex {
-          row-gap: $rowGap;
-          column-gap: $columnGap;
-          margin-inline: $margin;
-        }
-        .grid {
-          grid-template-columns: repeat($column, 1fr);
-          > * {
-            @include gridItemMod('tbl', $column);
-          }
-        }
-      }
-      .margin {
-        display: none;
-      }
-    }
+    @include mediaQuery(
+      $bpName: 'tbl',
+      $width: 100%,
+      $fontSize: 2,
+      $column: 8,
+      $columnGap: 24px,
+      $rowGap: 24px,
+      $marginInline: 32px,
+      $displayMargin: false
+    );
   }
 }
 
 @mixin lpt {
-  $column: 12;
-  $columnGap: 24px;
-  $rowGap: 24px;
-  // $margin: 0;
-  $margin: 32px;
-  $fontSize: 2;
   @media (min-width: #{$bpLpt}) and (max-width: #{$bpDsk - 1px}) {
-    @include applyFontToTag($fontSize);
-    .section {
-      .container {
-        // width: 840px;
-        width: 904px;
-        .grid,
-        .flex {
-          row-gap: $rowGap;
-          column-gap: $columnGap;
-          margin-inline: $margin;
-        }
-        .grid {
-          grid-template-columns: repeat($column, 1fr);
-          > * {
-            @include gridItemMod('lpt', $column);
-          }
-        }
-      }
-      // .margin {
-      //   display: none;
-      // }
-    }
+    @include mediaQuery(
+      $bpName: 'lpt',
+      $width: 904px,
+      $fontSize: 2,
+      $column: 12,
+      $columnGap: 24px,
+      $rowGap: 24px,
+      $marginInline: 32px
+    );
   }
 }
 @mixin dsk {
-  $column: 12;
-  $columnGap: 24px;
-  $rowGap: 24px;
-  $margin: calc(84 / 1440 * 100%);
-  $fontSize: 2;
   @media (min-width: #{$bpDsk}) and (max-width: #{$bpDskStable - 1px}) {
-    @include applyFontToTag($fontSize);
-    .section {
-      .container {
-        width: 100%;
-        .grid,
-        .flex {
-          row-gap: $rowGap;
-          column-gap: $columnGap;
-          margin-inline: $margin;
-        }
-        .grid {
-          grid-template-columns: repeat($column, 1fr);
-          > * {
-            @include gridItemMod('dsk', $column);
-          }
-        }
-      }
-      .margin {
-        display: none;
-      }
-    }
+    @include mediaQuery(
+      $bpName: 'dsk',
+      $width: 100%,
+      $fontSize: 2,
+      $column: 12,
+      $columnGap: 24px,
+      $rowGap: 24px,
+      $marginInline: calc(84 / 1440 * 100%)
+    );
   }
 }
 
@@ -248,23 +290,14 @@ $bpDskStable: 1440px;
   $margin: 84px;
   $fontSize: 2;
   @media (min-width: #{$bpDskStable}) {
-    @include applyFontToTag($fontSize);
-    .section {
-      .container {
-        width: 1440px;
-        .grid,
-        .flex {
-          row-gap: $rowGap;
-          column-gap: $columnGap;
-          margin-inline: $margin;
-        }
-        .grid {
-          grid-template-columns: repeat($column, 1fr);
-          > * {
-            @include gridItemMod('dsk', $column);
-          }
-        }
-      }
-    }
+    @include mediaQuery(
+      $bpName: 'dsk',
+      $width: 1440px,
+      $fontSize: 2,
+      $column: 12,
+      $columnGap: 24px,
+      $rowGap: 24px,
+      $marginInline: 84px
+    );
   }
 }

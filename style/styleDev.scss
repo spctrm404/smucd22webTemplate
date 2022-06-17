@@ -8,6 +8,7 @@
 
 :root {
   font-family: 'Noto Sans KR', sans-serif;
+  background-color: black;
 }
 
 .section {
@@ -15,32 +16,43 @@
   flex-flow: row nowrap;
   align-items: stretch;
   justify-content: center;
+  padding-bottom: 60px;
+  background-color: white;
   .container {
     flex: 0 1 auto;
-    .grid {
-      display: grid;
-      > * {
-        background-color: lightskyblue;
+    .frame {
+      &--grid {
+        display: grid;
+        > * {
+          background-color: lightskyblue;
+        }
       }
-    }
-    .flex {
-      display: flex;
-      flex-flow: row nowrap;
-      align-items: stretch;
-      justify-content: center;
-      > * {
-        flex: 1 1 auto;
-        background-color: lightcoral;
+      &--flex {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: stretch;
+        justify-content: center;
+        > * {
+          background-color: lightcoral;
+        }
+      }
+      &--noMargin {
+        margin-inline: 0 !important;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
     }
   }
   > .margin {
     flex: 1 1 auto;
-    &__l {
-      background-color: red;
+    &--left {
+      background-color: transparent;
     }
-    &__r {
-      background-color: blue;
+    &--right {
+      background-color: transparent;
     }
   }
 }

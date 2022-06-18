@@ -1,6 +1,31 @@
 $breakpoints: (
-  'tabletBegin': 600px,
-  'laptopBegin': 905px,
-  'desktopBegin': 1240px,
-  'desktopStableBegin': 1440px,
+  (
+    'abbr': 'hnd',
+    'min-width': 0px,
+  ),
+  (
+    'abbr': 'tbl',
+    'min-width': 600px,
+  ),
+  (
+    'abbr': 'lpt',
+    'min': 905px,
+  ),
+  (
+    'abbr': 'dsk',
+    'min': 1240px,
+  ),
+  (
+    'abbr': 'dsk',
+    'min': 1440px,
+  )
 );
+
+@mixin mediaQuery($breakpoints) {
+  @for $idx from 1 through length($breakpoints) {
+    $mapNow: list.nth($breakpoints, $idx);
+    $mapNext: list.nth($breakpoints, $idx + 1);
+    @media (min-width: #{$bpTbl}) and (max-width: #{$bpLpt - 1px}) {
+    }
+  }
+}

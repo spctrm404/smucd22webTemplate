@@ -1,0 +1,69 @@
+$trblProps: (
+  'padding': 'p',
+  'margin': 'm',
+);
+$trblAppendixes: (
+  'top': 't',
+  'bottom': 'b',
+  'block': 'y',
+  'right': 'r',
+  'left': 'l',
+  'inline': 'x',
+);
+
+$borderProp: (
+  'border': 'b',
+);
+$widthAppendixes: (
+  'width': '-w',
+  'top-width': 't-w',
+  'right-width': 'r-w',
+  'bottom-width': 'b-w',
+  'left-width': 'l-w',
+);
+$radiusAppendixes: (
+  'radius': '-r',
+  'top-left-radius': 'tl-r',
+  'top-right-radius': 'tr-r',
+  'bottom-left-radius': 'bl-r',
+  'bottom-right-radius': 'br-r',
+);
+
+@mixin createUtilityClasses(
+  $property,
+  $propertyAppendix,
+  $unit,
+  $individual: true,
+  $full: false
+) {
+  @each $property, $prefix in $property {
+    @if ($individual) {
+      @for $i from 1 through 16 {
+        .#{$prefix}-#{$i} {
+          #{$property}: $i * $unit;
+        }
+      }
+    }
+    @if ($full) {
+      .#{$prefix}-full {
+        #{$property}: 9999px;
+      }
+    }
+    @each $propertyAppendix, $apendix in $propertyAppendix {
+      @for $i from 1 through 16 {
+        .#{$prefix}#{$apendix}-#{$i} {
+          #{$property}-#{$propertyAppendix}: $i * $unit;
+        }
+      }
+      @if ($full) {
+        .#{$prefix}#{$apendix}-full {
+          #{$property}-#{$propertyAppendix}: 9999px;
+        }
+      }
+    }
+  }
+}
+
+@include createUtilityClasses($trblProps, $trblAppendixes, 4px);
+@include createUtilityClasses($borderProp, $widthAppendixes, 1px, false);
+@include createUtilityClasses($borderProp, $radiusAppendixes, 4px, false, true);

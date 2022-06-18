@@ -1,3 +1,5 @@
+@import 'utilities2';
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -7,7 +9,6 @@
 .al {
   display: flex;
   flex-wrap: nowrap;
-  align-items: ;
   width: fit-content;
   height: fit-content;
   border: 1px solid red;
@@ -16,6 +17,13 @@
   }
   &-ver {
     flex-direction: column;
+  }
+  &-gap {
+    @for $i from 1 through 16 {
+      &-#{$i} {
+        gap: 4 * $i * 1px;
+      }
+    }
   }
   > .alc {
     &-w {

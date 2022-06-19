@@ -1,0 +1,158 @@
+@mixin createUtilityClasses(
+  $prop-abbr,
+  $auxProp-abbr,
+  $abbr-value,
+  $propOnly: false,
+  $bpPrefix: ''
+) {
+  @each $prop, $abbr in $prop-abbr {
+    @if ($propOnly) {
+      @each $levelAbbr, $value in $abbr-value {
+        @if ($bpPrefix == '') {
+          .#{$abbr}-#{$levelAbbr} {
+            #{$prop}: $value;
+          }
+        } @else {
+          .#{$bpPrefix}--#{$abbr}-#{$levelAbbr} {
+            #{$prop}: $value;
+          }
+        }
+      }
+    }
+    @each $auxProp, $auxAbbr in $auxProp-abbr {
+      @each $levelAbbr, $value in $abbr-value {
+        @if ($bpPrefix == '') {
+          .#{$abbr}#{$auxAbbr}-#{$levelAbbr} {
+            #{$prop}-#{$auxProp}: $value;
+          }
+        } @else {
+          .#{$bpPrefix}--#{$abbr}#{$auxAbbr}-#{$levelAbbr} {
+            #{$prop}-#{$auxProp}: $value;
+          }
+        }
+      }
+    }
+  }
+}
+
+//spacing
+$spacingProp-abbr: (
+  'padding': 'p',
+  'margin': 'm',
+);
+$spacingAuxProp-abbr: (
+  'top': 't',
+  'bottom': 'b',
+  'block': 'y',
+  'right': 'r',
+  'left': 'l',
+  'inline': 'x',
+);
+$spacingAbbr-value: (
+  '1': 4px,
+  '2': 8px,
+  '3': 12px,
+  '4': 16px,
+  '5': 20px,
+  '6': 24px,
+  '7': 28px,
+  '8': 32px,
+  '9': 36px,
+  '10': 40px,
+  '11': 44px,
+  '12': 48px,
+  '13': 52px,
+  '14': 56px,
+  '15': 60px,
+  '16': 64px,
+);
+@include createUtilityClasses(
+  $spacingProp-abbr,
+  $spacingAuxProp-abbr,
+  $spacingAbbr-value,
+  true
+);
+
+//border
+$borderProp-abbr: (
+  'border': 'b',
+);
+$borderWidthProp-abbr: (
+  'width': '-t',
+  'top-width': 't-t',
+  'bottom-width': 'b-t',
+  'block-width': 'y-t',
+  'right-width': 'r-t',
+  'left-width': 'l-t',
+  'inline-width': 'x-t',
+);
+$borderWidthAbbr-value: (
+  '1': 1px,
+  '2': 2px,
+  '3': 3px,
+  '4': 4px,
+  '5': 5px,
+  '6': 6px,
+  '7': 7px,
+  '8': 8px,
+  '9': 9px,
+  '10': 10px,
+  '11': 11px,
+  '12': 12px,
+  '13': 13px,
+  '14': 14px,
+  '15': 15px,
+  '16': 16px,
+);
+@include createUtilityClasses(
+  $borderProp-abbr,
+  $borderWidthProp-abbr,
+  $borderWidthAbbr-value
+);
+$borderRadiusProp-abbr: (
+  'radius': '-r',
+  'top-left-radius': 'tl-r',
+  'top-right-radius': 'tr-r',
+  'bottom-left-radius': 'bl-r',
+  'bottom-right-radius': 'br-r',
+);
+$borderRadiusAbbr-value: (
+  '1': 4px,
+  '2': 8px,
+  '3': 12px,
+  '4': 16px,
+  '5': 20px,
+  '6': 24px,
+  '7': 28px,
+  '8': 32px,
+  '9': 36px,
+  '10': 40px,
+  '11': 44px,
+  '12': 48px,
+  '13': 52px,
+  '14': 56px,
+  '15': 60px,
+  '16': 64px,
+  'full': 9999px,
+);
+@include createUtilityClasses(
+  $borderProp-abbr,
+  $borderRadiusProp-abbr,
+  $borderRadiusAbbr-value
+);
+$borderStyleProp-abbr: (
+  'style': '-style',
+);
+$borderStyleAbbr-value: (
+  'solid': 'solid',
+  'dashed': 'dashed',
+  'dotted': 'dotted',
+  'double': 'double',
+  'hidden': 'hidden',
+  'none': 'none',
+);
+@include createUtilityClasses(
+  $borderProp-abbr,
+  $borderStyleProp-abbr,
+  $borderStyleAbbr-value
+);

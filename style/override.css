@@ -1,19 +1,15 @@
-.grid__item.override:nth-child(1) {
-  background-color: rgba(255, 255, 255, 0.5);
-}
-.grid__item.override:nth-child(2) {
-  background-color: rgba(255, 255, 255, 0.5);
-}
-.grid__item.override:nth-child(3) {
-  background-color: rgba(255, 255, 255, 0.5);
-}
-.grid__item.override:nth-child(4) {
-  background-color: rgba(255, 255, 255, 0.5);
+.section .container .frame--grid > * {
+  border: 1px solid #ffede9;
 }
 
-.sizeSamples {
-  background-color: #00f;
+.section .container .frame--flex > * {
+  border: 1px solid #f0efff;
 }
-.sizeSamples .container {
-  background-color: rgba(255, 255, 255, 0.5);
+
+.section > .margin--left {
+  background-color: #f5ffeb;
+}
+
+.section > .margin--right {
+  background-color: #f5ffeb;
 }

@@ -1,31 +1,206 @@
-$breakpoints: (
-  (
-    'abbr': 'hnd',
-    'min-width': 0px,
-  ),
-  (
-    'abbr': 'tbl',
-    'min-width': 600px,
-  ),
-  (
-    'abbr': 'lpt',
-    'min': 905px,
-  ),
-  (
-    'abbr': 'dsk',
-    'min': 1240px,
-  ),
-  (
-    'abbr': 'dsk',
-    'min': 1440px,
-  )
-);
+@import 'typography';
 
-@mixin mediaQuery($breakpoints) {
-  @for $idx from 1 through length($breakpoints) {
-    $mapNow: list.nth($breakpoints, $idx);
-    $mapNext: list.nth($breakpoints, $idx + 1);
-    @media (min-width: #{$bpTbl}) and (max-width: #{$bpLpt - 1px}) {
+@mixin createPresetGridItemModClasses($columnNum, $bpPrefix: '') {
+  @for $i from 1 through $columnNum {
+    > .#{$bpPrefix}--preset-col-start-#{$i} {
+      grid-column-start: $i;
+    }
+    > .#{$bpPrefix}--preset-row-start-#{$i} {
+      grid-row-start: $i;
+    }
+    > .#{$bpPrefix}--preset-col-end-#{$i} {
+      grid-column-end: $i;
+    }
+    > .#{$bpPrefix}--preset-row-end-#{$i} {
+      grid-row-end: $i;
+    }
+    > .#{$bpPrefix}--preset-col-span-#{$i} {
+      grid-column: span $i / span $i;
+    }
+    > .#{$bpPrefix}--preset-row-span-#{$i} {
+      grid-row: span $i / span $i;
     }
   }
+  > .#{$bpPrefix}--preset-col-span-full {
+    grid-column: span $columnNum / span $columnNum !important;
+  }
+  > .#{$bpPrefix}--preset-col-span-half {
+    grid-column: span calc($columnNum / 2) / span calc($columnNum / 2) !important;
+  }
+  > .preset-col-span-full {
+    grid-column: span $columnNum / span $columnNum;
+  }
+  > .preset-col-span-half {
+    grid-column: span calc($columnNum / 2) / span calc($columnNum / 2);
+  }
+}
+@mixin presetFlexItemEqualSizeDistribution($columnNum, $columnGap) {
+  @for $i from 1 through 12 {
+    & > *:first-child:nth-last-child(#{$i}),
+    & > *:first-child:nth-last-child(#{$i}) ~ * {
+      @if ($i > $columnNum) {
+        // width: calc((100% - $columnGap * ($columnNum - 1)) / $columnNum);
+        // flex-basis: calc(100% / $columnNum);
+        // flex-basis: calc((100% - $columnGap * ($columnNum - 1)) / $columnNum);
+        flex-basis: calc(100% / $columnNum);
+      } @else {
+        // $calibratedI: (($i - 1) % $columnNum) + 1;
+        // width: calc((100% - $columnGap * ($calibratedI - 1)) / $calibratedI);
+        // flex-basis: calc(100% / $i);
+        // $calibratedI: (($i - 1) % $columnNum) + 1;
+        // flex-basis: calc(
+        //   (100% - $columnGap * ($calibratedI - 1)) / $calibratedI
+        // );
+        $calibratedI: (($i - 1) % $columnNum) + 1;
+        flex-basis: calc(100% / $calibratedI);
+      }
+    }
+  }
+}
+@mixin createPresetFlexItemModClasses($columnNum, $columnGap, $bpPrefix: '') {
+  // @if ($bpPrefix == '') {
+  @for $divisor from 2 through $columnNum {
+    @for $dividend from 1 to $divisor {
+      & > .#{$bpPrefix}--preset-flex-size-#{$dividend}into#{$divisor} {
+        // width: calc(
+        //   ((100% - $columnGap * ($divisor - 1)) / $divisor) *
+        //     $dividend +
+        //     $columnGap *
+        //     ($dividend - 1)
+        // ) !important;
+        // flex-basis: calc(100% / $divisor * $dividend);
+        // flex-basis: calc(
+        //   ((100% - $columnGap * ($divisor - 1)) / $divisor) *
+        //     $dividend +
+        //     $columnGap *
+        //     ($dividend - 1)
+        // ) !important;
+        flex-basis: calc(100% / $divisor * $dividend) !important;
+      }
+    }
+  }
+  & > .#{$bpPrefix}--preset-flex-size-full {
+    flex-basis: calc(100%) !important;
+  }
+  & > .#{$bpPrefix}--preset-flex-size-half {
+    flex-basis: calc(100% / 2) !important;
+  }
+  // } @else {
+  & > .preset-flex-size-full {
+    flex-basis: calc(100%) !important;
+  }
+  & > .preset-flex-size-half {
+    flex-basis: calc(100% / 2) !important;
+  }
+  // }
+}
+@mixin mediaQuery(
+  $bpPrefix,
+  $width: 100%,
+  $typeScaleAbbr,
+  $columnNum,
+  $columnGap,
+  $rowGap,
+  $marginInline,
+  $displayMargin: true
+) {
+  @include applyTypographyToTag($typeScaleAbbr);
+  @include createTypographyClasses($bpPrefix: $bpPrefix);
+  .section {
+    .container {
+      width: $width;
+      .frame {
+        margin-inline: $marginInline;
+        margin-bottom: 3 * $rowGap;
+        &--grid {
+          grid-template-columns: repeat($columnNum, minmax(0, 1fr));
+          row-gap: $rowGap;
+          column-gap: $columnGap;
+        }
+        @include createPresetGridItemModClasses($columnNum, $bpPrefix);
+        &--flex {
+          // row-gap: $rowGap;
+          // column-gap: $columnGap;
+          @include presetFlexItemEqualSizeDistribution($columnNum, $columnGap);
+          @include createPresetFlexItemModClasses(
+            $columnNum,
+            $columnGap,
+            $bpPrefix
+          );
+        }
+      }
+    }
+    @if ($displayMargin == false) {
+      .margin {
+        display: none;
+      }
+    }
+  }
+}
+
+$bpTbl: 600px;
+$bpLpt: 905px;
+$bpDsk: 1240px;
+$bpDskStable: 1440px;
+
+@media (max-width: #{$bpTbl - 1px}) {
+  @include mediaQuery(
+    $bpPrefix: 'hnd',
+    $width: 100%,
+    $typeScaleAbbr: 'md',
+    $columnNum: 4,
+    $columnGap: 16px,
+    $rowGap: 16px,
+    $marginInline: 16px,
+    $displayMargin: false
+  );
+}
+
+@media (min-width: #{$bpTbl}) and (max-width: #{$bpLpt - 1px}) {
+  @include mediaQuery(
+    $bpPrefix: 'tbl',
+    $width: 100%,
+    $typeScaleAbbr: 'lg',
+    $columnNum: 8,
+    $columnGap: 24px,
+    $rowGap: 24px,
+    $marginInline: 32px,
+    $displayMargin: false
+  );
+}
+
+@media (min-width: #{$bpLpt}) and (max-width: #{$bpDsk - 1px}) {
+  @include mediaQuery(
+    $bpPrefix: 'lpt',
+    $width: 904px,
+    $typeScaleAbbr: 'lg',
+    $columnNum: 12,
+    $columnGap: 24px,
+    $rowGap: 24px,
+    $marginInline: 32px
+  );
+}
+
+@media (min-width: #{$bpDsk}) and (max-width: #{$bpDskStable - 1px}) {
+  @include mediaQuery(
+    $bpPrefix: 'dsk',
+    $width: 100%,
+    $typeScaleAbbr: 'lg',
+    $columnNum: 12,
+    $columnGap: 24px,
+    $rowGap: 24px,
+    $marginInline: calc(84 / 1440 * 100%)
+  );
+}
+
+@media (min-width: #{$bpDskStable}) {
+  @include mediaQuery(
+    $bpPrefix: 'dsk',
+    $width: 1440px,
+    $typeScaleAbbr: 'lg',
+    $columnNum: 12,
+    $columnGap: 24px,
+    $rowGap: 24px,
+    $marginInline: 84px
+  );
 }

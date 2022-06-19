@@ -1,3 +1,76 @@
+/* stylelint-disable scss/at-extend-no-missing-placeholder */
+
+@use 'sass:map';
+
+@mixin createTypographyClasses(
+  $scale-hierarchy-prop-value: $typographyScale-hierarchy-prop-value,
+  $bpPrefix: ''
+) {
+  @each $scaleAbbr, $hierarchy-prop-value in $scale-hierarchy-prop-value {
+    @each $hierarchyAbbr, $prop-value in $hierarchy-prop-value {
+      @if ($bpPrefix == '') {
+        .type-#{$hierarchyAbbr}-#{$scaleAbbr} {
+          @each $prop, $value in $prop-value {
+            #{$prop}: $value;
+          }
+        }
+      } @else {
+        .#{$bpPrefix}--type-#{$hierarchyAbbr}-#{$scaleAbbr} {
+          @each $prop, $value in $prop-value {
+            #{$prop}: $value;
+          }
+        }
+      }
+    }
+  }
+}
+@mixin getTypographyProps(
+  $scale-hierarchy-prop-value: $typographyScale-hierarchy-prop-value,
+  $scaleAbbr,
+  $hierarchyAbbr
+) {
+  $prop-value: map.get($scale-hierarchy-prop-value, $scaleAbbr, $hierarchyAbbr);
+  @each $prop, $value in $prop-value {
+    #{$prop}: $value;
+  }
+}
+@mixin applyTypographyToTag($scaleAbbr) {
+  :root,
+  p {
+    @include getTypographyProps($scaleAbbr: $scaleAbbr, $hierarchyAbbr: 'body');
+  }
+  h6 {
+    @include getTypographyProps($scaleAbbr: $scaleAbbr, $hierarchyAbbr: 'body');
+  }
+  h5 {
+    @include getTypographyProps($scaleAbbr: $scaleAbbr, $hierarchyAbbr: 'body');
+  }
+  h4 {
+    @include getTypographyProps(
+      $scaleAbbr: $scaleAbbr,
+      $hierarchyAbbr: 'label'
+    );
+  }
+  h3 {
+    @include getTypographyProps(
+      $scaleAbbr: $scaleAbbr,
+      $hierarchyAbbr: 'title'
+    );
+  }
+  h2 {
+    @include getTypographyProps(
+      $scaleAbbr: $scaleAbbr,
+      $hierarchyAbbr: 'headline'
+    );
+  }
+  h1 {
+    @include getTypographyProps(
+      $scaleAbbr: $scaleAbbr,
+      $hierarchyAbbr: 'display'
+    );
+  }
+}
+
 $typographyScale-hierarchy-prop-value: (
   'sm': (
     'body': (
@@ -96,14 +169,4 @@ $typographyScale-hierarchy-prop-value: (
     ),
   ),
 );
-
-@each $scaleAbbr, $hierarchy-prop-value in $typographyScale-hierarchy-prop-value
-{
-  @each $hierarchyAbbr, $prop-valueMap in $hierarchy-prop-value {
-    .type-#{$hierarchyAbbr}-#{$scaleAbbr} {
-      @each $prop, $value in $prop-valueMap {
-        #{$prop}: $value;
-      }
-    }
-  }
-}
+@include createTypographyClasses($typographyScale-hierarchy-prop-value);

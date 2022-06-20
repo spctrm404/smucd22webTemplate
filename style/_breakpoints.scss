@@ -21,16 +21,16 @@
       grid-row: span $i / span $i;
     }
   }
-  > .#{$bpPrefix}--preset-col-span-full {
-    grid-column: span $columnNum / span $columnNum !important;
-  }
-  > .#{$bpPrefix}--preset-col-span-half {
-    grid-column: span calc($columnNum / 2) / span calc($columnNum / 2) !important;
-  }
   > .preset-col-span-full {
     grid-column: span $columnNum / span $columnNum;
   }
   > .preset-col-span-half {
+    grid-column: span calc($columnNum / 2) / span calc($columnNum / 2);
+  }
+  > .#{$bpPrefix}--preset-col-span-full {
+    grid-column: span $columnNum / span $columnNum;
+  }
+  > .#{$bpPrefix}--preset-col-span-half {
     grid-column: span calc($columnNum / 2) / span calc($columnNum / 2);
   }
 }
@@ -39,60 +39,41 @@
     & > *:first-child:nth-last-child(#{$i}),
     & > *:first-child:nth-last-child(#{$i}) ~ * {
       @if ($i > $columnNum) {
-        // width: calc((100% - $columnGap * ($columnNum - 1)) / $columnNum);
-        // flex-basis: calc(100% / $columnNum);
-        // flex-basis: calc((100% - $columnGap * ($columnNum - 1)) / $columnNum);
         flex-basis: calc(100% / $columnNum);
       } @else {
-        // $calibratedI: (($i - 1) % $columnNum) + 1;
-        // width: calc((100% - $columnGap * ($calibratedI - 1)) / $calibratedI);
-        // flex-basis: calc(100% / $i);
-        // $calibratedI: (($i - 1) % $columnNum) + 1;
-        // flex-basis: calc(
-        //   (100% - $columnGap * ($calibratedI - 1)) / $calibratedI
-        // );
         $calibratedI: (($i - 1) % $columnNum) + 1;
         flex-basis: calc(100% / $calibratedI);
       }
     }
   }
 }
-@mixin createPresetFlexItemModClasses($columnNum, $columnGap, $bpPrefix: '') {
-  // @if ($bpPrefix == '') {
-  @for $divisor from 2 through $columnNum {
-    @for $dividend from 1 to $divisor {
-      & > .#{$bpPrefix}--preset-flex-size-#{$dividend}into#{$divisor} {
-        // width: calc(
-        //   ((100% - $columnGap * ($divisor - 1)) / $divisor) *
-        //     $dividend +
-        //     $columnGap *
-        //     ($dividend - 1)
-        // ) !important;
-        // flex-basis: calc(100% / $divisor * $dividend);
-        // flex-basis: calc(
-        //   ((100% - $columnGap * ($divisor - 1)) / $divisor) *
-        //     $dividend +
-        //     $columnGap *
-        //     ($dividend - 1)
-        // ) !important;
-        flex-basis: calc(100% / $divisor * $dividend) !important;
+@mixin createPresetFlexItemModClasses(
+  $columnNum: 2,
+  $columnGap: 0,
+  $bpPrefix: ''
+) {
+  @if ($bpPrefix == '') {
+    & > .preset-flex-size-full {
+      flex-basis: calc(100%) !important;
+    }
+    & > .preset-flex-size-half {
+      flex-basis: calc(100% / 2) !important;
+    }
+  } @else {
+    & > .#{$bpPrefix}--preset-flex-size-full {
+      flex-basis: calc(100%) !important;
+    }
+    & > .#{$bpPrefix}--preset-flex-size-half {
+      flex-basis: calc(100% / 2) !important;
+    }
+    @for $divisor from 2 through $columnNum {
+      @for $dividend from 1 to $divisor {
+        & > .#{$bpPrefix}--preset-flex-size-#{$dividend}into#{$divisor} {
+          flex-basis: calc(100% / $divisor * $dividend) !important;
+        }
       }
     }
   }
-  & > .#{$bpPrefix}--preset-flex-size-full {
-    flex-basis: calc(100%) !important;
-  }
-  & > .#{$bpPrefix}--preset-flex-size-half {
-    flex-basis: calc(100% / 2) !important;
-  }
-  // } @else {
-  & > .preset-flex-size-full {
-    flex-basis: calc(100%) !important;
-  }
-  & > .preset-flex-size-half {
-    flex-basis: calc(100% / 2) !important;
-  }
-  // }
 }
 @mixin mediaQuery(
   $bpPrefix,
@@ -107,32 +88,36 @@
   @include applyTypographyToTag($typeScaleAbbr);
   @include createTypographyClasses($bpPrefix: $bpPrefix);
   .section {
-    .container {
-      width: $width;
-      .frame {
-        margin-inline: $marginInline;
-        margin-bottom: 3 * $rowGap;
-        &--grid {
-          grid-template-columns: repeat($columnNum, minmax(0, 1fr));
-          row-gap: $rowGap;
-          column-gap: $columnGap;
-        }
-        @include createPresetGridItemModClasses($columnNum, $bpPrefix);
-        &--flex {
-          // row-gap: $rowGap;
-          // column-gap: $columnGap;
-          @include presetFlexItemEqualSizeDistribution($columnNum, $columnGap);
-          @include createPresetFlexItemModClasses(
-            $columnNum,
-            $columnGap,
-            $bpPrefix
-          );
-        }
-      }
-    }
     @if ($displayMargin == false) {
       .margin {
         display: none;
+      }
+    }
+  }
+  .container {
+    width: $width;
+  }
+  .frame {
+    margin-inline: $marginInline;
+    margin-bottom: 3 * $rowGap;
+    &--grid {
+      grid-template-columns: repeat($columnNum, minmax(0, 1fr));
+      row-gap: $rowGap;
+      column-gap: $columnGap;
+    }
+    @include createPresetGridItemModClasses($columnNum, $bpPrefix);
+    &--flex {
+      @include presetFlexItemEqualSizeDistribution($columnNum, $columnGap);
+      @at-root {
+        .container {
+          .frame {
+            @include createPresetFlexItemModClasses(
+              $columnNum,
+              $columnGap,
+              $bpPrefix
+            );
+          }
+        }
       }
     }
   }

@@ -1,19 +1,8 @@
 @import 'typography';
+@import 'utilities';
 
 @mixin createPresetGridItemModClasses($columnNum, $bpPrefix: '') {
   @for $i from 1 through $columnNum {
-    > .#{$bpPrefix}--preset-col-start-#{$i} {
-      grid-column-start: $i;
-    }
-    > .#{$bpPrefix}--preset-row-start-#{$i} {
-      grid-row-start: $i;
-    }
-    > .#{$bpPrefix}--preset-col-end-#{$i} {
-      grid-column-end: $i;
-    }
-    > .#{$bpPrefix}--preset-row-end-#{$i} {
-      grid-row-end: $i;
-    }
     > .#{$bpPrefix}--preset-col-span-#{$i} {
       grid-column: span $i / span $i;
     }
@@ -32,6 +21,20 @@
   }
   > .#{$bpPrefix}--preset-col-span-half {
     grid-column: span calc($columnNum / 2) / span calc($columnNum / 2);
+  }
+  @for $i from 1 through $columnNum {
+    > .#{$bpPrefix}--preset-col-start-#{$i} {
+      grid-column-start: $i;
+    }
+    > .#{$bpPrefix}--preset-row-start-#{$i} {
+      grid-row-start: $i;
+    }
+    > .#{$bpPrefix}--preset-col-end-#{$i} {
+      grid-column-end: $i;
+    }
+    > .#{$bpPrefix}--preset-row-end-#{$i} {
+      grid-row-end: $i;
+    }
   }
 }
 @mixin presetFlexItemEqualSizeDistribution($columnNum, $columnGap) {
@@ -98,8 +101,8 @@
     width: $width;
   }
   .frame {
+    padding-block: 1.5 * $rowGap;
     margin-inline: $marginInline;
-    margin-bottom: 3 * $rowGap;
     &--grid {
       grid-template-columns: repeat($columnNum, minmax(0, 1fr));
       row-gap: $rowGap;
@@ -121,6 +124,7 @@
       }
     }
   }
+  @include createUtilityClassesWithPrefix($bpPrefix);
 }
 
 $bpTbl: 600px;

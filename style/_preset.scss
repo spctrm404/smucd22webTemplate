@@ -1,3 +1,5 @@
+@import 'utilities';
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -5,7 +7,7 @@
 }
 
 :root {
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Pretendard', sans-serif;
   background-color: black;
 }
 
@@ -14,6 +16,7 @@
   flex-flow: row nowrap;
   align-items: stretch;
   justify-content: center;
+  overflow: hidden;
   > .margin {
     flex: 1 1 auto;
     overflow: hidden;
@@ -27,13 +30,19 @@
 }
 
 .container {
+  overflow: hidden;
   background-color: white;
   &--fullWidth {
     width: 100%;
   }
+  &--fullHeight {
+    min-height: 100vh;
+  }
 }
 
 .frame {
+  height: 100%;
+  overflow: hidden;
   &--grid {
     display: grid;
     grid-auto-rows: minmax(0, 1fr);
@@ -48,11 +57,17 @@
       flex: 0 1 100%;
     }
   }
-  &--noMargin {
+  &--mx-0 {
     margin-inline: 0;
   }
-  &--noMarginBottom {
-    margin-bottom: 0;
+  &--pt-0 {
+    padding-top: 0;
+  }
+  &--pb-0 {
+    padding-bottom: 0;
+  }
+  &--py-0 {
+    padding-block: 0;
   }
   > * {
     overflow: hidden;
@@ -64,3 +79,5 @@
     object-fit: cover;
   }
 }
+
+@include createUtilityClassesWithPrefix();

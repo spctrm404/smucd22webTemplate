@@ -1,0 +1,195 @@
+@import 'typography';
+@import 'utilities';
+
+@mixin createPresetGridItemModClasses($columnNum, $bpPrefix: '') {
+  @for $i from 1 through $columnNum {
+    > .#{$bpPrefix}--preset-col-span-#{$i} {
+      grid-column: span $i / span $i;
+    }
+    > .#{$bpPrefix}--preset-row-span-#{$i} {
+      grid-row: span $i / span $i;
+    }
+  }
+  > .preset-col-span-full {
+    grid-column: span $columnNum / span $columnNum;
+  }
+  > .preset-col-span-half {
+    grid-column: span calc($columnNum / 2) / span calc($columnNum / 2);
+  }
+  > .#{$bpPrefix}--preset-col-span-full {
+    grid-column: span $columnNum / span $columnNum;
+  }
+  > .#{$bpPrefix}--preset-col-span-half {
+    grid-column: span calc($columnNum / 2) / span calc($columnNum / 2);
+  }
+  @for $i from 1 through $columnNum {
+    > .#{$bpPrefix}--preset-col-start-#{$i} {
+      grid-column-start: $i;
+    }
+    > .#{$bpPrefix}--preset-row-start-#{$i} {
+      grid-row-start: $i;
+    }
+    > .#{$bpPrefix}--preset-col-end-#{$i} {
+      grid-column-end: $i;
+    }
+    > .#{$bpPrefix}--preset-row-end-#{$i} {
+      grid-row-end: $i;
+    }
+  }
+}
+@mixin presetFlexItemEqualSizeDistribution($columnNum, $columnGap) {
+  @for $i from 1 through 12 {
+    & > *:first-child:nth-last-child(#{$i}),
+    & > *:first-child:nth-last-child(#{$i}) ~ * {
+      @if ($i > $columnNum) {
+        flex-basis: calc(100% / $columnNum);
+      } @else {
+        $calibratedI: (($i - 1) % $columnNum) + 1;
+        flex-basis: calc(100% / $calibratedI);
+      }
+    }
+  }
+}
+@mixin createPresetFlexItemModClasses(
+  $columnNum: 2,
+  $columnGap: 0,
+  $bpPrefix: ''
+) {
+  @if ($bpPrefix == '') {
+    & > .preset-flex-size-full {
+      flex-basis: calc(100%) !important;
+    }
+    & > .preset-flex-size-half {
+      flex-basis: calc(100% / 2) !important;
+    }
+  } @else {
+    & > .#{$bpPrefix}--preset-flex-size-full {
+      flex-basis: calc(100%) !important;
+    }
+    & > .#{$bpPrefix}--preset-flex-size-half {
+      flex-basis: calc(100% / 2) !important;
+    }
+    @for $divisor from 2 through $columnNum {
+      @for $dividend from 1 to $divisor {
+        & > .#{$bpPrefix}--preset-flex-size-#{$dividend}into#{$divisor} {
+          flex-basis: calc(100% / $divisor * $dividend) !important;
+        }
+      }
+    }
+  }
+}
+@mixin mediaQuery(
+  $bpPrefix,
+  $width: 100%,
+  $typeScaleAbbr,
+  $columnNum,
+  $columnGap,
+  $rowGap,
+  $marginInline,
+  $displayMargin: true
+) {
+  @include applyTypographyToTag($typeScaleAbbr);
+  @include createTypographyClasses($bpPrefix: $bpPrefix);
+  .section {
+    @if ($displayMargin == false) {
+      .margin {
+        display: none;
+      }
+    }
+  }
+  .container {
+    width: $width;
+  }
+  .frame {
+    padding-block: 1.5 * $rowGap;
+    margin-inline: $marginInline;
+    &--grid {
+      grid-template-columns: repeat($columnNum, minmax(0, 1fr));
+      row-gap: $rowGap;
+      column-gap: $columnGap;
+    }
+    @include createPresetGridItemModClasses($columnNum, $bpPrefix);
+    &--flex {
+      @include presetFlexItemEqualSizeDistribution($columnNum, $columnGap);
+      @at-root {
+        .container {
+          .frame {
+            @include createPresetFlexItemModClasses(
+              $columnNum,
+              $columnGap,
+              $bpPrefix
+            );
+          }
+        }
+      }
+    }
+  }
+  @include createUtilityClassesWithPrefix($bpPrefix);
+}
+
+$bpTbl: 600px;
+$bpLpt: 905px;
+$bpDsk: 1240px;
+$bpDskStable: 1440px;
+
+@media (max-width: #{$bpTbl - 1px}) {
+  @include mediaQuery(
+    $bpPrefix: 'hnd',
+    $width: 100%,
+    $typeScaleAbbr: 'md',
+    $columnNum: 4,
+    $columnGap: 16px,
+    $rowGap: 16px,
+    $marginInline: 16px,
+    $displayMargin: false
+  );
+}
+
+@media (min-width: #{$bpTbl}) and (max-width: #{$bpLpt - 1px}) {
+  @include mediaQuery(
+    $bpPrefix: 'tbl',
+    $width: 100%,
+    $typeScaleAbbr: 'lg',
+    $columnNum: 8,
+    $columnGap: 24px,
+    $rowGap: 24px,
+    $marginInline: 32px,
+    $displayMargin: false
+  );
+}
+
+@media (min-width: #{$bpLpt}) and (max-width: #{$bpDsk - 1px}) {
+  @include mediaQuery(
+    $bpPrefix: 'lpt',
+    $width: 904px,
+    $typeScaleAbbr: 'lg',
+    $columnNum: 12,
+    $columnGap: 24px,
+    $rowGap: 24px,
+    $marginInline: 32px
+  );
+}
+
+@media (min-width: #{$bpDsk}) and (max-width: #{$bpDskStable - 1px}) {
+  @include mediaQuery(
+    $bpPrefix: 'dsk',
+    $width: 100%,
+    $typeScaleAbbr: 'lg',
+    $columnNum: 12,
+    $columnGap: 24px,
+    $rowGap: 24px,
+    $marginInline: calc(84 / 1440 * 100%)
+  );
+}
+
+@media (min-width: #{$bpDskStable}) {
+  @include mediaQuery(
+    $bpPrefix: 'dsk',
+    $width: 1440px,
+    $typeScaleAbbr: 'lg',
+    $columnNum: 12,
+    $columnGap: 24px,
+    $rowGap: 24px,
+    $marginInline: 84px
+  );
+}

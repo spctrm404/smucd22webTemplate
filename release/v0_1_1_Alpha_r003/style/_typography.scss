@@ -1,0 +1,170 @@
+@use 'sass:map';
+
+@mixin createTypographyClasses(
+  $scale-hierarchy-prop-value: $typographyScale-hierarchy-prop-value,
+  $bpPrefix: ''
+) {
+  @each $scaleAbbr, $hierarchy-prop-value in $scale-hierarchy-prop-value {
+    @each $hierarchyAbbr, $prop-value in $hierarchy-prop-value {
+      @if ($bpPrefix == '') {
+        .type-#{$hierarchyAbbr}-#{$scaleAbbr} {
+          @each $prop, $value in $prop-value {
+            #{$prop}: $value;
+          }
+        }
+      } @else {
+        .#{$bpPrefix}--type-#{$hierarchyAbbr}-#{$scaleAbbr} {
+          @each $prop, $value in $prop-value {
+            #{$prop}: $value;
+          }
+        }
+      }
+    }
+  }
+}
+@mixin getTypographyProps(
+  $scale-hierarchy-prop-value: $typographyScale-hierarchy-prop-value,
+  $scaleAbbr,
+  $hierarchyAbbr
+) {
+  $prop-value: map.get($scale-hierarchy-prop-value, $scaleAbbr, $hierarchyAbbr);
+  @each $prop, $value in $prop-value {
+    #{$prop}: $value;
+  }
+}
+@mixin applyTypographyToTag($scaleAbbr) {
+  :root,
+  p {
+    @include getTypographyProps($scaleAbbr: $scaleAbbr, $hierarchyAbbr: 'body');
+  }
+  h6 {
+    @include getTypographyProps($scaleAbbr: $scaleAbbr, $hierarchyAbbr: 'body');
+  }
+  h5 {
+    @include getTypographyProps($scaleAbbr: $scaleAbbr, $hierarchyAbbr: 'body');
+  }
+  h4 {
+    @include getTypographyProps(
+      $scaleAbbr: $scaleAbbr,
+      $hierarchyAbbr: 'label'
+    );
+  }
+  h3 {
+    @include getTypographyProps(
+      $scaleAbbr: $scaleAbbr,
+      $hierarchyAbbr: 'title'
+    );
+  }
+  h2 {
+    @include getTypographyProps(
+      $scaleAbbr: $scaleAbbr,
+      $hierarchyAbbr: 'headline'
+    );
+  }
+  h1 {
+    @include getTypographyProps(
+      $scaleAbbr: $scaleAbbr,
+      $hierarchyAbbr: 'display'
+    );
+  }
+}
+
+$typographyScale-hierarchy-prop-value: (
+  'sm': (
+    'body': (
+      'font-size': 12px,
+      'font-weight': 400,
+      'line-height': 16px,
+      'letter-spacing': 0.4px,
+    ),
+    'label': (
+      'font-size': 11px,
+      'font-weight': 500,
+      'line-height': 16px,
+      'letter-spacing': 0.5px,
+    ),
+    'title': (
+      'font-size': 14px,
+      'font-weight': 500,
+      'line-height': 20px,
+      'letter-spacing': 0.1px,
+    ),
+    'headline': (
+      'font-size': 24px,
+      'font-weight': 400,
+      'line-height': 32px,
+      'letter-spacing': 0px,
+    ),
+    'display': (
+      'font-size': 36px,
+      'font-weight': 400,
+      'line-height': 44px,
+      'letter-spacing': 0px,
+    ),
+  ),
+  'md': (
+    'body': (
+      'font-size': 14px,
+      'font-weight': 400,
+      'line-height': 20px,
+      'letter-spacing': 0.25px,
+    ),
+    'label': (
+      'font-size': 12px,
+      'font-weight': 500,
+      'line-height': 16px,
+      'letter-spacing': 0.5px,
+    ),
+    'title': (
+      'font-size': 16px,
+      'font-weight': 500,
+      'line-height': 24px,
+      'letter-spacing': 0.1px,
+    ),
+    'headline': (
+      'font-size': 28px,
+      'font-weight': 400,
+      'line-height': 36px,
+      'letter-spacing': 0px,
+    ),
+    'display': (
+      'font-size': 45px,
+      'font-weight': 400,
+      'line-height': 52px,
+      'letter-spacing': 0px,
+    ),
+  ),
+  'lg': (
+    'body': (
+      'font-size': 16px,
+      'font-weight': 400,
+      'line-height': 24px,
+      'letter-spacing': 0.5px,
+    ),
+    'label': (
+      'font-size': 14px,
+      'font-weight': 500,
+      'line-height': 20px,
+      'letter-spacing': 0.1px,
+    ),
+    'title': (
+      'font-size': 22px,
+      'font-weight': 400,
+      'line-height': 28px,
+      'letter-spacing': 0px,
+    ),
+    'headline': (
+      'font-size': 32px,
+      'font-weight': 400,
+      'line-height': 40px,
+      'letter-spacing': 0px,
+    ),
+    'display': (
+      'font-size': 57px,
+      'font-weight': 400,
+      'line-height': 64px,
+      'letter-spacing': -0.25px,
+    ),
+  ),
+);
+@include createTypographyClasses($typographyScale-hierarchy-prop-value);

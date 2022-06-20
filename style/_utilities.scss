@@ -14,7 +14,7 @@
           }
         } @else {
           .#{$bpPrefix}--#{$abbr}-#{$levelAbbr} {
-            #{$prop}: $value;
+            #{$prop}: $value !important;
           }
         }
       }
@@ -27,7 +27,34 @@
           }
         } @else {
           .#{$bpPrefix}--#{$abbr}#{$auxAbbr}-#{$levelAbbr} {
-            #{$prop}-#{$auxProp}: $value;
+            #{$prop}-#{$auxProp}: $value !important;
+          }
+        }
+      }
+    }
+  }
+}
+@mixin createSimpleUtilityClasses($prop-abbr, $abbr-value, $bpPrefix: '') {
+  @each $prop, $abbr in $prop-abbr {
+    @each $levelAbbr, $value in $abbr-value {
+      @if ($levelAbbr == '') {
+        @if ($bpPrefix == '') {
+          .#{$abbr} {
+            #{$prop}: $value;
+          }
+        } @else {
+          .#{$bpPrefix}--#{$abbr} {
+            #{$prop}: $value !important;
+          }
+        }
+      } @else {
+        @if ($bpPrefix == '') {
+          .#{$abbr}-#{$levelAbbr} {
+            #{$prop}: $value;
+          }
+        } @else {
+          .#{$bpPrefix}--#{$abbr}-#{$levelAbbr} {
+            #{$prop}: $value !important;
           }
         }
       }
@@ -35,7 +62,7 @@
   }
 }
 
-//spacing
+// spacing
 $spacingProp-abbr: (
   'padding': 'p',
   'margin': 'm',
@@ -66,14 +93,8 @@ $spacingAbbr-value: (
   '15': 60px,
   '16': 64px,
 );
-@include createUtilityClasses(
-  $spacingProp-abbr,
-  $spacingAuxProp-abbr,
-  $spacingAbbr-value,
-  true
-);
 
-//border
+// border
 $borderProp-abbr: (
   'border': 'b',
 );
@@ -104,11 +125,6 @@ $borderWidthAbbr-value: (
   '15': 15px,
   '16': 16px,
 );
-@include createUtilityClasses(
-  $borderProp-abbr,
-  $borderWidthProp-abbr,
-  $borderWidthAbbr-value
-);
 $borderRadiusProp-abbr: (
   'radius': '-r',
   'top-left-radius': 'tl-r',
@@ -135,11 +151,6 @@ $borderRadiusAbbr-value: (
   '16': 64px,
   'full': 9999px,
 );
-@include createUtilityClasses(
-  $borderProp-abbr,
-  $borderRadiusProp-abbr,
-  $borderRadiusAbbr-value
-);
 $borderStyleProp-abbr: (
   'style': '-style',
 );
@@ -151,8 +162,120 @@ $borderStyleAbbr-value: (
   'hidden': 'hidden',
   'none': 'none',
 );
-@include createUtilityClasses(
-  $borderProp-abbr,
-  $borderStyleProp-abbr,
-  $borderStyleAbbr-value
+
+// aspect ratio
+$aspectRatioProp-abbr: (
+  'aspect': 'aspect',
 );
+$aspectRatioAuxProp-abbr: (
+  'ratio': '',
+);
+$aspectRatioAbbr-value: (
+  '1x1': #{'1 / 1'},
+  '1x2': #{'1 / 2'},
+  '1x2-v': #{'2 / 1'},
+  '3x4': #{'3 / 4'},
+  '3x4-v': #{'4 / 3'},
+  '16x9': #{'16 / 9'},
+  '16x9-v': #{'9 / 16'},
+  '297x210': #{'297 / 210'},
+  '297x210-v': #{'210 / 297'},
+);
+
+// hidden
+$hiddenProp-abbr: (
+  'display': 'hidden',
+);
+$hiddenAbbr-value: (
+  '': none,
+);
+
+// object
+$objectProp-abbr: (
+  'object': 'object',
+);
+$objectFitProp-abbr: (
+  'fit': '',
+);
+$objectFitAbbr-value: (
+  'contain': contain,
+  'cover': cover,
+  'fill': fill,
+);
+$objectPositionProp-abbr: (
+  'position': '',
+);
+$objectPositionAbbr-value: (
+  'c': center,
+  't': top,
+  'r': right,
+  'b': bottom,
+  'l': left,
+  'tr': top right,
+  'tl': top left,
+  'tc': top center,
+  'cr': center right,
+  'cl': center left,
+  'br': bottom right,
+  'bl': bottom left,
+  'bc': bottom center,
+);
+
+@mixin createUtilityClassesWithPrefix($bpPrefix: '') {
+  // spacing
+  @include createUtilityClasses(
+    $spacingProp-abbr,
+    $spacingAuxProp-abbr,
+    $spacingAbbr-value,
+    true,
+    $bpPrefix: $bpPrefix
+  );
+  // border radius
+  @include createUtilityClasses(
+    $borderProp-abbr,
+    $borderRadiusProp-abbr,
+    $borderRadiusAbbr-value,
+    $bpPrefix: $bpPrefix
+  );
+  // border width
+  @include createUtilityClasses(
+    $borderProp-abbr,
+    $borderWidthProp-abbr,
+    $borderWidthAbbr-value,
+    $bpPrefix: $bpPrefix
+  );
+  // border style
+  @include createUtilityClasses(
+    $borderProp-abbr,
+    $borderStyleProp-abbr,
+    $borderStyleAbbr-value,
+    $bpPrefix: $bpPrefix
+  );
+  // aspect ratio
+  @include createUtilityClasses(
+    $aspectRatioProp-abbr,
+    $aspectRatioAuxProp-abbr,
+    $aspectRatioAbbr-value,
+    $bpPrefix: $bpPrefix
+  );
+  // hidden
+  @include createSimpleUtilityClasses(
+    $hiddenProp-abbr,
+    $hiddenAbbr-value,
+    $bpPrefix: $bpPrefix
+  );
+  // object fit
+  @include createUtilityClasses(
+    $objectProp-abbr,
+    $objectFitProp-abbr,
+    $objectFitAbbr-value,
+    $bpPrefix: $bpPrefix
+  );
+  // object position
+  @include createUtilityClasses(
+    $objectProp-abbr,
+    $objectPositionProp-abbr,
+    $objectPositionAbbr-value,
+    $bpPrefix: $bpPrefix
+  );
+}

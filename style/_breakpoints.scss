@@ -2,42 +2,71 @@
 @import 'utilities';
 
 @mixin createPresetGridItemModClasses($columnNum, $bpPrefix: '') {
-  @for $i from 1 through $columnNum {
-    > .#{$bpPrefix}--preset-col-span-#{$i} {
-      grid-column: span $i / span $i;
+  @if ($bpPrefix == '') {
+    @for $i from 1 through $columnNum {
+      @if ($i == $columnNum) && ($i == ($columnNum / 2)) {
+      } @else {
+        .grid-w-#{$i} {
+          grid-column: span $i #{'/'} span $i;
+        }
+      }
+      .grid-h-#{$i} {
+        grid-row: span $i #{'/'} span $i;
+      }
     }
-    > .#{$bpPrefix}--preset-row-span-#{$i} {
-      grid-row: span $i / span $i;
+    .grid-w-full {
+      grid-column: span $columnNum #{'/'} span $columnNum;
     }
-  }
-  > .preset-col-span-full {
-    grid-column: span $columnNum / span $columnNum;
-  }
-  > .preset-col-span-half {
-    grid-column: span calc($columnNum / 2) / span calc($columnNum / 2);
-  }
-  > .#{$bpPrefix}--preset-col-span-full {
-    grid-column: span $columnNum / span $columnNum;
-  }
-  > .#{$bpPrefix}--preset-col-span-half {
-    grid-column: span calc($columnNum / 2) / span calc($columnNum / 2);
-  }
-  @for $i from 1 through $columnNum {
-    > .#{$bpPrefix}--preset-col-start-#{$i} {
-      grid-column-start: $i;
+    .grid-w-half {
+      grid-column: span calc($columnNum / 2) #{'/'} span calc($columnNum / 2);
     }
-    > .#{$bpPrefix}--preset-row-start-#{$i} {
-      grid-row-start: $i;
+    @for $start from 1 through $columnNum {
+      .grid-x-#{$start} {
+        grid-column-start: $start;
+      }
+      .grid-y-#{$start} {
+        grid-row-start: $start;
+      }
+      @for $to from 1 through ($columnNum - ($start - 1)) {
+        .grid-x-#{$start}to#{$to} {
+          grid-column-start: $start #{'/'} span $to;
+        }
+      }
     }
-    > .#{$bpPrefix}--preset-col-end-#{$i} {
-      grid-column-end: $i;
+  } @else {
+    @for $i from 1 through $columnNum {
+      @if ($i == $columnNum) && ($i == ($columnNum / 2)) {
+      } @else {
+        .#{$bpPrefix}-grid-w-#{$i} {
+          grid-column: span $i #{'/'} span $i;
+        }
+      }
+      .#{$bpPrefix}-grid-h-#{$i} {
+        grid-row: span $i #{'/'} span $i;
+      }
     }
-    > .#{$bpPrefix}--preset-row-end-#{$i} {
-      grid-row-end: $i;
+    .#{$bpPrefix}-grid-w-full {
+      grid-column: span $columnNum #{'/'} span $columnNum;
+    }
+    .#{$bpPrefix}-grid-w-half {
+      grid-column: span calc($columnNum / 2) #{'/'} span calc($columnNum / 2);
+    }
+    @for $start from 1 through $columnNum {
+      .#{$bpPrefix}-grid-x-#{$start} {
+        grid-column-start: $start;
+      }
+      .#{$bpPrefix}-grid-y-#{$start} {
+        grid-row-start: $start;
+      }
+      @for $to from ($columnNum - ($start - 1)) through $columnNum {
+        .#{$bpPrefix}-grid-x-#{$start}to#{$to} {
+          grid-column-start: $start #{'/'} span $to;
+        }
+      }
     }
   }
 }
-@mixin presetFlexItemEqualSizeDistribution($columnNum, $columnGap) {
+@mixin presetFlexItemEqualSizeDistribution($columnNum) {
   @for $i from 1 through 12 {
     & > *:first-child:nth-last-child(#{$i}),
     & > *:first-child:nth-last-child(#{$i}) ~ * {
@@ -56,22 +85,22 @@
   $bpPrefix: ''
 ) {
   @if ($bpPrefix == '') {
-    & > .preset-flex-size-full {
+    .flex-full {
       flex-basis: calc(100%) !important;
     }
-    & > .preset-flex-size-half {
+    .flex-half {
       flex-basis: calc(100% / 2) !important;
     }
   } @else {
-    & > .#{$bpPrefix}--preset-flex-size-full {
+    .#{$bpPrefix}-flex-full {
       flex-basis: calc(100%) !important;
     }
-    & > .#{$bpPrefix}--preset-flex-size-half {
+    .#{$bpPrefix}-flex-half {
       flex-basis: calc(100% / 2) !important;
     }
     @for $divisor from 2 through $columnNum {
       @for $dividend from 1 to $divisor {
-        & > .#{$bpPrefix}--preset-flex-size-#{$dividend}into#{$divisor} {
+        .#{$bpPrefix}-flex-#{$dividend}into#{$divisor} {
           flex-basis: calc(100% / $divisor * $dividend) !important;
         }
       }
@@ -88,8 +117,8 @@
   $marginInline,
   $displayMargin: true
 ) {
-  @include applyTypographyToTag($typeScaleAbbr);
   @include createTypographyClasses($bpPrefix: $bpPrefix);
+  @include applyTypographyToTag($scaleAbbr: $typeScaleAbbr);
   .section {
     @if ($displayMargin == false) {
       .margin {
@@ -101,30 +130,41 @@
     width: $width;
   }
   .frame {
-    padding-block: 1.5 * $rowGap;
+    padding-block: 2 * $rowGap;
     margin-inline: $marginInline;
     &--grid {
       grid-template-columns: repeat($columnNum, minmax(0, 1fr));
       row-gap: $rowGap;
       column-gap: $columnGap;
-    }
-    @include createPresetGridItemModClasses($columnNum, $bpPrefix);
-    &--flex {
-      @include presetFlexItemEqualSizeDistribution($columnNum, $columnGap);
+      // CHECK
       @at-root {
         .container {
-          .frame {
+          .frame--grid {
+            @include createPresetGridItemModClasses(
+              $columnNum: $columnNum,
+              $bpPrefix: $bpPrefix
+            );
+          }
+        }
+      }
+    }
+    &--flex {
+      @include presetFlexItemEqualSizeDistribution($columnNum: $columnNum);
+      // CHECK
+      @at-root {
+        .container {
+          .frame--flex {
             @include createPresetFlexItemModClasses(
-              $columnNum,
-              $columnGap,
-              $bpPrefix
+              $columnNum: $columnNum,
+              $columnGap: $columnGap,
+              $bpPrefix: $bpPrefix
             );
           }
         }
       }
     }
   }
-  @include createUtilityClassesWithPrefix($bpPrefix);
+  @include createUtilityClassesWithPrefix($bpPrefix: $bpPrefix);
 }
 
 $bpTbl: 600px;
@@ -182,14 +222,14 @@ $bpDskStable: 1440px;
   );
 }
 
-@media (min-width: #{$bpDskStable}) {
-  @include mediaQuery(
-    $bpPrefix: 'dsk',
-    $width: 1440px,
-    $typeScaleAbbr: 'lg',
-    $columnNum: 12,
-    $columnGap: 24px,
-    $rowGap: 24px,
-    $marginInline: 84px
-  );
-}
+// @media (min-width: #{$bpDskStable}) {
+//   @include mediaQuery(
+//     $bpPrefix: 'dsk',
+//     $width: 1440px,
+//     $typeScaleAbbr: 'lg',
+//     $columnNum: 12,
+//     $columnGap: 24px,
+//     $rowGap: 24px,
+//     $marginInline: 84px
+//   );
+// }

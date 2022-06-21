@@ -1,39 +1,47 @@
+@import 'typography';
 @import 'utilities';
 
 * {
   box-sizing: border-box;
-  padding: 0;
-  margin: 0;
 }
 
-:root {
+body {
+  padding: 0;
+  margin: 0;
   font-family: 'Pretendard', sans-serif;
   background-color: black;
 }
 
+p,
+h6,
+h5,
+h4,
+h3,
+h2,
+h1 {
+  padding: 0;
+  margin: 0;
+}
+
+@include createTypographyClasses();
+
 .section {
   display: flex;
-  flex-flow: row nowrap;
   align-items: stretch;
   justify-content: center;
   overflow: hidden;
   > .margin {
     flex: 1 1 auto;
-    overflow: hidden;
-    &--left {
-      background-color: transparent;
-    }
-    &--right {
-      background-color: transparent;
-    }
   }
 }
 
 .container {
+  max-width: 1440px;
   overflow: hidden;
   background-color: white;
   &--fullWidth {
     width: 100%;
+    max-width: none;
   }
   &--fullHeight {
     min-height: 100vh;
@@ -46,10 +54,11 @@
   &--grid {
     display: grid;
     grid-auto-rows: minmax(0, 1fr);
+    @include createPresetGridItemModClasses($columnNum: 12);
   }
   &--flex {
     display: flex;
-    flex-flow: row wrap;
+    flex-wrap: wrap;
     align-items: stretch;
     justify-content: center;
     @include createPresetFlexItemModClasses();

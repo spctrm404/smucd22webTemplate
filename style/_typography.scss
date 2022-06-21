@@ -1,19 +1,16 @@
 @use 'sass:map';
 
-@mixin createTypographyClasses(
-  $scale-hierarchy-prop-value: $typographyScale-hierarchy-prop-value,
-  $bpPrefix: ''
-) {
-  @each $scaleAbbr, $hierarchy-prop-value in $scale-hierarchy-prop-value {
-    @each $hierarchyAbbr, $prop-value in $hierarchy-prop-value {
+@mixin createTypographyClasses($bpPrefix: '') {
+  @each $scaleAbbr, $hierarchy-prop-value in $typo-scale-hierarchy-prop-value {
+    @each $hierarchicalAbbr, $prop-value in $hierarchy-prop-value {
       @if ($bpPrefix == '') {
-        .type-#{$hierarchyAbbr}-#{$scaleAbbr} {
+        .font-#{$scaleAbbr}-#{$hierarchicalAbbr} {
           @each $prop, $value in $prop-value {
             #{$prop}: $value;
           }
         }
       } @else {
-        .#{$bpPrefix}--type-#{$hierarchyAbbr}-#{$scaleAbbr} {
+        .#{$bpPrefix}-font-#{$scaleAbbr}-#{$hierarchicalAbbr} {
           @each $prop, $value in $prop-value {
             #{$prop}: $value;
           }
@@ -22,12 +19,12 @@
     }
   }
 }
-@mixin getTypographyProps(
-  $scale-hierarchy-prop-value: $typographyScale-hierarchy-prop-value,
-  $scaleAbbr,
-  $hierarchyAbbr
-) {
-  $prop-value: map.get($scale-hierarchy-prop-value, $scaleAbbr, $hierarchyAbbr);
+@mixin getTypographyProps($scaleAbbr, $hierarchicalAbbr) {
+  $prop-value: map.get(
+    $typo-scale-hierarchy-prop-value,
+    $scaleAbbr,
+    $hierarchicalAbbr
+  );
   @each $prop, $value in $prop-value {
     #{$prop}: $value;
   }
@@ -35,41 +32,50 @@
 @mixin applyTypographyToTag($scaleAbbr) {
   :root,
   p {
-    @include getTypographyProps($scaleAbbr: $scaleAbbr, $hierarchyAbbr: 'body');
+    @include getTypographyProps(
+      $scaleAbbr: $scaleAbbr,
+      $hierarchicalAbbr: 'body'
+    );
   }
   h6 {
-    @include getTypographyProps($scaleAbbr: $scaleAbbr, $hierarchyAbbr: 'body');
+    @include getTypographyProps(
+      $scaleAbbr: $scaleAbbr,
+      $hierarchicalAbbr: 'body'
+    );
   }
   h5 {
-    @include getTypographyProps($scaleAbbr: $scaleAbbr, $hierarchyAbbr: 'body');
+    @include getTypographyProps(
+      $scaleAbbr: $scaleAbbr,
+      $hierarchicalAbbr: 'body'
+    );
   }
   h4 {
     @include getTypographyProps(
       $scaleAbbr: $scaleAbbr,
-      $hierarchyAbbr: 'label'
+      $hierarchicalAbbr: 'label'
     );
   }
   h3 {
     @include getTypographyProps(
       $scaleAbbr: $scaleAbbr,
-      $hierarchyAbbr: 'title'
+      $hierarchicalAbbr: 'title'
     );
   }
   h2 {
     @include getTypographyProps(
       $scaleAbbr: $scaleAbbr,
-      $hierarchyAbbr: 'headline'
+      $hierarchicalAbbr: 'headline'
     );
   }
   h1 {
     @include getTypographyProps(
       $scaleAbbr: $scaleAbbr,
-      $hierarchyAbbr: 'display'
+      $hierarchicalAbbr: 'display'
     );
   }
 }
 
-$typographyScale-hierarchy-prop-value: (
+$typo-scale-hierarchy-prop-value: (
   'sm': (
     'body': (
       'font-size': 12px,
@@ -167,4 +173,3 @@ $typographyScale-hierarchy-prop-value: (
     ),
   ),
 );
-@include createTypographyClasses($typographyScale-hierarchy-prop-value);

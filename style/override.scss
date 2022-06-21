@@ -1,12 +1,21 @@
-// .section .container .frame--grid > * {
-//   border: 1px solid #ffede9;
-// }
-// .section .container .frame--flex > * {
-//   border: 1px solid #f0efff;
-// }
-// .section > .margin--left {
-//   background-color: #f5ffeb;
-// }
-// .section > .margin--right {
-//   background-color: #f5ffeb;
-// }
+:root {
+  background-color: #3b3b3b;
+}
+.section .container .frame--grid > * {
+  background-color: #fff8f8;
+}
+.section .container .frame--flex > * {
+  background-color: #f6fbfd;
+}
+.section > .margin {
+  background-color: #424c5a;
+}
+.code {
+  padding-inline: 2px;
+  font-weight: 700;
+  color: #ba5143;
+  background-color: #fafafa;
+}
+li {
+  margin-bottom: 4px;
+}

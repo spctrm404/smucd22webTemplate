@@ -2,32 +2,45 @@
   $prop-abbr,
   $auxProp-abbr,
   $abbr-value,
-  $propOnly: false,
+  $headOnly: false,
   $bpPrefix: ''
 ) {
   @each $prop, $abbr in $prop-abbr {
-    @if ($propOnly) {
-      @each $levelAbbr, $value in $abbr-value {
+    @if ($headOnly) {
+      @each $stpAbbr, $value in $abbr-value {
         @if ($bpPrefix == '') {
-          .#{$abbr}-#{$levelAbbr} {
-            #{$prop}: $value;
+          @if ($stpAbbr== '') {
+            .#{$abbr} {
+              #{$prop}: $value;
+            }
+          } @else {
+            .#{$abbr}-#{$stpAbbr} {
+              #{$prop}: $value;
+            }
           }
         } @else {
-          .#{$bpPrefix}--#{$abbr}-#{$levelAbbr} {
-            #{$prop}: $value !important;
+          @if ($stpAbbr== '') {
+            .#{$bpPrefix}-#{$abbr} {
+              #{$prop}: $value !important;
+            }
+          } @else {
+            .#{$bpPrefix}-#{$abbr}-#{$stpAbbr} {
+              #{$prop}: $value !important;
+            }
           }
         }
       }
-    }
-    @each $auxProp, $auxAbbr in $auxProp-abbr {
-      @each $levelAbbr, $value in $abbr-value {
-        @if ($bpPrefix == '') {
-          .#{$abbr}#{$auxAbbr}-#{$levelAbbr} {
-            #{$prop}-#{$auxProp}: $value;
-          }
-        } @else {
-          .#{$bpPrefix}--#{$abbr}#{$auxAbbr}-#{$levelAbbr} {
-            #{$prop}-#{$auxProp}: $value !important;
+    } @else {
+      @each $auxProp, $auxAbbr in $auxProp-abbr {
+        @each $stpAbbr, $value in $abbr-value {
+          @if ($bpPrefix == '') {
+            .#{$abbr}#{$auxAbbr}-#{$stpAbbr} {
+              #{$prop}-#{$auxProp}: $value;
+            }
+          } @else {
+            .#{$bpPrefix}-#{$abbr}#{$auxAbbr}-#{$stpAbbr} {
+              #{$prop}-#{$auxProp}: $value !important;
+            }
           }
         }
       }
@@ -36,24 +49,24 @@
 }
 @mixin createSimpleUtilityClasses($prop-abbr, $abbr-value, $bpPrefix: '') {
   @each $prop, $abbr in $prop-abbr {
-    @each $levelAbbr, $value in $abbr-value {
-      @if ($levelAbbr == '') {
+    @each $stpAbbr, $value in $abbr-value {
+      @if ($stpAbbr == '') {
         @if ($bpPrefix == '') {
           .#{$abbr} {
             #{$prop}: $value;
           }
         } @else {
-          .#{$bpPrefix}--#{$abbr} {
+          .#{$bpPrefix}-#{$abbr} {
             #{$prop}: $value !important;
           }
         }
       } @else {
         @if ($bpPrefix == '') {
-          .#{$abbr}-#{$levelAbbr} {
+          .#{$abbr}-#{$stpAbbr} {
             #{$prop}: $value;
           }
         } @else {
-          .#{$bpPrefix}--#{$abbr}-#{$levelAbbr} {
+          .#{$bpPrefix}-#{$abbr}-#{$stpAbbr} {
             #{$prop}: $value !important;
           }
         }
@@ -63,11 +76,11 @@
 }
 
 // spacing
-$spacingProp-abbr: (
+$spacing-prop-abbr: (
   'padding': 'p',
   'margin': 'm',
 );
-$spacingAuxProp-abbr: (
+$spacing-auxProp-abbr: (
   'top': 't',
   'bottom': 'b',
   'block': 'y',
@@ -75,7 +88,7 @@ $spacingAuxProp-abbr: (
   'left': 'l',
   'inline': 'x',
 );
-$spacingAbbr-value: (
+$spacing-abbr-value: (
   '1': 4px,
   '2': 8px,
   '3': 12px,
@@ -95,10 +108,10 @@ $spacingAbbr-value: (
 );
 
 // border
-$borderProp-abbr: (
+$border-prop-abbr: (
   'border': 'b',
 );
-$borderWidthProp-abbr: (
+$border-widthProp-abbr: (
   'width': '-t',
   'top-width': 't-t',
   'bottom-width': 'b-t',
@@ -107,7 +120,7 @@ $borderWidthProp-abbr: (
   'left-width': 'l-t',
   'inline-width': 'x-t',
 );
-$borderWidthAbbr-value: (
+$border-widthAbbr-value: (
   '1': 1px,
   '2': 2px,
   '3': 3px,
@@ -125,14 +138,14 @@ $borderWidthAbbr-value: (
   '15': 15px,
   '16': 16px,
 );
-$borderRadiusProp-abbr: (
+$border-radiusProp-abbr: (
   'radius': '-r',
   'top-left-radius': 'tl-r',
   'top-right-radius': 'tr-r',
   'bottom-left-radius': 'bl-r',
   'bottom-right-radius': 'br-r',
 );
-$borderRadiusAbbr-value: (
+$border-radiusAbbr-value: (
   '1': 4px,
   '2': 8px,
   '3': 12px,
@@ -151,10 +164,10 @@ $borderRadiusAbbr-value: (
   '16': 64px,
   'full': 9999px,
 );
-$borderStyleProp-abbr: (
+$border-styleProp-abbr: (
   'style': '-style',
 );
-$borderStyleAbbr-value: (
+$border-styleAbbr-value: (
   'solid': 'solid',
   'dashed': 'dashed',
   'dotted': 'dotted',
@@ -164,13 +177,13 @@ $borderStyleAbbr-value: (
 );
 
 // aspect ratio
-$aspectRatioProp-abbr: (
+$aspectRatio-prop-abbr: (
   'aspect': 'aspect',
 );
-$aspectRatioAuxProp-abbr: (
+$aspectRatio-auxProp-abbr: (
   'ratio': '',
 );
-$aspectRatioAbbr-value: (
+$aspectRatio-abbr-value: (
   '1x1': #{'1 / 1'},
   '1x2': #{'1 / 2'},
   '1x2-v': #{'2 / 1'},
@@ -183,29 +196,32 @@ $aspectRatioAbbr-value: (
 );
 
 // hidden
-$hiddenProp-abbr: (
+$hidden-prop-abbr: (
   'display': 'hidden',
 );
-$hiddenAbbr-value: (
+$hidden-auxProp-abbr: (
+  '': '',
+);
+$hidden-abbr-value: (
   '': none,
 );
 
 // object
-$objectProp-abbr: (
+$object-prop-abbr: (
   'object': 'object',
 );
-$objectFitProp-abbr: (
+$object-fitProp-abbr: (
   'fit': '',
 );
-$objectFitAbbr-value: (
+$object-fitAbbr-value: (
   'contain': contain,
   'cover': cover,
   'fill': fill,
 );
-$objectPositionProp-abbr: (
+$object-positionProp-abbr: (
   'position': '',
 );
-$objectPositionAbbr-value: (
+$object-positionAbbr-value: (
   'c': center,
   't': top,
   'r': right,
@@ -224,58 +240,72 @@ $objectPositionAbbr-value: (
 @mixin createUtilityClassesWithPrefix($bpPrefix: '') {
   // spacing
   @include createUtilityClasses(
-    $spacingProp-abbr,
-    $spacingAuxProp-abbr,
-    $spacingAbbr-value,
+    $spacing-prop-abbr,
+    $spacing-auxProp-abbr,
+    $spacing-abbr-value,
     true,
+    $bpPrefix: $bpPrefix
+  );
+  @include createUtilityClasses(
+    $spacing-prop-abbr,
+    $spacing-auxProp-abbr,
+    $spacing-abbr-value,
+    false,
     $bpPrefix: $bpPrefix
   );
   // border radius
   @include createUtilityClasses(
-    $borderProp-abbr,
-    $borderRadiusProp-abbr,
-    $borderRadiusAbbr-value,
+    $border-prop-abbr,
+    $border-radiusProp-abbr,
+    $border-radiusAbbr-value,
     $bpPrefix: $bpPrefix
   );
   // border width
   @include createUtilityClasses(
-    $borderProp-abbr,
-    $borderWidthProp-abbr,
-    $borderWidthAbbr-value,
+    $border-prop-abbr,
+    $border-widthProp-abbr,
+    $border-widthAbbr-value,
     $bpPrefix: $bpPrefix
   );
   // border style
   @include createUtilityClasses(
-    $borderProp-abbr,
-    $borderStyleProp-abbr,
-    $borderStyleAbbr-value,
+    $border-prop-abbr,
+    $border-styleProp-abbr,
+    $border-styleAbbr-value,
     $bpPrefix: $bpPrefix
   );
   // aspect ratio
   @include createUtilityClasses(
-    $aspectRatioProp-abbr,
-    $aspectRatioAuxProp-abbr,
-    $aspectRatioAbbr-value,
+    $aspectRatio-prop-abbr,
+    $aspectRatio-auxProp-abbr,
+    $aspectRatio-abbr-value,
     $bpPrefix: $bpPrefix
   );
   // hidden
-  @include createSimpleUtilityClasses(
-    $hiddenProp-abbr,
-    $hiddenAbbr-value,
+  // @include createSimpleUtilityClasses(
+  //   $hidden-prop-abbr,
+  //   $hidden-abbr-value,
+  //   $bpPrefix: $bpPrefix
+  // );
+  @include createUtilityClasses(
+    $hidden-prop-abbr,
+    $hidden-auxProp-abbr,
+    $hidden-abbr-value,
+    true,
     $bpPrefix: $bpPrefix
   );
   // object fit
   @include createUtilityClasses(
-    $objectProp-abbr,
-    $objectFitProp-abbr,
-    $objectFitAbbr-value,
+    $object-prop-abbr,
+    $object-fitProp-abbr,
+    $object-fitAbbr-value,
     $bpPrefix: $bpPrefix
   );
   // object position
   @include createUtilityClasses(
-    $objectProp-abbr,
-    $objectPositionProp-abbr,
-    $objectPositionAbbr-value,
+    $object-prop-abbr,
+    $object-positionProp-abbr,
+    $object-positionAbbr-value,
     $bpPrefix: $bpPrefix
   );
 }

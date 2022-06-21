@@ -1,0 +1,40 @@
+@use 'sass:map';
+
+@mixin createAlAlignClasses($isDirRow, $alignAbbr-value) {
+  $abbr-valueX: map.get($alignAbbr-value, 'x');
+  $abbr-valueY: map.get($alignAbbr-value, 'y');
+  @each $abbrX, $valueX in $abbr-valueX {
+    @each $abbrY, $valueY in $abbr-valueY {
+      &.al-align-#{$abbrY}#{$abbrX} {
+        @if ($isDirRow) {
+          align-items: $valueY; // y
+          justify-content: $valueX; // x
+        } @else {
+          align-items: $valueX; // x
+          justify-content: $valueY; // y
+        }
+      }
+    }
+  }
+}
+$alignAbbr-value: (
+  'x': (
+    'l': flex-start,
+    'c': center,
+    'r': flex-end,
+  ),
+  'y': (
+    't': flex-start,
+    'c': center,
+    'b': flex-end,
+  ),
+);
+.al {
+  display: flex;
+  &-dir-x {
+    @include createAlAlignClasses(true, $alignAbbr-value);
+  }
+  &-dir-y {
+    @include createAlAlignClasses(false, $alignAbbr-value);
+  }
+}

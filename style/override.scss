@@ -1,11 +1,11 @@
 :root {
   background-color: #3b3b3b;
 }
-.section .container .frame--grid > * {
-  background-color: #fff8f8;
+.section .container .frame-grid > * {
+  border: 1px dotted #e26352;
 }
-.section .container .frame--flex > * {
-  background-color: #f6fbfd;
+.section .container .frame-flex > * {
+  border: 1px dotted #1993d0;
 }
 .section > .margin {
   background-color: #424c5a;

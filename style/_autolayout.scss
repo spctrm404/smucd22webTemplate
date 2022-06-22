@@ -39,12 +39,12 @@ $alignAbbr-value: (
 );
 
 .al {
-  display: flex;
-  &-direction {
-    &-x {
+  &-dir {
+    @at-root .al,
+      &-x {
       flex-direction: row;
       @include createAlAlignClasses(true, $alignAbbr-value);
-      &.al-textAlign-baseline {
+      &.al-align-baseline {
         align-items: baseline;
       }
     }
@@ -53,9 +53,16 @@ $alignAbbr-value: (
       @include createAlAlignClasses(false, $alignAbbr-value);
     }
   }
-  @for $level from 1 through 16 {
-    &-gap-#{$level}:not(.al-spacing-spaceBetween) {
-      gap: $level * 4px;
+}
+.al-dir-x,
+.al-dir-y,
+.al {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  @for $stp from 1 through 16 {
+    &-gap-#{$stp}:not(.al-spacing-spaceBetween) {
+      gap: $stp * 4px;
     }
   }
   &.al-spacing-spaceBetween {
@@ -65,10 +72,10 @@ $alignAbbr-value: (
     flex: none;
     flex-grow: 0;
   }
-  > .w-fillContainer {
+  > .w-fill {
     flex-grow: 1;
   }
-  > .h-fillContainer {
+  > .h-fill {
     align-self: stretch;
   }
 }

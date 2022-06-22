@@ -2,8 +2,14 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
     <title>SMUCD22WebAdvanceExample_v0.1.1 Alpha(r003)</title>
     <link
       rel="stylesheet"
@@ -11,86 +17,269 @@
       crossorigin
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
     />
-    <link rel="stylesheet" href="./style/style.css" />
-    <link rel="stylesheet" href="./style/override.css" />
-    <script defer src="./script/addMargin.js"></script>
+    <link
+      rel="stylesheet"
+      href="./style/style.css"
+    />
+    <link
+      rel="stylesheet"
+      href="./style/override.css"
+    />
+    <script
+      defer
+      src="./script/addMargin.js"
+    ></script>
   </head>
   <body>
-    <!-- <div class="section">
-      <div class="container">
-        <div class="frame frame--grid">
-          <div
-            class="col-span-3 row-span-2 tbl--col-span-half hnd--col-span-full p-3"
-          >
-            <span class="code">grid</span>는 화면 크기에 따라 12, 8, 4열로
-            정해져있습니다.
-          </div>
-          <div
-            class="col-span-3 row-span-2 tbl--col-span-half tbl--row-span-1 hnd--col-span-full hnd--row-span-1 p-3"
-          >
-            아래 설명할 <span class="code">flex</span>와 비교했을 때,
-            <span class="code">grid</span>는 다음과 같은 장단점을 갖고 있습니다.
-          </div>
-          <div class="col-span-6 p-3">
-            <h3>장점</h3>
-            <ol>
-              <li>
-                <strong>자유로운 배치</strong>: <span class="code">flex</span>는
-                기본적으로 아이템들이 가운데 정렬되고, 그 순서를 바꾸는 것만
-                가능하지만, <span class="code">grid</span>는 행과 열의 어느
-                위치로든 자유롭게 옮길 수 있습니다.
-              </li>
-              <li>
-                <strong>2차원 배치</strong>: <span class="code">flex</span>가
-                figma의 auto-layout과 같이 가로로만, 혹은 세로로만 정렬해서
-                배치할 수 있는 반면, <span class="code">grid</span>는 가로,
-                세로로 만들어진 그리드를 따라 배치할 수 있습니다.
-              </li>
-              <li>
-                <strong>쉬운 겹치기</strong>: <span class="code">flex</span>는
-                이미지를 뒤에 배치하고 그 위에 텍스트를 배치하는 것과 같은
-                겹치기를 구현할 때
-                <span class="code">position: absolute</span>를 사용해야하는 등
-                그 과정이 복잡하나, <span class="code">grid</span>는 훨씬
-                쉽습니다.
-              </li>
-            </ol>
-          </div>
-          <div class="col-span-6 col-start-7 p-3">
-            <h3>단점</h3>
-            <ol>
-              <li>
-                <strong>수동 배치</strong>: <span class="code">flex</span>가
-                아이템의 갯수에 따라 자동으로 가로너비를 균등분할해서 아이템을
-                배치해주는 반면, <span class="code">grid</span>모든 아이템의
-                위치, 크기를 직접 지정해줘야만한다.
-              </li>
-            </ol>
-          </div>
-        </div>
-      </div>
-    </div> -->
     <div class="section">
       <div class="container">
-        <div class="frame frame--grid">
-          <div class="col-start-1 row-start-1 tbl--col-start-7 tbl--col-span-2">
-            Lorem ipsum dolor sit amet.
+        <div class="frame frame-flex">
+          <div class="p-2">
+            <h3>flex1</h3>
           </div>
-          <div class="col-start-2 row-start-2 tbl--col-start-5 tbl--col-span-2">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis,
-            adipisci.
+          <div class="p-2">
+            <h3>flex2</h3>
           </div>
-          <div class="col-start-3 row-start-3 tbl--col-start-3 tbl--col-span-2">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Et nisi
-            consectetur dignissimos fuga suscipit distinctio.
+          <div class="p-2">
+            <h3>flex3</h3>
           </div>
-          <div class="col-start-4 row-start-4 tbl--col-start-1 tbl--col-span-2">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta,
-            molestiae illo est beatae distinctio dicta quisquam quas illum. Sed,
-            impedit.
+          <div class="p-2">
+            <h3>flex4</h3>
+          </div>
+          <div class="p-2">
+            <h3>flex5</h3>
+          </div>
+          <div class="p-2">
+            <h3>flex6</h3>
+          </div>
+          <div class="p-2">
+            <h3>flex7</h3>
+          </div>
+          <div class="p-2">
+            <h3>flex8</h3>
+          </div>
+          <div class="p-2">
+            <h3>flex9</h3>
+          </div>
+          <div class="p-2">
+            <h3>flex10</h3>
+          </div>
+          <div class="p-2">
+            <h3>flex11</h3>
+          </div>
+          <div class="p-2">
+            <h3>flex12</h3>
           </div>
         </div>
       </div>
     </div>
+    <div class="section">
+      <div class="container">
+        <div class="frame frame-grid">
+          <div class="p-2">
+            <h3>grid1</h3>
+          </div>
+          <div class="p-2">
+            <h3>grid2</h3>
+          </div>
+          <div class="p-2">
+            <h3>grid3</h3>
+          </div>
+          <div class="p-2">
+            <h3>grid4</h3>
+          </div>
+          <div class="p-2">
+            <h3>grid5</h3>
+          </div>
+          <div class="p-2">
+            <h3>grid6</h3>
+          </div>
+          <div class="p-2">
+            <h3>grid7</h3>
+          </div>
+          <div class="p-2">
+            <h3>grid8</h3>
+          </div>
+          <div class="p-2">
+            <h3>grid9</h3>
+          </div>
+          <div class="p-2">
+            <h3>grid10</h3>
+          </div>
+          <div class="p-2">
+            <h3>grid11</h3>
+          </div>
+          <div class="p-2">
+            <h3>grid12</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="container">
+        <div class="frame frame-flex">
+          <div class="p-2">
+            <h3>flex1</h3>
+          </div>
+          <div class="p-2">
+            <h3>flex2</h3>
+          </div>
+          <div class="p-2">
+            <h3>flex3</h3>
+          </div>
+          <div class="p-2">
+            <h3>flex4</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="container">
+        <div class="frame frame-grid">
+          <div class="p-2">
+            <h3>grid1</h3>
+          </div>
+          <div class="p-2">
+            <h3>grid2</h3>
+          </div>
+          <div class="p-2">
+            <h3>grid3</h3>
+          </div>
+          <div class="p-2">
+            <h3>grid4</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="container">
+        <div class="frame frame-flex">
+          <div class="p-2 flex-span-2-12 tbl-flex-span-half hnd-flex-span-full">
+            <h3>flex1</h3>
+          </div>
+          <div class="p-2 flex-span-2-12 tbl-flex-span-half hnd-flex-span-full">
+            <h3>flex2</h3>
+          </div>
+          <div class="p-2 flex-span-3-12 tbl-flex-span-half hnd-flex-span-full">
+            <h3>flex3</h3>
+          </div>
+          <div class="p-2 flex-span-4-12 tbl-flex-span-half hnd-flex-span-full">
+            <h3>flex4</h3>
+          </div>
+          <div class="p-2 flex-span-half tbl-flex-span-full hnd-flex-span-full">
+            <h3>flex5</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="container">
+        <div class="frame frame-grid">
+          <div
+            class="p-2 grid-x-1-w-2 grid-y-1-h-1 tbl-grid-x-2-w-7 hnd-grid-w-full hnd-grid-y-1-h-1"
+            style="background-color: #fff8f8"
+          >
+            <h3>grid1</h3>
+          </div>
+          <div
+            class="p-2 grid-x-3-w-2 grid-y-1-h-2 tbl-grid-x-3-w-6 tbl-grid-y-2-h-1 hnd-grid-x-2-w-3 hnd-grid-y-2-h-1"
+            style="background-color: #fff8f8"
+          >
+            <h3>grid2</h3>
+          </div>
+          <div
+            class="p-2 grid-x-5-w-3 grid-y-1-h-3 tbl-grid-x-4-w-5 tbl-grid-y-3-h-1 hnd-grid-x-3 hnd-grid-w-half hnd-grid-y-3-h-1"
+            style="background-color: #fff8f8"
+          >
+            <h3>grid3</h3>
+          </div>
+          <div
+            class="p-2 grid-x-8-w-4 grid-y-1-h-4 tbl-grid-x-5 tbl-grid-w-half tbl-grid-y-4-h-1 hnd-grid-x-4-w-1 hnd-grid-y-4-h-1"
+            style="background-color: #fff8f8"
+          >
+            <h3>grid4</h3>
+          </div>
+          <div
+            class="p-2 grid-x-1 grid-w-full grid-y-1 grid-h-4 al-dir-y al-gap-1 al-align-bl z-n1"
+            style="background-color: #ffe9e6"
+          >
+            <h3>grid5</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="container">
+        <div class="frame frame-grid">
+          <div
+            class="p-4 grid-w-half al-dir-x al-align-bc al-spacing-spaceBetween"
+          >
+            <h3>grid1</h3>
+          </div>
+          <div class="p-4 grid-w-half al-dir-y al-align-cc al-gap-2">
+            <h3>grid2</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="container">
+        <div class="frame frame-grid">
+          <div class="p-4 grid-w-half noLog al-dir-y al-gap-4 al-align-cc">
+            <div
+              class="al al-align-cc px-6 py-2 b-r-full"
+              style="background-color: #dff0f9"
+            >
+              <p><strong>Auto Layout 버튼</strong></p>
+            </div>
+          </div>
+          <div class="p-4 grid-w-half noLog al-dir-y al-gap-4 al-align-tc">
+            <div
+              class="al-dir-y al-align-tr al-gap-6 b-r-2"
+              style="
+                background-color: #dff0f9;
+                overflow: hidden;
+                max-width: 400px;
+              "
+            >
+              <div
+                class="aspect-16x9"
+                style="width: 100%; background-color: #82c5e6"
+              >
+                <img
+                  src="./imgs/ill (1).jpg"
+                  alt=""
+                />
+              </div>
+              <div class="al-dir-y al-gap-2 mx-6">
+                <h3>Lorem, ipsum.</h3>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. At
+                  maiores, similique vitae tenetur itaque odio vero. Explicabo
+                  quo fuga error, accusamus aperiam ad sequi quam maxime illo
+                  eius asperiores at?
+                </p>
+              </div>
+              <div
+                class="al al-align-cc px-6 py-2 b-r-full w-fill mx-6 mb-6"
+                style="background-color: #82c5e6"
+              >
+                <p><strong>확인</strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      let frameChilren = document.querySelectorAll('.frame > *:not(.noLog)');
+      frameChilren.forEach((frameChild) => {
+        frameChild.classList.forEach((className) => {
+          let label = document.createElement('h4');
+          label.innerHTML = className;
+          frameChild.append(label);
+        });
+      });
+    </script>
   </body>
 </html>

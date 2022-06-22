@@ -6199,6 +6199,12 @@ h1 {
 .al.al-align-baseline, .al-dir-x.al-align-baseline {
   align-items: baseline;
 }
+.al > .w-fill, .al-dir-x > .w-fill {
+  flex-grow: 1;
+}
+.al > .h-fill, .al-dir-x > .h-fill {
+  align-self: stretch;
+}
 
 .al-dir-y {
   flex-direction: column;
@@ -6238,6 +6244,12 @@ h1 {
 .al-dir-y.al-align-br {
   align-items: flex-end;
   justify-content: flex-end;
+}
+.al-dir-y > .w-fill {
+  align-self: stretch;
+}
+.al-dir-y > .h-fill {
+  flex-grow: 1;
 }
 
 .al-dir-x,
@@ -6337,16 +6349,6 @@ h1 {
 .al > * {
   flex: none;
   flex-grow: 0;
-}
-.al-dir-x > .w-fill,
-.al-dir-y > .w-fill,
-.al > .w-fill {
-  flex-grow: 1;
-}
-.al-dir-x > .h-fill,
-.al-dir-y > .h-fill,
-.al > .h-fill {
-  align-self: stretch;
 }
 
 @media (max-width: 599px) {

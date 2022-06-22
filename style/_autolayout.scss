@@ -47,10 +47,22 @@ $alignAbbr-value: (
       &.al-align-baseline {
         align-items: baseline;
       }
+      > .w-fill {
+        flex-grow: 1;
+      }
+      > .h-fill {
+        align-self: stretch;
+      }
     }
     &-y {
       flex-direction: column;
       @include createAlAlignClasses(false, $alignAbbr-value);
+      > .w-fill {
+        align-self: stretch;
+      }
+      > .h-fill {
+        flex-grow: 1;
+      }
     }
   }
 }
@@ -71,11 +83,5 @@ $alignAbbr-value: (
   > * {
     flex: none;
     flex-grow: 0;
-  }
-  > .w-fill {
-    flex-grow: 1;
-  }
-  > .h-fill {
-    align-self: stretch;
   }
 }

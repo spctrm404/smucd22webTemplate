@@ -1,0 +1,307 @@
+/* stylelint-disable block-no-empty */
+@import 'typography';
+@import 'utilities';
+
+@mixin createPresetGridItemModClasses($columnNum, $bpPrefix: '') {
+  @if ($bpPrefix == '') {
+    @for $i from 1 through $columnNum {
+      @if ($i == $columnNum) {
+      } @else if($i == calc($columnNum / 2)) {
+      } @else {
+        .grid-w-#{$i} {
+          grid-column-end: span $i;
+        }
+      }
+      .grid-h-#{$i} {
+        grid-row-end: span $i;
+      }
+    }
+    .grid-w-full {
+      grid-column-end: span $columnNum;
+    }
+    .grid-w-half {
+      grid-column-end: span calc($columnNum / 2);
+    }
+    @for $start from 1 through $columnNum {
+      .grid-x-#{$start} {
+        grid-column-start: $start;
+      }
+      .grid-y-#{$start} {
+        grid-row-start: $start;
+      }
+      @for $to from 1 through ($columnNum - ($start - 1)) {
+        .grid-x-#{$start}-w-#{$to} {
+          grid-column: $start #{'/'} span $to;
+        }
+      }
+      @for $to from 1 through (12 - ($start - 1)) {
+        .grid-y-#{$start}-h-#{$to} {
+          grid-row: $start #{'/'} span $to;
+        }
+      }
+    }
+  } @else {
+    @for $i from 1 through $columnNum {
+      @if ($i == $columnNum) {
+      } @else if($i == calc($columnNum / 2)) {
+      } @else {
+        .#{$bpPrefix}-grid-w-#{$i} {
+          grid-column-end: span $i;
+        }
+      }
+      .#{$bpPrefix}-grid-h-#{$i} {
+        grid-row-end: span $i;
+      }
+    }
+    .grid-w-full {
+      grid-column-end: span $columnNum;
+    }
+    .grid-w-half {
+      grid-column-end: span calc($columnNum / 2);
+    }
+    .#{$bpPrefix}-grid-w-full {
+      grid-column-end: span $columnNum;
+    }
+    .#{$bpPrefix}-grid-w-half {
+      grid-column-end: span calc($columnNum / 2);
+    }
+    @for $start from 1 through $columnNum {
+      .#{$bpPrefix}-grid-x-#{$start} {
+        grid-column-start: $start;
+      }
+      .#{$bpPrefix}-grid-y-#{$start} {
+        grid-row-start: $start;
+      }
+      @for $to from 1 through ($columnNum - ($start - 1)) {
+        .#{$bpPrefix}-grid-x-#{$start}-w-#{$to} {
+          grid-column: $start #{'/'} span $to;
+        }
+      }
+      @for $to from 1 through (12 - ($start - 1)) {
+        .#{$bpPrefix}-grid-y-#{$start}-h-#{$to} {
+          grid-row: $start #{'/'} span $to;
+        }
+      }
+    }
+  }
+}
+@mixin presetFlexItemEqualSizeDistribution($columnNum) {
+  @for $i from 1 through 12 {
+    & > *:first-child:nth-last-child(#{$i}),
+    & > *:first-child:nth-last-child(#{$i}) ~ * {
+      @if ($i > $columnNum) {
+        flex-basis: calc(100% / $columnNum);
+      } @else {
+        $calibratedI: (($i - 1) % $columnNum) + 1;
+        flex-basis: calc(100% / $calibratedI);
+      }
+    }
+  }
+}
+@mixin createPresetFlexItemModClasses(
+  $columnNum: 2,
+  $columnGap: 0,
+  $bpPrefix: ''
+) {
+  @if ($bpPrefix == '') {
+    .flex-span-full {
+      flex-basis: calc(100%);
+    }
+    .flex-span-half {
+      flex-basis: calc(100% / 2);
+    }
+    @for $divisor from 2 through $columnNum {
+      @for $dividend from 1 to $divisor {
+        @if (calc($dividend / $divisor) == calc(1 / 2)) {
+        } @else {
+          .flex-span-#{$dividend}-#{$divisor} {
+            flex-basis: calc(100% / $divisor * $dividend);
+          }
+        }
+      }
+    }
+  } @else {
+    .#{$bpPrefix}-flex-span-full {
+      flex-basis: calc(100%);
+    }
+    .#{$bpPrefix}-flex-span-half {
+      flex-basis: calc(100% / 2);
+    }
+    @for $divisor from 2 through $columnNum {
+      @for $dividend from 1 to $divisor {
+        @if (calc($dividend / $divisor) == calc(1 / 2)) {
+        } @else {
+          .#{$bpPrefix}-flex-span-#{$dividend}-#{$divisor} {
+            flex-basis: calc(100% / $divisor * $dividend);
+          }
+        }
+      }
+    }
+  }
+}
+@mixin mediaQuery(
+  $bpPrefix,
+  $width: 100%,
+  $typeScaleAbbr,
+  $columnNum,
+  $columnGap,
+  $rowGap,
+  $marginInline,
+  $displayMargin: true
+) {
+  @include createTypographyClasses($bpPrefix: $bpPrefix);
+
+  body {
+    @include applyTypographyToTag($scaleAbbr: $typeScaleAbbr);
+  }
+
+  .section {
+    @if ($displayMargin == false) {
+      .margin {
+        display: none;
+      }
+    }
+  }
+  .container {
+    width: $width;
+  }
+  .frame {
+    padding-block: 1.5 * $rowGap;
+    margin-inline: $marginInline;
+    &-grid {
+      grid-template-columns: repeat($columnNum, minmax(0, 1fr));
+      row-gap: $rowGap;
+      column-gap: $columnGap;
+      // CHECK
+      @at-root {
+        .container {
+          .frame-grid {
+            @include createPresetGridItemModClasses(
+              $columnNum: $columnNum,
+              $bpPrefix: $bpPrefix
+            );
+          }
+        }
+      }
+    }
+    &-flex {
+      @include presetFlexItemEqualSizeDistribution($columnNum: $columnNum);
+      // CHECK
+      @at-root {
+        body {
+          .section {
+            .container {
+              .frame-flex {
+                @include createPresetFlexItemModClasses(
+                  $columnNum: $columnNum,
+                  $columnGap: $columnGap,
+                  $bpPrefix: $bpPrefix
+                );
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+$bpTbl: 600px;
+$bpLpt: 905px;
+$bpDsk: 1240px;
+$bpDskStable: 1440px;
+
+@media (max-width: #{$bpTbl - 1px}) {
+  @include mediaQuery(
+    $bpPrefix: 'hnd',
+    $width: 100%,
+    $typeScaleAbbr: 'md',
+    $columnNum: 4,
+    $columnGap: 16px,
+    $rowGap: 16px,
+    $marginInline: 16px,
+    $displayMargin: false
+  );
+}
+
+@media (min-width: #{$bpTbl}) and (max-width: #{$bpLpt - 1px}) {
+  @include mediaQuery(
+    $bpPrefix: 'tbl',
+    $width: 100%,
+    $typeScaleAbbr: 'lg',
+    $columnNum: 8,
+    $columnGap: 24px,
+    $rowGap: 24px,
+    $marginInline: 32px,
+    $displayMargin: false
+  );
+}
+
+@media (min-width: #{$bpLpt}) and (max-width: #{$bpDsk - 1px}) {
+  @include mediaQuery(
+    $bpPrefix: 'lpt',
+    $width: 904px,
+    $typeScaleAbbr: 'lg',
+    $columnNum: 12,
+    $columnGap: 24px,
+    $rowGap: 24px,
+    $marginInline: 32px
+  );
+}
+
+@media (min-width: #{$bpDsk}) {
+  @include mediaQuery(
+    $bpPrefix: 'dsk',
+    $width: 100%,
+    $typeScaleAbbr: 'lg',
+    $columnNum: 12,
+    $columnGap: 24px,
+    $rowGap: 24px,
+    $marginInline: calc(84 / 1440 * 100%)
+  );
+}
+
+// @media (min-width: #{$bpDsk}) and (max-width: #{$bpDskStable - 1px}) {
+//   @include mediaQuery(
+//     $bpPrefix: 'dsk',
+//     $width: 100%,
+//     $typeScaleAbbr: 'lg',
+//     $columnNum: 12,
+//     $columnGap: 24px,
+//     $rowGap: 24px,
+//     $marginInline: calc(84 / 1440 * 100%)
+//   );
+// }
+
+// @media (min-width: #{$bpDskStable}) {
+//   @include mediaQuery(
+//     $bpPrefix: 'dsk',
+//     $width: 1440px,
+//     $typeScaleAbbr: 'lg',
+//     $columnNum: 12,
+//     $columnGap: 24px,
+//     $rowGap: 24px,
+//     $marginInline: 84px
+//   );
+// }
+
+@mixin postMediaQuery($bpPrefix) {
+  @include createUtilityClassesWithPrefix($bpPrefix: $bpPrefix);
+}
+@mixin postDeclarations() {
+  @media (max-width: #{$bpTbl - 1px}) {
+    @include postMediaQuery($bpPrefix: 'hnd');
+  }
+
+  @media (min-width: #{$bpTbl}) and (max-width: #{$bpLpt - 1px}) {
+    @include postMediaQuery($bpPrefix: 'tbl');
+  }
+
+  @media (min-width: #{$bpLpt}) and (max-width: #{$bpDsk - 1px}) {
+    @include postMediaQuery($bpPrefix: 'lpt');
+  }
+
+  @media (min-width: #{$bpDsk}) {
+    @include postMediaQuery($bpPrefix: 'dsk');
+  }
+}

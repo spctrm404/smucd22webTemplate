@@ -1,0 +1,380 @@
+@mixin createUtilityClasses(
+  $prop-abbr,
+  $auxProp-abbr,
+  $abbr-value,
+  $headOnly: false,
+  $bpPrefix: ''
+) {
+  @each $prop, $abbr in $prop-abbr {
+    @if ($headOnly) {
+      @each $stpAbbr, $value in $abbr-value {
+        @if ($bpPrefix == '') {
+          @if ($stpAbbr== '') {
+            .#{$abbr} {
+              #{$prop}: $value;
+            }
+          } @else {
+            .#{$abbr}-#{$stpAbbr} {
+              #{$prop}: $value;
+            }
+          }
+        } @else {
+          @if ($stpAbbr== '') {
+            .#{$bpPrefix}-#{$abbr} {
+              #{$prop}: $value;
+            }
+          } @else {
+            .#{$bpPrefix}-#{$abbr}-#{$stpAbbr} {
+              #{$prop}: $value;
+            }
+          }
+        }
+      }
+    } @else {
+      @each $auxProp, $auxAbbr in $auxProp-abbr {
+        @each $stpAbbr, $value in $abbr-value {
+          @if ($bpPrefix == '') {
+            .#{$abbr}#{$auxAbbr}-#{$stpAbbr} {
+              #{$prop}-#{$auxProp}: $value;
+            }
+          } @else {
+            .#{$bpPrefix}-#{$abbr}#{$auxAbbr}-#{$stpAbbr} {
+              #{$prop}-#{$auxProp}: $value;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@mixin createSimpleUtilityClasses($prop-abbr, $abbr-value, $bpPrefix: '') {
+  @each $prop, $abbr in $prop-abbr {
+    @each $stpAbbr, $value in $abbr-value {
+      @if ($stpAbbr == '') {
+        @if ($bpPrefix == '') {
+          .#{$abbr} {
+            #{$prop}: $value;
+          }
+        } @else {
+          .#{$bpPrefix}-#{$abbr} {
+            #{$prop}: $value;
+          }
+        }
+      } @else {
+        @if ($bpPrefix == '') {
+          .#{$abbr}-#{$stpAbbr} {
+            #{$prop}: $value;
+          }
+        } @else {
+          .#{$bpPrefix}-#{$abbr}-#{$stpAbbr} {
+            #{$prop}: $value;
+          }
+        }
+      }
+    }
+  }
+}
+
+// spacing
+$spacing-prop-abbr: (
+  'padding': 'p',
+  'margin': 'm',
+);
+$spacing-auxProp-abbr: (
+  'block': 'y',
+  'top': 't',
+  'bottom': 'b',
+  'inline': 'x',
+  'right': 'r',
+  'left': 'l',
+);
+$spacing-abbr-value: (
+  '1': 4px,
+  '2': 8px,
+  '3': 12px,
+  '4': 16px,
+  '5': 20px,
+  '6': 24px,
+  '7': 28px,
+  '8': 32px,
+  '9': 36px,
+  '10': 40px,
+  '11': 44px,
+  '12': 48px,
+  '13': 52px,
+  '14': 56px,
+  '15': 60px,
+  '16': 64px,
+);
+
+// border
+$border-prop-abbr: (
+  'border': 'b',
+);
+$border-widthProp-abbr: (
+  'width': '-t',
+  'block-width': 'y-t',
+  'top-width': 't-t',
+  'bottom-width': 'b-t',
+  'inline-width': 'x-t',
+  'right-width': 'r-t',
+  'left-width': 'l-t',
+);
+$border-widthAbbr-value: (
+  '1': 1px,
+  '2': 2px,
+  '3': 3px,
+  '4': 4px,
+  '5': 5px,
+  '6': 6px,
+  '7': 7px,
+  '8': 8px,
+  '9': 9px,
+  '10': 10px,
+  '11': 11px,
+  '12': 12px,
+  '13': 13px,
+  '14': 14px,
+  '15': 15px,
+  '16': 16px,
+);
+$border-radiusProp-abbr: (
+  'radius': '-r',
+  'top-left-radius': 'tl-r',
+  'top-right-radius': 'tr-r',
+  'bottom-left-radius': 'bl-r',
+  'bottom-right-radius': 'br-r',
+);
+$border-radiusAbbr-value: (
+  '1': 4px,
+  '2': 8px,
+  '3': 12px,
+  '4': 16px,
+  '5': 20px,
+  '6': 24px,
+  '7': 28px,
+  '8': 32px,
+  '9': 36px,
+  '10': 40px,
+  '11': 44px,
+  '12': 48px,
+  '13': 52px,
+  '14': 56px,
+  '15': 60px,
+  '16': 64px,
+  'full': 9999px,
+);
+$border-styleProp-abbr: (
+  'style': '-style',
+);
+$border-styleAbbr-value: (
+  'solid': solid,
+  'dashed': dashed,
+  'dotted': dotted,
+  'double': double,
+  'hidden': hidden,
+  'none': none,
+);
+
+// aspect ratio
+$aspectRatio-prop-abbr: (
+  'aspect': 'aspect',
+);
+$aspectRatio-auxProp-abbr: (
+  'ratio': '',
+);
+$aspectRatio-abbr-value: (
+  '1x1': #{'1 / 1'},
+  '2x1': #{'2 / 1'},
+  '1x2': #{'1 / 2'},
+  '4x3': #{'4 / 3'},
+  '3x4': #{'3 / 4'},
+  '16x9': #{'16 / 9'},
+  '9x16': #{'9 / 16'},
+  '297x210': #{'297 / 210'},
+  '210x297': #{'210 / 297'},
+);
+
+// hidden
+$hidden-prop-abbr: (
+  'display': 'hidden',
+);
+$hidden-auxProp-abbr: (
+  '': '',
+);
+$hidden-abbr-value: (
+  '': none,
+);
+
+// object
+$object-prop-abbr: (
+  'object': 'object',
+);
+$object-fitProp-abbr: (
+  'fit': '',
+);
+$object-fitAbbr-value: (
+  'contain': contain,
+  'cover': cover,
+  'fill': fill,
+);
+$object-positionProp-abbr: (
+  'position': '',
+);
+$object-positionAbbr-value: (
+  'c': center center,
+  't': top,
+  'r': right,
+  'b': bottom,
+  'l': left,
+  'tr': top right,
+  'tl': top left,
+  'tc': top center,
+  'cr': center right,
+  'cl': center left,
+  'br': bottom right,
+  'bl': bottom left,
+  'bc': bottom center,
+);
+
+// z-index
+$zIndex-prop-abbr: (
+  'z-index': 'z',
+);
+$zIndex-auxProp-abbr: (
+  '': '',
+);
+$zIndex-abbr-value: (
+  'n16': -16,
+  'n15': -15,
+  'n14': -14,
+  'n13': -13,
+  'n12': -12,
+  'n11': -11,
+  'n10': -10,
+  'n9': -9,
+  'n8': -8,
+  'n7': -7,
+  'n6': -6,
+  'n5': -5,
+  'n4': -4,
+  'n3': -3,
+  'n2': -2,
+  'n1': -1,
+  '0': 0,
+  '1': 1,
+  '2': 2,
+  '3': 3,
+  '4': 4,
+  '5': 5,
+  '6': 6,
+  '7': 7,
+  '8': 8,
+  '9': 9,
+  '10': 10,
+  '11': 11,
+  '12': 12,
+  '13': 13,
+  '14': 14,
+  '15': 15,
+  '16': 16,
+);
+
+// text align
+$text-prop-abbr: (
+  'text': 'text',
+);
+$text-alignProp-abbr: (
+  'align': '',
+);
+$text-alignAbbr-value: (
+  'left': left,
+  'center': center,
+  'right': right,
+  'justify': justify,
+);
+
+@mixin createUtilityClassesWithPrefix($bpPrefix: '') {
+  @if ($bpPrefix == '') {
+    // border-width
+    @include createUtilityClasses(
+      $border-prop-abbr,
+      $border-widthProp-abbr,
+      $border-widthAbbr-value,
+      // $bpPrefix: $bpPrefix
+    );
+    // border-style
+    @include createUtilityClasses(
+      $border-prop-abbr,
+      $border-styleProp-abbr,
+      $border-styleAbbr-value,
+      // $bpPrefix: $bpPrefix
+    );
+    // z-index
+    @include createUtilityClasses(
+      $zIndex-prop-abbr,
+      $zIndex-auxProp-abbr,
+      $zIndex-abbr-value,
+      true,
+      // $bpPrefix: $bpPrefix
+    );
+  }
+  // spacing
+  @include createUtilityClasses(
+    $spacing-prop-abbr,
+    $spacing-auxProp-abbr,
+    $spacing-abbr-value,
+    true,
+    $bpPrefix: $bpPrefix
+  );
+  @include createUtilityClasses(
+    $spacing-prop-abbr,
+    $spacing-auxProp-abbr,
+    $spacing-abbr-value,
+    false,
+    $bpPrefix: $bpPrefix
+  );
+  // border-radius
+  @include createUtilityClasses(
+    $border-prop-abbr,
+    $border-radiusProp-abbr,
+    $border-radiusAbbr-value,
+    $bpPrefix: $bpPrefix
+  );
+  // object-fit
+  @include createUtilityClasses(
+    $object-prop-abbr,
+    $object-fitProp-abbr,
+    $object-fitAbbr-value,
+    $bpPrefix: $bpPrefix
+  );
+  // object-position
+  @include createUtilityClasses(
+    $object-prop-abbr,
+    $object-positionProp-abbr,
+    $object-positionAbbr-value,
+    $bpPrefix: $bpPrefix
+  );
+  // aspect-ratio
+  @include createUtilityClasses(
+    $aspectRatio-prop-abbr,
+    $aspectRatio-auxProp-abbr,
+    $aspectRatio-abbr-value,
+    $bpPrefix: $bpPrefix
+  );
+  // hidden
+  @include createUtilityClasses(
+    $hidden-prop-abbr,
+    $hidden-auxProp-abbr,
+    $hidden-abbr-value,
+    true,
+    $bpPrefix: $bpPrefix
+  );
+  // text-align
+  @include createUtilityClasses(
+    $text-prop-abbr,
+    $text-alignProp-abbr,
+    $text-alignAbbr-value,
+    $bpPrefix: $bpPrefix
+  );
+}

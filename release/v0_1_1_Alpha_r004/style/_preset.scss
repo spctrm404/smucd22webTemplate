@@ -1,0 +1,100 @@
+@import 'typography';
+@import 'utilities';
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: 'Pretendard', sans-serif;
+  background-color: black;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@include createTypographyClasses();
+@include applyTypographyToTag('lg');
+
+.section {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  overflow: hidden;
+  > .margin {
+    position: relative;
+    z-index: -1;
+    flex: 1 1 auto;
+  }
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1440px;
+  overflow: hidden;
+  background-color: white;
+  &-fullWidth {
+    width: 100%;
+    max-width: none;
+  }
+  &-fullHeight {
+    min-height: 100vh;
+  }
+}
+
+.frame {
+  height: 100%;
+  overflow: hidden;
+  &-grid {
+    display: grid;
+    grid-auto-rows: minmax(0, 1fr);
+    @include createPresetGridItemModClasses($columnNum: 12);
+  }
+  &-flex {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: center;
+    @at-root {
+      .section {
+        .container {
+          .frame-flex {
+            @include createPresetFlexItemModClasses($columnNum: 12);
+          }
+        }
+      }
+    }
+    > * {
+      flex: 0 1 100%;
+    }
+  }
+  &-mx-0 {
+    margin-inline: 0;
+  }
+  &-pt-0 {
+    padding-top: 0;
+  }
+  &-pb-0 {
+    padding-bottom: 0;
+  }
+  &-py-0 {
+    padding-block: 0;
+  }
+  > * {
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+@include createUtilityClassesWithPrefix();

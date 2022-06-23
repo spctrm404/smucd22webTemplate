@@ -1,6 +1,10 @@
+body {
+  font-family: "Lato", sans-serif;
+}
+
 #sec1 .wrap {
   padding-top: 112px;
-  padding-bottom: 48px;
+  background: linear-gradient(#fbfcfe, #ffffff);
 }
 #sec1 .bg--circle {
   position: absolute;
@@ -13,16 +17,28 @@
   transform: translateX(-50%);
 }
 #sec1 .wordmark {
-  width: 235.14px;
-  margin-bottom: 106px;
+  height: 96px;
+  margin-bottom: 56px;
 }
 #sec1 .shot--main {
   max-width: 375px;
-  margin-bottom: 36px;
+  margin-bottom: 32px;
 }
-#sec1 h3 {
-  font-size: 28px;
+#sec1 .catchphrase {
+  margin-inline: 16px;
   font-weight: 700;
-  line-height: 36px;
   color: #2275ff;
+}
+
+@media (max-width: 406px) {
+  #sec1 .bg--circle {
+    width: calc(1440px - (407px - 100vw));
+  }
+  #sec1 .catchphrase {
+    font-size: 6.8796068796vw;
+    line-height: 1.5;
+  }
+}
+#sec2 .wrap2 {
+  max-width: 533px;
 }

@@ -1,0 +1,28 @@
+#sec1 .wrap {
+  padding-top: 112px;
+  padding-bottom: 48px;
+}
+#sec1 .bg--circle {
+  position: absolute;
+  top: -720px;
+  left: 50%;
+  z-index: -1;
+  width: 1440px;
+  aspect-ratio: 1/1;
+  background-color: #2275ff;
+  transform: translateX(-50%);
+}
+#sec1 .wordmark {
+  width: 235.14px;
+  margin-bottom: 106px;
+}
+#sec1 .shot--main {
+  max-width: 375px;
+  margin-bottom: 36px;
+}
+#sec1 h3 {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 36px;
+  color: #2275ff;
+}

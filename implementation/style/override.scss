@@ -14,6 +14,7 @@ body {
 #sec1 {
   .wrap {
     padding-top: 112px;
+    padding-bottom: 25vh;
     background: linear-gradient($surfaceB, $surfaceA);
   }
   .bg--circle {
@@ -27,7 +28,7 @@ body {
     transform: translateX(-50%);
   }
   .wordmark {
-    height: 96px;
+    max-height: 96px;
     margin-bottom: 56px;
   }
   .shot--main {
@@ -44,7 +45,7 @@ body {
 @media (max-width: 406px) {
   #sec1 {
     .bg--circle {
-      width: calc(1440px - (407px - 100vw));
+      width: calc(1440px - ((407px - 100vw) * 812 / 375) * 0.5);
     }
     .catchphrase {
       font-size: calc(28 / 407 * 100vw);
@@ -54,7 +55,37 @@ body {
 }
 
 #sec2 {
-  .wrap2 {
+  .wrap3 {
     max-width: 533px;
+  }
+}
+@media (min-width: $bpDsk) {
+  #sec2 {
+    * {
+      overflow: visible;
+    }
+    .wrap {
+      gap: 56px;
+      align-items: flex-start;
+    }
+    .wrap2 {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: flex-start;
+      width: 100%;
+    }
+    .doodle {
+      flex-grow: 1;
+      order: 1;
+      height: 10px;
+      img {
+        z-index: 999;
+        object-position: top;
+        transform: translateY(256px);
+      }
+    }
+    .wrap3 {
+      max-width: 533px;
+    }
   }
 }

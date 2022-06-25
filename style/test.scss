@@ -1,0 +1,9 @@
+@import 'globalFunctions';
+
+.test {
+  color: getColorByToken('keyColorA', 'surface-1-dark');
+}
+
+.test2 {
+  @include getShadowPropertiesFromStyle('elevation-1');
+}

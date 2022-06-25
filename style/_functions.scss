@@ -1,0 +1,30 @@
+@use 'sass:color';
+@use 'sass:math';
+
+@function blend-transparent($background, $foreground) {
+  $fg-opacity: opacity($foreground);
+  $bg-opacity: opacity($background);
+  $opacity: $fg-opacity + $bg-opacity * (1 - $fg-opacity);
+  $factor: $bg-opacity * (1 - $fg-opacity);
+  $red: math.round(
+    math.div(
+      color.red($foreground) * $fg-opacity + color.red($background) * $factor,
+      $opacity
+    )
+  );
+  $green: math.round(
+    math.div(
+      color.green($foreground) * $fg-opacity + color.green($background) *
+        $factor,
+      $opacity
+    )
+  );
+  $blue: math.round(
+    math.div(
+      color.blue($foreground) * $fg-opacity + color.blue($background) * $factor,
+      $opacity
+    )
+  );
+
+  @return rgba($red, $green, $blue, $opacity);
+}

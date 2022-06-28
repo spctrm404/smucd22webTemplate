@@ -342,3 +342,21 @@ $shadowStyles: (
     ),
   ),
 );
+$breakponts: (
+  'hnd': (
+    'minWidth': 0px,
+    'nextKey': 'tbl',
+  ),
+  'tbl': (
+    'minWidth': 600px,
+    'nextKey': 'lpt',
+  ),
+  'lpt': (
+    'minWidth': 905px,
+    'nextKey': 'dsk',
+  ),
+  'dsk': (
+    'minWidth': 1240px,
+    'nextKey': '',
+  ),
+);

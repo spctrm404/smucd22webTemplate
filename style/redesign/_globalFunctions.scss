@@ -1,0 +1,124 @@
+@use 'sass:map';
+@use 'sass:list';
+@use 'sass:color';
+@use 'sass:math';
+@import 'functions';
+@import 'customizations';
+
+@mixin getFontPropertiesFromStyle($styleName) {
+  $prop-value: map.get($fontStyles, $styleName);
+  @each $prop, $value in $prop-value {
+    #{$prop}: #{$value};
+  }
+}
+
+@function getColorFromPalettes($paletteName, $colorNumber) {
+  $number-value: map.get($colorPalettes, $paletteName);
+  $color: map.get($number-value, $colorNumber);
+  @return $color;
+}
+
+@function getColorByToken($paletteName, $tokenName) {
+  $data: map.get($colorTokens, $tokenName);
+  $color: transparent;
+  @if (type-of($data) == 'map') {
+    @if (map.has-key($data, 'colorBg')) and (map.has-key($data, 'colorFg')) {
+      $colorMapBg: map.get($data, 'colorBg');
+      $colorPaletteNameBg: map.get($colorMapBg, 'paletteName');
+      $colorNumberBg: map.get($colorMapBg, 'colorNumber');
+      $colorOpacityBg: map.get($colorMapBg, 'opacity');
+      $colorBg: getColorFromPalettes($colorPaletteNameBg, $colorNumberBg);
+      $colorMapFg: map.get($data, 'colorFg');
+      $colorPaletteNameFg: map.get($colorMapFg, 'paletteName');
+      @if ($colorPaletteNameFg == '') {
+        $colorPaletteNameFg: $paletteName;
+      }
+      $colorNumberFg: map.get($colorMapFg, 'colorNumber');
+      $colorOpacityFg: map.get($colorMapFg, 'opacity');
+      $colorFg: getColorFromPalettes($colorPaletteNameFg, $colorNumberFg);
+      $color: blend-transparent(
+        rgba($colorBg, $colorOpacityBg),
+        rgba($colorFg, $colorOpacityFg)
+      );
+    } @else {
+      @each $paletteName, $colorNumber in $data {
+        $color: getColorFromPalettes($paletteName, $colorNumber);
+      }
+    }
+  } @else {
+    $color: getColorFromPalettes($paletteName, $data);
+  }
+  @return $color;
+}
+
+@mixin getShadowPropertiesFromStyle($styleName) {
+  $prop-value: map.get($shadowStyles, $styleName);
+  @each $prop, $value in $prop-value {
+    #{$prop}: #{$value};
+  }
+}
+
+@mixin greaterThan($key) {
+  @if (type-of($key == 'string')) {
+    $bpMap: map.get($breakponts, $key);
+    $minWidth: map.get($bpMap, 'minWidth');
+    @media (min-width: $minWidth) {
+      @content;
+    }
+  } @else if (type-of($key == 'number')) {
+    @media (min-width: $key) {
+      @content;
+    }
+  }
+}
+
+@mixin lessThan($key) {
+  @if (type-of($key == 'string')) {
+    $bpMap: map.get($breakponts, $key);
+    $nextKey: map.get($bpMap, 'nextKey');
+    $bpNextMap: map.get($breakponts, $nextKey);
+    $maxWidth: 9999px;
+    @if ($nextKey != '') {
+      $maxWidth: calc(map.get($bpNextMap, 'minWidth') - 1px);
+    }
+    @media (max-width: $maxWidth) {
+      @content;
+    }
+  } @else if (type-of($key == 'number')) {
+    @media (max-width: $key) {
+      @content;
+    }
+  }
+}
+
+@mixin equalTo($key) {
+  @if (type-of($key == 'string')) {
+    $bpMap: map.get($breakponts, $key);
+    $minWidth: map.get($bpMap, 'minWidth');
+    $nextKey: map.get($bpMap, 'nextKey');
+    $bpNextMap: map.get($breakponts, $nextKey);
+    $maxWidth: 9999px;
+    @if ($nextKey != '') {
+      $maxWidth: calc(map.get($bpNextMap, 'minWidth') - 1px);
+    }
+    @media (min-width: $minWidth) and (max-width: $maxWidth) {
+      @content;
+    }
+  }
+}
+
+@mixin between($keyA, $keyB) {
+  @if (type-of($key == 'string')) {
+    $bpMap: map.get($breakponts, $key);
+    $minWidth: map.get($bpMap, 'minWidth');
+    $nextKey: map.get($bpMap, 'nextKey');
+    $bpNextMap: map.get($breakponts, $nextKey);
+    $maxWidth: 9999px;
+    @if ($nextKey != '') {
+      $maxWidth: calc(map.get($bpNextMap, 'minWidth') - 1px);
+    }
+    @media (min-width: $minWidth) and (max-width: $maxWidth) {
+      @content;
+    }
+  }
+}

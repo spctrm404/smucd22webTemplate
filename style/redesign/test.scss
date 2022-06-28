@@ -1,9 +1,65 @@
 @import 'globalFunctions';
 
 .test {
-  color: getColorByToken('keyColorA', 'surface-1-dark');
+  color: getColorFromPalettes('primary-blue', 50);
+  background-color: getColorByToken('surface-1-dark', 'primary-blue');
+  @include getFontPropertiesFromStyle('body-md');
 }
 
 .test2 {
   @include getShadowPropertiesFromStyle('elevation-1');
+}
+
+@include lessThan('tbl') {
+  .test {
+    background-color: 'red';
+  }
+}
+
+@include lessThan(1px) {
+  .test {
+    background-color: 'blue';
+  }
+}
+
+@include greaterThan('tbl') {
+  .test {
+    background-color: 'red';
+  }
+}
+
+@include greaterThan(1px) {
+  .test {
+    background-color: 'blue';
+  }
+}
+
+@include equalTo('tbl') {
+  .test {
+    background-color: 'red';
+  }
+}
+
+@include between('lpt', 'tbl') {
+  .test {
+    background-color: 'red';
+  }
+}
+
+@include between('tbl', 'lpt') {
+  .test {
+    background-color: 'blue';
+  }
+}
+
+@include between(10px, 'tbl') {
+  .test {
+    background-color: 'red';
+  }
+}
+
+@include between('tbl', 9999px) {
+  .test {
+    background-color: 'blue';
+  }
 }

@@ -92,7 +92,7 @@ $fontStyles: (
   ),
 );
 $colorPalettes: (
-  'keyColorA': (
+  'primary-blue': (
     0: #000000,
     10: #00174d,
     20: #002a78,
@@ -122,7 +122,7 @@ $colorPalettes: (
     99: #fdfbff,
     100: #ffffff,
   ),
-  'neutralVariant': (
+  'neutral-variant': (
     0: #000000,
     10: #191b23,
     20: #2e3038,
@@ -139,14 +139,14 @@ $colorPalettes: (
   ),
 );
 $colorTokens: (
-  'key-light': 40,
-  'onKey-light': 100,
-  'keyContainer-light': 90,
-  'onKeyContainer-light': 10,
-  'background-light': (
+  'color-light': 40,
+  'onColor-light': 100,
+  'color-container-light': 90,
+  'onColor-cContainer-light': 10,
+  'bg-light': (
     'neutral': 99,
   ),
-  'onBackground-light': (
+  'onBg-light': (
     'neutral': 10,
   ),
   'surface-light': (
@@ -155,83 +155,83 @@ $colorTokens: (
   'onSurface-light': (
     'neutral': 10,
   ),
-  'surfaceVariant-light': (
-    'neutralVariant': 90,
+  'surfacevariant-light': (
+    'neutral-variant': 90,
   ),
-  'onSurfaceVariant-light': (
-    'neutralVariant': 30,
+  'onSurface-variant-light': (
+    'neutral-variant': 30,
   ),
   'outline-light': (
-    'neutralVariant': 50,
+    'neutral-variant': 50,
   ),
   'surface-1-light': (
-    'colorBg': (
-      'paletteName': 'neutral',
-      'colorNumber': 99,
+    'bg': (
+      'palette': 'neutral',
+      'number': 99,
       'opacity': 1,
     ),
-    'colorFg': (
-      'paletteName': '',
-      'colorNumber': 40,
+    'fg': (
+      'palette': '',
+      'number': 40,
       'opacity': 0.05,
     ),
   ),
   'surface-2-light': (
-    'colorBg': (
-      'paletteName': 'neutral',
-      'colorNumber': 99,
+    'bg': (
+      'palette': 'neutral',
+      'number': 99,
       'opacity': 1,
     ),
-    'colorFg': (
-      'paletteName': '',
-      'colorNumber': 40,
+    'fg': (
+      'palette': '',
+      'number': 40,
       'opacity': 0.08,
     ),
   ),
   'surface-3-light': (
-    'colorBg': (
-      'paletteName': 'neutral',
-      'colorNumber': 99,
+    'bg': (
+      'palette': 'neutral',
+      'number': 99,
       'opacity': 1,
     ),
-    'colorFg': (
-      'paletteName': '',
-      'colorNumber': 40,
+    'fg': (
+      'palette': '',
+      'number': 40,
       'opacity': 0.11,
     ),
   ),
   'surface-4-light': (
-    'colorBg': (
-      'paletteName': 'neutral',
-      'colorNumber': 99,
+    'bg': (
+      'palette': 'neutral',
+      'number': 99,
       'opacity': 1,
     ),
-    'colorFg': (
-      'paletteName': '',
-      'colorNumber': 40,
+    'fg': (
+      'palette': '',
+      'number': 40,
       'opacity': 0.12,
     ),
   ),
   'surface-5-light': (
-    'colorBg': (
-      'paletteName': 'neutral',
-      'colorNumber': 99,
+    'bg': (
+      'palette': 'neutral',
+      'number': 99,
       'opacity': 1,
     ),
-    'colorFg': (
-      'paletteName': '',
-      'colorNumber': 40,
+    'fg': (
+      'palette': '',
+      'number': 40,
       'opacity': 0.14,
     ),
   ),
-  'key-dark': 80,
-  'onKey-dark': 20,
-  'keyContainer-dark': 30,
-  'onKeyContainer-dark': 90,
-  'background-dark': (
+  'color-dark': 80,
+  'onColor-dark': 20,
+  'color-container-dark': 30,
+  'onColor-container-dark': 90,
+  'bg-dark': (
     'neutral': 10,
   ),
-  'onBackground-dark': (
+  'onBg-dark': (
     'neutral': 90,
   ),
   'surface-dark': (
@@ -240,72 +240,72 @@ $colorTokens: (
   'onSurface-dark': (
     'neutral': 80,
   ),
-  'surfaceVariant-dark': (
-    'neutralVariant': 30,
+  'surface-variant-dark': (
+    'neutral-variant': 30,
   ),
-  'onSurfaceVariant-dark': (
-    'neutralVariant': 80,
+  'onSurface-variant-dark': (
+    'neutral-variant': 80,
   ),
   'outline-dark': (
-    'neutralVariant': 60,
+    'neutral-variant': 60,
   ),
   'surface-1-dark': (
-    'colorBg': (
-      'paletteName': 'neutral',
-      'colorNumber': 10,
+    'bg': (
+      'palette': 'neutral',
+      'number': 10,
       'opacity': 1,
     ),
-    'colorFg': (
-      'paletteName': '',
-      'colorNumber': 80,
+    'fg': (
+      'palette': '',
+      'number': 80,
       'opacity': 0.05,
     ),
   ),
   'surface-2-dark': (
-    'colorBg': (
-      'paletteName': 'neutral',
-      'colorNumber': 10,
+    'bg': (
+      'palette': 'neutral',
+      'number': 10,
       'opacity': 1,
     ),
-    'colorFg': (
-      'paletteName': '',
-      'colorNumber': 80,
+    'fg': (
+      'palette': '',
+      'number': 80,
       'opacity': 0.08,
     ),
   ),
   'surface-3-dark': (
-    'colorBg': (
-      'paletteName': 'neutral',
-      'colorNumber': 10,
+    'bg': (
+      'palette': 'neutral',
+      'number': 10,
       'opacity': 1,
     ),
-    'colorFg': (
-      'paletteName': '',
-      'colorNumber': 80,
+    'fg': (
+      'palette': '',
+      'number': 80,
       'opacity': 0.11,
     ),
   ),
   'surface-4-dark': (
-    'colorBg': (
-      'paletteName': 'neutral',
-      'colorNumber': 10,
+    'bg': (
+      'palette': 'neutral',
+      'number': 10,
       'opacity': 1,
     ),
-    'colorFg': (
-      'paletteName': '',
-      'colorNumber': 80,
+    'fg': (
+      'palette': '',
+      'number': 80,
       'opacity': 0.12,
     ),
   ),
   'surface-5-dark': (
-    'colorBg': (
-      'paletteName': 'neutral',
-      'colorNumber': 10,
+    'bg': (
+      'palette': 'neutral',
+      'number': 10,
       'opacity': 1,
     ),
-    'colorFg': (
-      'paletteName': '',
-      'colorNumber': 80,
+    'fg': (
+      'palette': '',
+      'number': 80,
       'opacity': 0.14,
     ),
   ),
@@ -344,19 +344,19 @@ $shadowStyles: (
 );
 $breakponts: (
   'hnd': (
-    'minWidth': 0px,
-    'nextKey': 'tbl',
+    'min-width': 0px,
+    'next-key': 'tbl',
   ),
   'tbl': (
-    'minWidth': 600px,
-    'nextKey': 'lpt',
+    'min-width': 600px,
+    'next-key': 'lpt',
   ),
   'lpt': (
-    'minWidth': 905px,
-    'nextKey': 'dsk',
+    'min-width': 905px,
+    'next-key': 'dsk',
   ),
   'dsk': (
-    'minWidth': 1240px,
-    'nextKey': '',
+    'min-width': 1240px,
+    'next-key': '',
   ),
 );

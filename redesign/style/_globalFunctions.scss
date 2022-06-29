@@ -1,9 +1,9 @@
-@use 'sass:map';
-@use 'sass:list';
 @use 'sass:color';
+@use 'sass:list';
+@use 'sass:map';
 @use 'sass:math';
-@import 'functions';
 @import 'customizations';
+@import 'functions';
 
 @mixin getFontPropertiesFromStyle($styleName) {
   $prop-value: map.get($fontStyles, $styleName);

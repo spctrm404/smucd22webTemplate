@@ -83,7 +83,7 @@
     $bpNextMap: map.get($breakponts, $nextKey);
     $maxWidth: 9999px;
     @if ($nextKey != '') {
-      $maxWidth: calc(map.get($bpNextMap, 'min-width') - 1px);
+      $maxWidth: map.get($bpNextMap, 'min-width') - 1px;
     }
     @media (max-width: #{$maxWidth}) {
       @content;
@@ -99,7 +99,7 @@
     $maxWidth: 9999px;
     @if ($nextKey != '') {
       $bpNextMap: map.get($breakponts, $nextKey);
-      $maxWidth: calc(map.get($bpNextMap, 'min-width') - 1px);
+      $maxWidth: map.get($bpNextMap, 'min-width') - 1px;
     }
     @media (min-width: #{$minWidth}) and (max-width: #{$maxWidth}) {
       @content;
@@ -120,7 +120,7 @@
     $maxWidthA: 9999px;
     @if ($nextKeyA != '') {
       $bpNextMapA: map.get($breakponts, $nextKeyA);
-      $maxWidthA: calc(map.get($bpNextMapA, 'min-width') - 1px);
+      $maxWidthA: map.get($bpNextMapA, 'min-width') - 1px;
     }
     $bpMapB: map.get($breakponts, $valueB);
     $minWidthB: map.get($bpMapB, 'min-width');
@@ -128,7 +128,7 @@
     $maxWidthB: 9999px;
     @if ($nextKeyB != '') {
       $bpNextMapB: map.get($breakponts, $nextKeyB);
-      $maxWidthB: calc(map.get($bpNextMapB, 'min-width') - 1px);
+      $maxWidthB: map.get($bpNextMapB, 'min-width') - 1px;
     }
     $minWidth: math.min($minWidthA, $minWidthB);
     $maxWidth: math.max($maxWidthA, $maxWidthB);
@@ -139,7 +139,7 @@
     $maxWidth: 9999px;
     @if ($nextKey != '') {
       $bpNextMap: map.get($breakponts, $nextKey);
-      $maxWidth: calc(map.get($bpNextMap, 'min-width') - 1px);
+      $maxWidth: map.get($bpNextMap, 'min-width') - 1px;
     }
     $minWidth: math.min($minWidth, $valueB);
     $maxWidth: math.max($maxWidth, $valueB);
@@ -150,7 +150,7 @@
     $maxWidth: 9999px;
     @if ($nextKey != '') {
       $bpNextMap: map.get($breakponts, $nextKey);
-      $maxWidth: calc(map.get($bpNextMap, 'min-width') - 1px);
+      $maxWidth: map.get($bpNextMap, 'min-width') - 1px;
     }
     $minWidth: math.min($minWidth, $valueA);
     $maxWidth: math.max($maxWidth, $valueA);

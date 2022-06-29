@@ -5,6 +5,7 @@
 ::before,
 ::after {
   box-sizing: border-box;
+  flex-shrink: 0; // custom
   border-color: currentColor;
   border-style: solid;
   border-width: 0;
@@ -29,8 +30,11 @@ html {
   //   );
   font-family: $fontFamilies, sans-serif;
   line-height: 1.5;
+  overflow-wrap: break-word; // custom
   tab-size: 4;
+  cursor: default; //custom
   text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent; // custom
 }
 body {
   margin: 0;

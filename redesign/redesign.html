@@ -12,8 +12,15 @@
       crossorigin
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
     />
-    <link rel="stylesheet" href="./style/reset.css" />
-    <link rel="stylesheet" href="./style/template.css" />
+    <link rel="stylesheet" href="./style/reset.min.css" />
+    <link rel="stylesheet" href="./style/template.min.css" />
+    <style>
+      .container > * {
+        border-radius: 12px;
+        background-color: whitesmoke;
+        padding: 8px;
+      }
+    </style>
     <title>redesign</title>
   </head>
   <body>
@@ -54,20 +61,18 @@
     </div>
     <div class="section">
       <div class="container flex">
-        <div class="flex-span-full lpt-flex-span-half">1 Lorem, ipsum.</div>
-        <div class="flex-span-full lpt-flex-span-half">
-          2 Lorem ipsum dolor sit.
-        </div>
-        <div class="flex-span-full lpt-flex-span-half">
+        <div class="flex-w-full lpt-flex-w-half">1 Lorem, ipsum.</div>
+        <div class="flex-w-full lpt-flex-w-half">2 Lorem ipsum dolor sit.</div>
+        <div class="flex-w-full lpt-flex-w-half">
           3 Lorem ipsum dolor sit amet consectetur.
         </div>
-        <div class="flex-span-full lpt-flex-span-half">
+        <div class="flex-w-full lpt-flex-w-half">
           4 Lorem ipsum dolor, sit amet consectetur adipisicing elit.
         </div>
-        <div class="flex-span-full lpt-flex-span-half">
+        <div class="flex-w-full lpt-flex-w-half">
           5 Lorem ipsum dolor sit amet consectetur, adipisicing elit. A, minima.
         </div>
-        <div class="flex-span-full lpt-flex-span-half">
+        <div class="flex-w-full lpt-flex-w-half">
           6 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias
           iusto inventore laborum.
         </div>

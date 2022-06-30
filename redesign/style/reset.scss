@@ -5,7 +5,7 @@
 ::before,
 ::after {
   box-sizing: border-box;
-  flex-shrink: 0; // custom
+  // flex-shrink: 0; // custom
   border-color: currentColor;
   border-style: solid;
   border-width: 0;

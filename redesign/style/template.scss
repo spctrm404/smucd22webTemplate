@@ -1,14 +1,14 @@
 // to do
-// hidden
+// hidden - CHECKED
 // auto layout function
-// proper overflow hidden
+// proper overflow hidden - CHECKED
 // reconsider breakpoints
 // gap problem
 
 @import 'customizations';
 @import 'globalFunctions';
 
-@mixin setContainer($gapX, $gapY, $columnNum) {
+@mixin applyBreakpointsToContainer($gapX, $gapY, $columnNum) {
   .container {
     padding-block: 1.5 * $gapY;
     @content;
@@ -18,7 +18,7 @@
       column-gap: $gapY;
     }
     @at-root .flex {
-      @include createFlexItemEqualSizeDistributor($columnNum);
+      @include flexItemEvenSizeDistributor($columnNum);
     }
   }
 }
@@ -85,7 +85,7 @@
   }
 }
 
-@mixin createGridItemSizeClassesContinuous($columnNum) {
+@mixin createGridItemSizeClassesWithoutPrefix($columnNum) {
   .grid-w-half {
     grid-column-end: span calc($columnNum / 2);
   }
@@ -94,7 +94,7 @@
   }
 }
 
-@mixin createGridItemSizeClassesBp($columnNum, $bpPrefix: '') {
+@mixin createGridItemSizeClassesWithPrefix($columnNum, $bpPrefix: '') {
   .#{$bpPrefix}-grid-w-half {
     grid-column-end: span calc($columnNum / 2);
   }
@@ -103,7 +103,7 @@
   }
 }
 
-@mixin createFlexItemEqualSizeDistributor($columnNum) {
+@mixin flexItemEvenSizeDistributor($columnNum) {
   @for $i from 1 through 12 {
     & > *:first-child:nth-last-child(#{$i}),
     & > *:first-child:nth-last-child(#{$i}) ~ * {
@@ -119,36 +119,48 @@
 
 @mixin createFlexItemModClasses($columnNum, $bpPrefix: '') {
   @if ($bpPrefix == '') {
-    .flex-span-full {
+    .flex-w-full {
       flex-basis: 100%;
     }
-    .flex-span-half {
+    .flex-w-half {
       flex-basis: calc(100% / 2);
     }
     @for $divisor from 2 through $columnNum {
       @for $dividend from 1 to $divisor {
         @if (calc($dividend / $divisor) != calc(1 / 2)) {
-          .flex-span-#{$dividend}-#{$divisor} {
+          .flex-w-#{$dividend}-#{$divisor} {
             flex-basis: calc(100% / $divisor * $dividend);
           }
         }
       }
     }
   } @else {
-    .#{$bpPrefix}-flex-span-full {
+    .#{$bpPrefix}-flex-w-full {
       flex-basis: 100%;
     }
-    .#{$bpPrefix}-flex-span-half {
+    .#{$bpPrefix}-flex-w-half {
       flex-basis: calc(100% / 2);
     }
     @for $divisor from 2 through $columnNum {
       @for $dividend from 1 to $divisor {
         @if (calc($dividend / $divisor) != calc(1 / 2)) {
-          .#{$bpPrefix}-flex-span-#{$dividend}-#{$divisor} {
+          .#{$bpPrefix}-flex-w-#{$dividend}-#{$divisor} {
             flex-basis: calc(100% / $divisor * $dividend);
           }
         }
       }
+    }
+  }
+}
+
+@mixin createHiddenClasses($bpPrefix: '') {
+  @if ($bpPrefix == '') {
+    .section--hidden {
+      display: none;
+    }
+  } @else {
+    .#{$bpPrefix}-section--hidden {
+      display: none;
     }
   }
 }
@@ -160,7 +172,7 @@ body {
 .section {
   position: relative;
   display: flex;
-  flex-flow: row nowrap;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   &__bg {
@@ -180,11 +192,12 @@ body {
 
 .container {
   flex-basis: 100%;
-  flex-shrink: 1;
+  overflow: hidden;
+  // flex-shrink: 1;
   background-color: getColorByToken('bg-light');
   &.grid {
     display: grid;
-    &--rowHeight-even {
+    &--rowH-even {
       grid-auto-rows: 1fr;
     }
   }
@@ -219,19 +232,19 @@ body {
 }
 
 @include equalTo('hnd') {
-  @include setContainer(16px, 16px, 4) {
+  @include applyBreakpointsToContainer(16px, 16px, 4) {
     padding-inline: 16px;
   }
 }
 
 @include equalTo('tbl') {
-  @include setContainer(24px, 24px, 8) {
+  @include applyBreakpointsToContainer(24px, 24px, 8) {
     padding-inline: 32px;
   }
 }
 
 @include equalTo('lpt') {
-  @include setContainer(24px, 24px, 12) {
+  @include applyBreakpointsToContainer(24px, 24px, 12) {
     flex-basis: auto;
     width: 904px;
     padding-inline: 32px;
@@ -239,54 +252,66 @@ body {
 }
 
 @include equalTo('dsk') {
-  @include setContainer(24px, 24px, 12) {
+  @include applyBreakpointsToContainer(24px, 24px, 12) {
     max-width: 1440px;
     padding-inline: min(calc(84 / 1440 * 100%), 84px);
   }
 }
 
 @include greaterThan('hnd') {
-  @include createGridItemSizeClassesContinuous(4);
-  @include createGridItemModClasses(4);
+  .container {
+    @include createGridItemSizeClassesWithoutPrefix(4);
+    @include createGridItemModClasses(4);
+  }
   .section {
     .container {
       @include createFlexItemModClasses(4);
     }
   }
+  @include createHiddenClasses();
 }
 
 @include greaterThan('tbl') {
-  @include createGridItemSizeClassesContinuous(8);
-  @include createGridItemSizeClassesBp(8, 'tbl');
-  @include createGridItemModClasses(8, 'tbl');
+  .container {
+    @include createGridItemSizeClassesWithoutPrefix(8);
+    @include createGridItemSizeClassesWithPrefix(8, 'tbl');
+    @include createGridItemModClasses(8, 'tbl');
+  }
   .section {
     .container {
       @include createFlexItemModClasses(8, 'tbl');
     }
   }
+  @include createHiddenClasses('tbl');
 }
 
 @include greaterThan('lpt') {
-  @include createGridItemSizeClassesContinuous(12);
-  @include createGridItemSizeClassesBp(12, 'tbl');
-  @include createGridItemSizeClassesBp(12, 'lpt');
-  @include createGridItemModClasses(12, 'lpt');
+  .container {
+    @include createGridItemSizeClassesWithoutPrefix(12);
+    @include createGridItemSizeClassesWithPrefix(12, 'tbl');
+    @include createGridItemSizeClassesWithPrefix(12, 'lpt');
+    @include createGridItemModClasses(12, 'lpt');
+  }
   .section {
     .container {
       @include createFlexItemModClasses(12, 'lpt');
     }
   }
+  @include createHiddenClasses('lpt');
 }
 
 @include greaterThan('dsk') {
-  @include createGridItemSizeClassesContinuous(12);
-  @include createGridItemSizeClassesBp(12, 'tbl');
-  @include createGridItemSizeClassesBp(12, 'lpt');
-  @include createGridItemSizeClassesBp(12, 'dsk');
-  @include createGridItemModClasses(12, 'dsk');
+  .container {
+    @include createGridItemSizeClassesWithoutPrefix(12);
+    @include createGridItemSizeClassesWithPrefix(12, 'tbl');
+    @include createGridItemSizeClassesWithPrefix(12, 'lpt');
+    @include createGridItemSizeClassesWithPrefix(12, 'dsk');
+    @include createGridItemModClasses(12, 'dsk');
+  }
   .section {
     .container {
       @include createFlexItemModClasses(12, 'dsk');
     }
   }
+  @include createHiddenClasses('dsk');
 }

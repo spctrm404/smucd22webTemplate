@@ -349,14 +349,17 @@ $breakponts: (
     'next-key': 'tbl',
   ),
   'tbl': (
+    // 'min-width': 425px,
     'min-width': 600px,
     'next-key': 'lpt',
   ),
   'lpt': (
+    // 'min-width': 768px,
     'min-width': 905px,
     'next-key': 'dsk',
   ),
   'dsk': (
+    // 'min-width': 1024px,
     'min-width': 1240px,
     'next-key': '',
   ),

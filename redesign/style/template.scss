@@ -1,3 +1,4 @@
+/* stylelint-disable no-descending-specificity */
 // to do
 // hidden - CHECKED
 // auto layout function
@@ -205,21 +206,21 @@ body {
     position: relative;
     z-index: -1;
     &--left {
-      grid-row: 1 / span 2;
-      grid-column: 1 / span 1;
+      grid-row: 1 #{'/'} span 2;
+      grid-column: 1 #{'/'} span 1;
       background-color: transparent;
     }
     &--right {
-      grid-row: 1 / span 2;
-      grid-column: 3 / span 1;
+      grid-row: 1 #{'/'} span 2;
+      grid-column: 3 #{'/'} span 1;
       background-color: transparent;
     }
   }
 }
 
 .container {
-  grid-row: 1 / span 2;
-  grid-column: 2 / span 1;
+  grid-row: 1 #{'/'} span 2;
+  grid-column: 2 #{'/'} span 1;
   width: 100%;
   overflow: hidden;
   background-color: getColorByToken('bg-light');
@@ -239,7 +240,7 @@ body {
     }
   }
   &#{&}--w-full {
-    grid-column: 1 / span 3;
+    grid-column: 1 #{'/'} span 3;
   }
   &--h-full {
     min-height: 100vh;
@@ -259,7 +260,7 @@ body {
   }
 }
 
-@include equalTo('hnd') {
+@include eq('hnd') {
   @include applyBreakpoint(0, 100%, 16px, 4, 16px, 16px) {
     .section {
       &__bg {
@@ -267,12 +268,12 @@ body {
       }
     }
     .container {
-      grid-column: 1 / span 3;
+      grid-column: 1 #{'/'} span 3;
     }
   }
 }
 
-@include equalTo('tbl') {
+@include eq('tbl') {
   @include applyBreakpoint(0, 100%, 32px, 8, 24px, 24px) {
     .section {
       &__bg {
@@ -280,17 +281,24 @@ body {
       }
     }
     .container {
-      grid-column: 1 / span 3;
+      grid-column: 1 #{'/'} span 3;
+    }
+  }
+  .container {
+    @include createGridItemModClasses(8, 'tbl');
+  }
+  .section {
+    .container {
+      @include createFlexItemModClasses(8, 'tbl');
     }
   }
 }
 
-@include equalTo('lpt') {
-  @include applyBreakpoint(1fr, 904px, 32px, 12, 24px, 24px) {
-  }
+@include eq('lpt') {
+  @include applyBreakpoint(1fr, 904px, 32px, 12, 24px, 24px);
 }
 
-@include equalTo('dsk') {
+@include eq('dsk') {
   @include applyBreakpoint(
     1fr,
     minmax(0, 1440px),
@@ -298,11 +306,10 @@ body {
     12,
     24px,
     24px
-  ) {
-  }
+  );
 }
 
-@include greaterThan('hnd') {
+@include ge('hnd') {
   .container {
     @include createGridItemSizeClassesWithoutPrefix(4);
     @include createGridItemModClasses(4);
@@ -312,50 +319,57 @@ body {
       @include createFlexItemModClasses(4);
     }
   }
-  @include createHiddenClasses();
 }
 
-@include greaterThan('tbl') {
+@include ge('tbl') {
   .container {
     @include createGridItemSizeClassesWithoutPrefix(8);
-    @include createGridItemSizeClassesWithPrefix(8, 'tbl');
-    @include createGridItemModClasses(8, 'tbl');
+    @include createGridItemSizeClassesWithPrefix(8, 'tbl-ge');
+  }
+  @include createHiddenClasses('tbl-ge');
+}
+
+@include ge('lpt') {
+  .container {
+    @include createGridItemSizeClassesWithoutPrefix(12);
+    @include createGridItemSizeClassesWithPrefix(12, 'tbl-ge');
+    @include createGridItemSizeClassesWithPrefix(12, 'lpt-ge');
+    @include createGridItemModClasses(12, 'lpt-ge');
   }
   .section {
     .container {
-      @include createFlexItemModClasses(8, 'tbl');
+      @include createFlexItemModClasses(12, 'lpt-ge');
     }
   }
-  @include createHiddenClasses('tbl');
+  @include createHiddenClasses('lpt-ge');
 }
 
-@include greaterThan('lpt') {
+@include ge('dsk') {
   .container {
     @include createGridItemSizeClassesWithoutPrefix(12);
-    @include createGridItemSizeClassesWithPrefix(12, 'tbl');
-    @include createGridItemSizeClassesWithPrefix(12, 'lpt');
-    @include createGridItemModClasses(12, 'lpt');
-  }
-  .section {
-    .container {
-      @include createFlexItemModClasses(12, 'lpt');
-    }
-  }
-  @include createHiddenClasses('lpt');
-}
-
-@include greaterThan('dsk') {
-  .container {
-    @include createGridItemSizeClassesWithoutPrefix(12);
-    @include createGridItemSizeClassesWithPrefix(12, 'tbl');
-    @include createGridItemSizeClassesWithPrefix(12, 'lpt');
+    @include createGridItemSizeClassesWithPrefix(12, 'tbl-ge');
+    @include createGridItemSizeClassesWithPrefix(12, 'lpt-ge');
     @include createGridItemSizeClassesWithPrefix(12, 'dsk');
+    @include createGridItemModClasses(12, 'lpt-ge');
     @include createGridItemModClasses(12, 'dsk');
   }
   .section {
     .container {
+      @include createFlexItemModClasses(12, 'lpt-ge');
       @include createFlexItemModClasses(12, 'dsk');
     }
   }
   @include createHiddenClasses('dsk');
+}
+
+@include le('hnd') {
+  @include createHiddenClasses('hnd');
+}
+
+@include le('tbl') {
+  @include createHiddenClasses('tbl-le');
+}
+
+@include le('lpt') {
+  @include createHiddenClasses('lpt-le');
 }

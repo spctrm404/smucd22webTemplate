@@ -1,0 +1,21 @@
+@mixin autolayout($direction: 'h', $gap: 0px, $align: 'tl') {
+  display: flex;
+  flex-wrap: nowrap;
+  @if ($direction: 'h') {
+    flex-flow: row;
+  } @else if ($direction: 'v') {
+    flex-flow: column;
+  }
+  gap: $gap;
+  @if ($align: 'tl') {
+    justify-content: flex-start;
+  } @else if($align: 'tc') {
+  } @else if($align: 'tr') {
+  } @else if($align: 'cl') {
+  } @else if($align: 'cc') {
+  } @else if($align: 'cr') {
+  } @else if($align: 'bl') {
+  } @else if($align: 'bc') {
+  } @else if($align: 'br') {
+  }
+}

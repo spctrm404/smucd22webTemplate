@@ -58,7 +58,7 @@
   }
 }
 
-@mixin greaterThan($value) {
+@mixin ge($value) {
   @if (type-of($value) == 'number') {
     @media (min-width: #{$value}) {
       @content;
@@ -72,7 +72,7 @@
   }
 }
 
-@mixin lessThan($value) {
+@mixin le($value) {
   @if (type-of($value) == 'number') {
     @media (max-width: #{$value}) {
       @content;
@@ -91,7 +91,7 @@
   }
 }
 
-@mixin equalTo($value) {
+@mixin eq($value) {
   @if (type-of($value) == 'string') {
     $bpMap: map.get($breakponts, $value);
     $minWidth: map.get($bpMap, 'min-width');
@@ -107,7 +107,7 @@
   }
 }
 
-@mixin between($valueA, $valueB) {
+@mixin gele($valueA, $valueB) {
   $minWidth: 0px;
   $maxWidth: 9999px;
   @if (type-of($valueA) == 'number') and (type-of($valueB) == 'number') {

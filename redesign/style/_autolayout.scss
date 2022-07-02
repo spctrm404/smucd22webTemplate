@@ -4,8 +4,7 @@
   $alignX: 'l',
   $alignY: 't',
   $isPacked: true,
-  $isAlignBaseline: false,
-  $paddings...
+  $isAlignBaseline: false
 ) {
   display: flex;
   flex-wrap: nowrap;
@@ -23,15 +22,19 @@
     $alignYProp: flex-end;
   }
   @if ($isAlignBaseline) {
+    $isDirX: true;
   }
-
   @if ($isDirX) {
     flex-direction: row;
-    align-items: $alignYProp;
+    @if ($isAlignBaseline) {
+      align-items: baseline;
+    } @else {
+      align-items: $alignYProp;
+    }
     @if ($isPacked) {
       justify-content: $alignXProp;
     } @else {
-      justify-content: $alignXProp;
+      justify-content: space-between;
     }
   } @else {
     flex-direction: column;
@@ -39,7 +42,7 @@
     @if ($isPacked) {
       justify-content: $alignYProp;
     } @else {
-      justify-content: $alignYProp;
+      justify-content: space-between;
     }
   }
 }

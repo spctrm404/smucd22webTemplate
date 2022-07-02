@@ -107,7 +107,7 @@
   }
 }
 
-@mixin gele($valueA, $valueB) {
+@mixin between($valueA, $valueB) {
   $minWidth: 0px;
   $maxWidth: 9999px;
   @if (type-of($valueA) == 'number') and (type-of($valueB) == 'number') {

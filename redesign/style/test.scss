@@ -10,31 +10,31 @@
   @include getShadowPropertiesFromStyle('elevation-1');
 }
 
-@include lessThan('tbl') {
+@include le('tbl') {
   .test {
     background-color: 'red';
   }
 }
 
-@include lessThan(1px) {
+@include le(1px) {
   .test {
     background-color: 'blue';
   }
 }
 
-@include greaterThan('tbl') {
+@include ge('tbl') {
   .test {
     background-color: 'red';
   }
 }
 
-@include greaterThan(1px) {
+@include ge(1px) {
   .test {
     background-color: 'blue';
   }
 }
 
-@include equalTo('tbl') {
+@include eq('tbl') {
   .test {
     background-color: 'red';
   }

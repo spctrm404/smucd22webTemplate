@@ -1,0 +1,372 @@
+$yGapSolivingPadding: 10px;
+$fontFamilies: ('pretendard');
+$fontStyles: (
+  'body-sm': (
+    'font-size': 12px,
+    'font-weight': 400,
+    'line-height': 16px,
+    'letter-spacing': 0.4px,
+  ),
+  'label-sm': (
+    'font-size': 11px,
+    'font-weight': 500,
+    'line-height': 16px,
+    'letter-spacing': 0.5px,
+  ),
+  'title-sm': (
+    'font-size': 14px,
+    'font-weight': 500,
+    'line-height': 20px,
+    'letter-spacing': 0.1px,
+  ),
+  'headline-sm': (
+    'font-size': 24px,
+    'font-weight': 400,
+    'line-height': 32px,
+    'letter-spacing': 0px,
+  ),
+  'display-sm': (
+    'font-size': 36px,
+    'font-weight': 400,
+    'line-height': 44px,
+    'letter-spacing': 0px,
+  ),
+  'body-md': (
+    'font-size': 14px,
+    'font-weight': 400,
+    'line-height': 20px,
+    'letter-spacing': 0.25px,
+  ),
+  'label-md': (
+    'font-size': 12px,
+    'font-weight': 500,
+    'line-height': 16px,
+    'letter-spacing': 0.5px,
+  ),
+  'title-md': (
+    'font-size': 16px,
+    'font-weight': 500,
+    'line-height': 24px,
+    'letter-spacing': 0.1px,
+  ),
+  'headline-md': (
+    'font-size': 28px,
+    'font-weight': 400,
+    'line-height': 36px,
+    'letter-spacing': 0px,
+  ),
+  'display-md': (
+    'font-size': 45px,
+    'font-weight': 400,
+    'line-height': 52px,
+    'letter-spacing': 0px,
+  ),
+  'body-lg': (
+    'font-size': 16px,
+    'font-weight': 400,
+    'line-height': 24px,
+    'letter-spacing': 0.5px,
+  ),
+  'label-lg': (
+    'font-size': 14px,
+    'font-weight': 500,
+    'line-height': 20px,
+    'letter-spacing': 0.1px,
+  ),
+  'title-lg': (
+    'font-size': 22px,
+    'font-weight': 500,
+    'line-height': 28px,
+    'letter-spacing': 0px,
+  ),
+  'headline-lg': (
+    'font-size': 32px,
+    'font-weight': 400,
+    'line-height': 40px,
+    'letter-spacing': 0px,
+  ),
+  'display-lg': (
+    'font-size': 57px,
+    'font-weight': 400,
+    'line-height': 64px,
+    'letter-spacing': -0.25px,
+  ),
+);
+$colorPalettes: (
+  'primary-blue': (
+    0: #000000,
+    10: #00174d,
+    20: #002a78,
+    30: #214290,
+    40: #3d5ba9,
+    50: #5774c4,
+    60: #718ee0,
+    70: #8ba8fc,
+    80: #b1c5ff,
+    90: #dae2ff,
+    95: #eef0ff,
+    99: #fdfbff,
+    100: #ffffff,
+  ),
+  'neutral': (
+    0: #000000,
+    10: #1b1b1f,
+    20: #303033,
+    30: #46464a,
+    40: #5e5e62,
+    50: #77767a,
+    60: #919094,
+    70: #acabaf,
+    80: #c8c6ca,
+    90: #e3e1e6,
+    95: #f2f0f5,
+    99: #fdfbff,
+    100: #ffffff,
+  ),
+  'neutral-variant': (
+    0: #000000,
+    10: #191b23,
+    20: #2e3038,
+    30: #44464e,
+    40: #5c5e67,
+    50: #75767f,
+    60: #8f909a,
+    70: #a9aab4,
+    80: #c6c6d0,
+    90: #e2e2ec,
+    95: #f0f0fb,
+    99: #fdfbff,
+    100: #000000,
+  ),
+);
+$colorTokens: (
+  'color-light': 40,
+  'onColor-light': 100,
+  'color-container-light': 90,
+  'onColor-cContainer-light': 10,
+  'bg-light': (
+    'neutral': 99,
+  ),
+  'onBg-light': (
+    'neutral': 10,
+  ),
+  'surface-light': (
+    'neutral': 99,
+  ),
+  'onSurface-light': (
+    'neutral': 10,
+  ),
+  'surfacevariant-light': (
+    'neutral-variant': 90,
+  ),
+  'onSurface-variant-light': (
+    'neutral-variant': 30,
+  ),
+  'outline-light': (
+    'neutral-variant': 50,
+  ),
+  'surface-1-light': (
+    'bg': (
+      'palette': 'neutral',
+      'number': 99,
+      'opacity': 1,
+    ),
+    'fg': (
+      'palette': '',
+      'number': 40,
+      'opacity': 0.05,
+    ),
+  ),
+  'surface-2-light': (
+    'bg': (
+      'palette': 'neutral',
+      'number': 99,
+      'opacity': 1,
+    ),
+    'fg': (
+      'palette': '',
+      'number': 40,
+      'opacity': 0.08,
+    ),
+  ),
+  'surface-3-light': (
+    'bg': (
+      'palette': 'neutral',
+      'number': 99,
+      'opacity': 1,
+    ),
+    'fg': (
+      'palette': '',
+      'number': 40,
+      'opacity': 0.11,
+    ),
+  ),
+  'surface-4-light': (
+    'bg': (
+      'palette': 'neutral',
+      'number': 99,
+      'opacity': 1,
+    ),
+    'fg': (
+      'palette': '',
+      'number': 40,
+      'opacity': 0.12,
+    ),
+  ),
+  'surface-5-light': (
+    'bg': (
+      'palette': 'neutral',
+      'number': 99,
+      'opacity': 1,
+    ),
+    'fg': (
+      'palette': '',
+      'number': 40,
+      'opacity': 0.14,
+    ),
+  ),
+  'color-dark': 80,
+  'onColor-dark': 20,
+  'color-container-dark': 30,
+  'onColor-container-dark': 90,
+  'bg-dark': (
+    'neutral': 10,
+  ),
+  'onBg-dark': (
+    'neutral': 90,
+  ),
+  'surface-dark': (
+    'neutral': 10,
+  ),
+  'onSurface-dark': (
+    'neutral': 80,
+  ),
+  'surface-variant-dark': (
+    'neutral-variant': 30,
+  ),
+  'onSurface-variant-dark': (
+    'neutral-variant': 80,
+  ),
+  'outline-dark': (
+    'neutral-variant': 60,
+  ),
+  'surface-1-dark': (
+    'bg': (
+      'palette': 'neutral',
+      'number': 10,
+      'opacity': 1,
+    ),
+    'fg': (
+      'palette': '',
+      'number': 80,
+      'opacity': 0.05,
+    ),
+  ),
+  'surface-2-dark': (
+    'bg': (
+      'palette': 'neutral',
+      'number': 10,
+      'opacity': 1,
+    ),
+    'fg': (
+      'palette': '',
+      'number': 80,
+      'opacity': 0.08,
+    ),
+  ),
+  'surface-3-dark': (
+    'bg': (
+      'palette': 'neutral',
+      'number': 10,
+      'opacity': 1,
+    ),
+    'fg': (
+      'palette': '',
+      'number': 80,
+      'opacity': 0.11,
+    ),
+  ),
+  'surface-4-dark': (
+    'bg': (
+      'palette': 'neutral',
+      'number': 10,
+      'opacity': 1,
+    ),
+    'fg': (
+      'palette': '',
+      'number': 80,
+      'opacity': 0.12,
+    ),
+  ),
+  'surface-5-dark': (
+    'bg': (
+      'palette': 'neutral',
+      'number': 10,
+      'opacity': 1,
+    ),
+    'fg': (
+      'palette': '',
+      'number': 80,
+      'opacity': 0.14,
+    ),
+  ),
+);
+$shadowStyles: (
+  'elevation-0': (
+    'box-shadow': (
+      0px 0px 0px rgba(0, 0, 0, 0.3),
+      0px 0px 0px 0px rgba(0, 0, 0, 0.15),
+    ),
+  ),
+  'elevation-1': (
+    'box-shadow': (
+      0px 1px 2px rgba(0, 0, 0, 0.3),
+      0px 1px 3px 1px rgba(0, 0, 0, 0.15),
+    ),
+  ),
+  'elevation-2': (
+    'box-shadow': (
+      0px 1px 2px rgba(0, 0, 0, 0.3),
+      0px 2px 6px 2px rgba(0, 0, 0, 0.15),
+    ),
+  ),
+  'elevation-3': (
+    'box-shadow': (
+      0px 1px 3px rgba(0, 0, 0, 0.3),
+      0px 4px 8px 3px rgba(0, 0, 0, 0.15),
+    ),
+  ),
+  'elevation-4': (
+    'box-shadow': (
+      0px 2px 3px rgba(0, 0, 0, 0.3),
+      0px 6px 10px 4px rgba(0, 0, 0, 0.15),
+    ),
+  ),
+  'elevation-5': (
+    'box-shadow': (
+      0px 4px 4px rgba(0, 0, 0, 0.3),
+      0px 8px 12px 6px rgba(0, 0, 0, 0.15),
+    ),
+  ),
+);
+$breakponts: (
+  'hnd': (
+    'min-width': 0px,
+    'next-key': 'tbl',
+  ),
+  'tbl': (
+    // 'min-width': 425px,
+    'min-width': 600px,
+    'next-key': 'lpt',
+  ),
+  'lpt': (
+    // 'min-width': 768px,
+    'min-width': 905px,
+    'next-key': 'dsk',
+  ),
+  'dsk': (
+    // 'min-width': 1024px,
+    'min-width': 1240px,
+    'next-key': '',
+  ),
+);

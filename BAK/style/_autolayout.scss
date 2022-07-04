@@ -1,0 +1,87 @@
+@use 'sass:map';
+
+@mixin createAlAlignClasses($isDirRow, $alignAbbr-value, $isPacked: true) {
+  $abbr-valueX: map.get($alignAbbr-value, 'x');
+  $abbr-valueY: map.get($alignAbbr-value, 'y');
+  @each $abbrX, $valueX in $abbr-valueX {
+    @each $abbrY, $valueY in $abbr-valueY {
+      &.al-align-#{$abbrY}#{$abbrX} {
+        @if ($isDirRow) {
+          @if ($isPacked) {
+            align-items: $valueY; // y
+            justify-content: $valueX; // x
+          } @else {
+            justify-content: space-between; // x
+          }
+        } @else {
+          @if ($isPacked) {
+            align-items: $valueX; // x
+            justify-content: $valueY; // y
+          } @else {
+            justify-content: space-between; // x
+          }
+        }
+      }
+    }
+  }
+}
+$alignAbbr-value: (
+  'x': (
+    'l': flex-start,
+    'c': center,
+    'r': flex-end,
+  ),
+  'y': (
+    't': flex-start,
+    'c': center,
+    'b': flex-end,
+  ),
+);
+
+.al {
+  &-dir {
+    @at-root .al,
+      &-x {
+      flex-direction: row;
+      @include createAlAlignClasses(true, $alignAbbr-value);
+      &.al-align-baseline {
+        align-items: baseline;
+      }
+      > .w-fill {
+        flex-grow: 1;
+      }
+      > .h-fill {
+        align-self: stretch;
+      }
+    }
+    &-y {
+      flex-direction: column;
+      @include createAlAlignClasses(false, $alignAbbr-value);
+      > .w-fill {
+        align-self: stretch;
+      }
+      > .h-fill {
+        flex-grow: 1;
+      }
+    }
+  }
+}
+.al-dir-x,
+.al-dir-y,
+.al {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  @for $stp from 1 through 16 {
+    &-gap-#{$stp}:not(.al-spacing-spaceBetween) {
+      gap: $stp * 4px;
+    }
+  }
+  &.al-spacing-spaceBetween {
+    justify-content: space-between;
+  }
+  > * {
+    flex: none;
+    flex-grow: 0;
+  }
+}

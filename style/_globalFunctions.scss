@@ -18,6 +18,32 @@
   @return $color;
 }
 
+@function blendWithTransparent($bg, $fg) {
+  $aFg: opacity($fg);
+  $aBg: opacity($bg);
+  $a: $aFg + $aBg * (1 - $aFg);
+  // $factor: $aBg * (1 - $aFg);
+  $r: math.round(
+    calc(
+      (color.red($fg) * $aFg + color.red($bg) * $aBg * (1 - $aFg)) /
+        ($aFg + $aBg * (1 - $aFg))
+    )
+  );
+  $g: math.round(
+    calc(
+      (color.green($fg) * $aFg + color.green($bg) * $aBg * (1 - $aFg)) /
+        ($aFg + $aBg * (1 - $aFg))
+    )
+  );
+  $b: math.round(
+    calc(
+      (color.blue($fg) * $aFg + color.blue($bg) * $aBg * (1 - $aFg)) /
+        ($aFg + $aBg * (1 - $aFg))
+    )
+  );
+  @return rgba($r, $g, $b, $a);
+}
+
 @function getColorByToken($tokenName, $paletteName: 'neutral') {
   $color: transparent;
   $data: map.get($colorTokens, $tokenName);
@@ -36,7 +62,7 @@
       $fgColorNumber: map.get($fg, 'number');
       $fgOpacity: map.get($fg, 'opacity');
       $fgColor: getColorFromPalettes($fgPaletteName, $fgColorNumber);
-      $color: blend-transparent(
+      $color: blendWithTransparent(
         rgba($bgColor, $bgOpacity),
         rgba($fgColor, $fgOpacity)
       );

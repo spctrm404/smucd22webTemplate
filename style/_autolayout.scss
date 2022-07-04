@@ -1,87 +1,48 @@
-@use 'sass:map';
-
-@mixin createAlAlignClasses($isDirRow, $alignAbbr-value, $isPacked: true) {
-  $abbr-valueX: map.get($alignAbbr-value, 'x');
-  $abbr-valueY: map.get($alignAbbr-value, 'y');
-  @each $abbrX, $valueX in $abbr-valueX {
-    @each $abbrY, $valueY in $abbr-valueY {
-      &.al-align-#{$abbrY}#{$abbrX} {
-        @if ($isDirRow) {
-          @if ($isPacked) {
-            align-items: $valueY; // y
-            justify-content: $valueX; // x
-          } @else {
-            justify-content: space-between; // x
-          }
-        } @else {
-          @if ($isPacked) {
-            align-items: $valueX; // x
-            justify-content: $valueY; // y
-          } @else {
-            justify-content: space-between; // x
-          }
-        }
-      }
-    }
-  }
-}
-$alignAbbr-value: (
-  'x': (
-    'l': flex-start,
-    'c': center,
-    'r': flex-end,
-  ),
-  'y': (
-    't': flex-start,
-    'c': center,
-    'b': flex-end,
-  ),
-);
-
-.al {
-  &-dir {
-    @at-root .al,
-      &-x {
-      flex-direction: row;
-      @include createAlAlignClasses(true, $alignAbbr-value);
-      &.al-align-baseline {
-        align-items: baseline;
-      }
-      > .w-fill {
-        flex-grow: 1;
-      }
-      > .h-fill {
-        align-self: stretch;
-      }
-    }
-    &-y {
-      flex-direction: column;
-      @include createAlAlignClasses(false, $alignAbbr-value);
-      > .w-fill {
-        align-self: stretch;
-      }
-      > .h-fill {
-        flex-grow: 1;
-      }
-    }
-  }
-}
-.al-dir-x,
-.al-dir-y,
-.al {
+@mixin autolayout(
+  $isDirX: true,
+  $gap: 0px,
+  $alignX: 'l',
+  $alignY: 't',
+  $isPacked: true,
+  $isAlignBaseline: false
+) {
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  @for $stp from 1 through 16 {
-    &-gap-#{$stp}:not(.al-spacing-spaceBetween) {
-      gap: $stp * 4px;
+  flex-wrap: nowrap;
+  gap: $gap;
+  $alignXProp: flex-start;
+  @if ($alignX == 'c') {
+    $alignXProp: center;
+  } @else if ($alignX == 'r') {
+    $alignXProp: flex-end;
+  }
+  $alignYProp: flex-start;
+  @if ($alignY == 'c') {
+    $alignYProp: center;
+  } @else if ($alignY == 'b') {
+    $alignYProp: flex-end;
+  }
+  @if ($isAlignBaseline) {
+    $isDirX: true;
+  }
+  @if ($isDirX) {
+    flex-direction: row;
+    @if ($isAlignBaseline) {
+      align-items: baseline;
+    } @else {
+      align-items: $alignYProp;
     }
-  }
-  &.al-spacing-spaceBetween {
-    justify-content: space-between;
-  }
-  > * {
-    flex: none;
-    flex-grow: 0;
+    @if ($isPacked) {
+      justify-content: $alignXProp;
+    } @else {
+      justify-content: space-between;
+    }
+  } @else {
+    flex-direction: column;
+    align-items: $alignXProp;
+    @if ($isPacked) {
+      justify-content: $alignYProp;
+    } @else {
+      justify-content: space-between;
+    }
   }
 }

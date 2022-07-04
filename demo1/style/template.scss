@@ -17,7 +17,6 @@
   $gridGapX,
   $gridGapY
 ) {
-  @content;
   .section {
     grid-template-columns: $sectionSideW $sectionCenterW $sectionSideW;
   }
@@ -261,42 +260,15 @@ body {
 }
 
 @include eq('hnd') {
-  @include applyBreakpoint(0, 100%, 8px, 4, 16px, 16px) {
-    .section {
-      &__bg {
-        display: none;
-      }
-    }
-    .container {
-      grid-column: 1 #{'/'} span 3;
-    }
-  }
+  @include applyBreakpoint(0, 100%, 8px, 4, 16px, 16px);
 }
 
 @include eq('tblSm') {
-  @include applyBreakpoint(0, 100%, 12px, 12, 16px, 16px) {
-    .section {
-      &__bg {
-        display: none;
-      }
-    }
-    .container {
-      grid-column: 1 #{'/'} span 12;
-    }
-  }
+  @include applyBreakpoint(0, 100%, 12px, 12, 16px, 16px);
 }
 
 @include eq('tblLg') {
-  @include applyBreakpoint(0, 100%, 32px, 12, 24px, 24px) {
-    .section {
-      &__bg {
-        display: none;
-      }
-    }
-    .container {
-      grid-column: 1 #{'/'} span 12;
-    }
-  }
+  @include applyBreakpoint(0, 100%, 32px, 12, 24px, 24px);
 }
 
 @include eq('lpt') {
@@ -307,16 +279,7 @@ body {
     12,
     24px,
     24px
-  ) {
-    .section {
-      &__bg {
-        display: none;
-      }
-    }
-    .container {
-      grid-column: 1 #{'/'} span 12;
-    }
-  }
+  );
 }
 
 @include eq('dsk') {
@@ -331,6 +294,9 @@ body {
 }
 
 @include ge('hnd') {
+  html {
+    @include getFontPropertiesFromStyle('body-md');
+  }
   .container {
     @include createGridItemSizeClassesWithoutPrefix(4);
     @include createGridItemModClasses(4);
@@ -356,6 +322,9 @@ body {
 }
 
 @include ge('tblLg') {
+  html {
+    @include getFontPropertiesFromStyle('body-lg');
+  }
   .container {
     @include createGridItemSizeClassesWithPrefix(12, 'tblSm-ge');
     @include createGridItemSizeClassesWithPrefix(12, 'tblLg-ge');
@@ -417,4 +386,12 @@ body {
 
 @include le('lpt') {
   @include createHiddenClasses('lpt-le');
+  .section {
+    &__bg {
+      display: none;
+    }
+  }
+  .container {
+    grid-column: 1 #{'/'} span 3;
+  }
 }

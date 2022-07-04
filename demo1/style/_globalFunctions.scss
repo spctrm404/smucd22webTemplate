@@ -3,7 +3,6 @@
 @use 'sass:map';
 @use 'sass:math';
 @import 'customizations';
-@import 'functions';
 
 @mixin getFontPropertiesFromStyle($styleName) {
   $prop-value: map.get($fontStyles, $styleName);
@@ -184,4 +183,93 @@
   @media (min-width: #{$minWidth}) and (max-width: #{$maxWidth}) {
     @content;
   }
+}
+
+@mixin autolayout(
+  $isDirX: true,
+  $alignX: 'l',
+  $alignY: 't',
+  $gap: 0px,
+  $isPacked: true,
+  $isAlignBaseline: false
+) {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: $gap;
+  $alignXProp: flex-start;
+  @if ($alignX == 'c') {
+    $alignXProp: center;
+  } @else if ($alignX == 'r') {
+    $alignXProp: flex-end;
+  }
+  $alignYProp: flex-start;
+  @if ($alignY == 'c') {
+    $alignYProp: center;
+  } @else if ($alignY == 'b') {
+    $alignYProp: flex-end;
+  }
+  @if ($isAlignBaseline) {
+    $isDirX: true;
+  }
+  @if ($isDirX) {
+    flex-direction: row;
+    @if ($isAlignBaseline) {
+      align-items: baseline;
+    } @else {
+      align-items: $alignYProp;
+    }
+    @if ($isPacked) {
+      justify-content: $alignXProp;
+    } @else {
+      justify-content: space-between;
+    }
+  } @else {
+    flex-direction: column;
+    align-items: $alignXProp;
+    @if ($isPacked) {
+      justify-content: $alignYProp;
+    } @else {
+      justify-content: space-between;
+    }
+  }
+}
+
+@mixin al(
+  $isDirX: true,
+  $align: 1,
+  $gap: 0px,
+  $isPacked: true,
+  $isAlignBaseline: false
+) {
+  $alignX: 'l';
+  $alignY: 't';
+  @if ($align == 2) {
+    $alignX: 'c';
+  } @else if($align == 3) {
+    $alignX: 'r';
+  } @else if($align == 4) {
+    $alignY: 'c';
+  } @else if($align == 5) {
+    $alignX: 'c';
+    $alignY: 'c';
+  } @else if($align == 6) {
+    $alignX: 'r';
+    $alignY: 'c';
+  } @else if($align == 7) {
+    $alignY: 'b';
+  } @else if($align == 8) {
+    $alignX: 'c';
+    $alignY: 'b';
+  } @else if($align == 9) {
+    $alignX: 'r';
+    $alignY: 'b';
+  }
+  @include autolayout(
+    $isDirX,
+    $alignX,
+    $alignY,
+    $gap,
+    $isPacked,
+    $isAlignBaseline
+  );
 }

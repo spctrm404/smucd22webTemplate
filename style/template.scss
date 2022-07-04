@@ -235,9 +235,6 @@ body {
     flex-wrap: wrap;
     align-items: stretch;
     justify-content: center;
-    > * {
-      overflow: hidden;
-    }
   }
   &#{&}--w-full {
     grid-column: 1 #{'/'} span 3;
@@ -257,6 +254,9 @@ body {
   }
   &#{&}--pb-0 {
     padding-bottom: $yGapSolivingPadding;
+  }
+  > * {
+    overflow: hidden;
   }
 }
 

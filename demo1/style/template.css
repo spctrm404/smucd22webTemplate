@@ -54,9 +54,6 @@ body {
   align-items: stretch;
   justify-content: center;
 }
-.container.flex > * {
-  overflow: hidden;
-}
 .container.container--w-full {
   grid-column: 1 / span 3;
 }
@@ -75,6 +72,9 @@ body {
 }
 .container.container--pb-0 {
   padding-bottom: 10px;
+}
+.container > * {
+  overflow: hidden;
 }
 
 @media (min-width: 0px) and (max-width: 599px) {

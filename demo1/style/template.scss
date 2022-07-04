@@ -261,7 +261,7 @@ body {
 }
 
 @include eq('hnd') {
-  @include applyBreakpoint(0, 100%, 16px, 4, 16px, 16px) {
+  @include applyBreakpoint(0, 100%, 8px, 4, 16px, 16px) {
     .section {
       &__bg {
         display: none;
@@ -273,39 +273,60 @@ body {
   }
 }
 
-@include eq('tbl') {
-  @include applyBreakpoint(0, 100%, 32px, 8, 24px, 24px) {
+@include eq('tblSm') {
+  @include applyBreakpoint(0, 100%, 12px, 12, 16px, 16px) {
     .section {
       &__bg {
         display: none;
       }
     }
     .container {
-      grid-column: 1 #{'/'} span 3;
+      grid-column: 1 #{'/'} span 12;
     }
   }
-  .container {
-    @include createGridItemModClasses(8, 'tbl');
-  }
-  .section {
+}
+
+@include eq('tblLg') {
+  @include applyBreakpoint(0, 100%, 32px, 12, 24px, 24px) {
+    .section {
+      &__bg {
+        display: none;
+      }
+    }
     .container {
-      @include createFlexItemModClasses(8, 'tbl');
+      grid-column: 1 #{'/'} span 12;
     }
   }
 }
 
 @include eq('lpt') {
-  @include applyBreakpoint(1fr, 904px, 32px, 12, 24px, 24px);
+  @include applyBreakpoint(
+    0,
+    100%,
+    min(calc(52 / 1440 * 100%), 52px),
+    12,
+    24px,
+    24px
+  ) {
+    .section {
+      &__bg {
+        display: none;
+      }
+    }
+    .container {
+      grid-column: 1 #{'/'} span 12;
+    }
+  }
 }
 
 @include eq('dsk') {
   @include applyBreakpoint(
     1fr,
     minmax(0, 1440px),
-    min(calc(84 / 1440 * 100%), 84px),
+    min(calc(52 / 1440 * 100%), 52px),
     12,
-    24px,
-    24px
+    32px,
+    32px
   );
 }
 
@@ -321,23 +342,43 @@ body {
   }
 }
 
-@include ge('tbl') {
+@include ge('tblSm') {
   .container {
-    @include createGridItemSizeClassesWithoutPrefix(8);
-    @include createGridItemSizeClassesWithPrefix(8, 'tbl-ge');
+    @include createGridItemSizeClassesWithoutPrefix(12);
+    @include createGridItemSizeClassesWithPrefix(12, 'tblSm-ge');
   }
-  @include createHiddenClasses('tbl-ge');
+  .section {
+    .container {
+      @include createFlexItemModClasses(12, 'tblSm-ge');
+    }
+  }
+  @include createHiddenClasses('tblSm-ge');
+}
+
+@include ge('tblLg') {
+  .container {
+    @include createGridItemSizeClassesWithPrefix(12, 'tblSm-ge');
+    @include createGridItemSizeClassesWithPrefix(12, 'tblLg-ge');
+  }
+  .section {
+    .container {
+      @include createFlexItemModClasses(12, 'tblSm-ge');
+      @include createFlexItemModClasses(12, 'tblLg-ge');
+    }
+  }
+  @include createHiddenClasses('tblLg-ge');
 }
 
 @include ge('lpt') {
   .container {
-    @include createGridItemSizeClassesWithoutPrefix(12);
-    @include createGridItemSizeClassesWithPrefix(12, 'tbl-ge');
+    @include createGridItemSizeClassesWithPrefix(12, 'tblSm-ge');
+    @include createGridItemSizeClassesWithPrefix(12, 'tblLg-ge');
     @include createGridItemSizeClassesWithPrefix(12, 'lpt-ge');
-    @include createGridItemModClasses(12, 'lpt-ge');
   }
   .section {
     .container {
+      @include createFlexItemModClasses(12, 'tblSm-ge');
+      @include createFlexItemModClasses(12, 'tblLg-ge');
       @include createFlexItemModClasses(12, 'lpt-ge');
     }
   }
@@ -346,28 +387,32 @@ body {
 
 @include ge('dsk') {
   .container {
-    @include createGridItemSizeClassesWithoutPrefix(12);
-    @include createGridItemSizeClassesWithPrefix(12, 'tbl-ge');
+    @include createGridItemSizeClassesWithPrefix(12, 'tblSm-ge');
+    @include createGridItemSizeClassesWithPrefix(12, 'tblLg-ge');
     @include createGridItemSizeClassesWithPrefix(12, 'lpt-ge');
-    @include createGridItemSizeClassesWithPrefix(12, 'dsk');
-    @include createGridItemModClasses(12, 'lpt-ge');
-    @include createGridItemModClasses(12, 'dsk');
+    @include createGridItemSizeClassesWithPrefix(12, 'dsk-ge');
   }
   .section {
     .container {
+      @include createFlexItemModClasses(12, 'tblSm-ge');
+      @include createFlexItemModClasses(12, 'tblLg-ge');
       @include createFlexItemModClasses(12, 'lpt-ge');
-      @include createFlexItemModClasses(12, 'dsk');
+      @include createFlexItemModClasses(12, 'dsk-ge');
     }
   }
-  @include createHiddenClasses('dsk');
+  @include createHiddenClasses('dsk-ge');
 }
 
 @include le('hnd') {
   @include createHiddenClasses('hnd');
 }
 
-@include le('tbl') {
-  @include createHiddenClasses('tbl-le');
+@include le('tblSm') {
+  @include createHiddenClasses('tblSm-le');
+}
+
+@include le('tblLg') {
+  @include createHiddenClasses('tblLg-le');
 }
 
 @include le('lpt') {

@@ -19,6 +19,12 @@
 ) {
   .section {
     grid-template-columns: $sectionSideW $sectionCenterW $sectionSideW;
+    &:last-of-type,
+    &:only-of-type {
+      .container {
+        padding-bottom: 1.5 * $gridGapY;
+      }
+    }
   }
   .container {
     padding-inline: $containerPaddingX;

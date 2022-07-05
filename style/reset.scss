@@ -190,7 +190,7 @@ textarea {
 }
 input::placeholder,
 textarea::placeholder {
-  color: getColorFromPalettes('neutral', 60);
+  color: getColorByToken('onSurface-variant-light');
   opacity: 1;
 }
 button,

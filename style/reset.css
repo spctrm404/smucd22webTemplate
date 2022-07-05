@@ -196,18 +196,18 @@ textarea {
 }
 
 input::-moz-placeholder, textarea::-moz-placeholder {
-  color: #919094;
+  color: #3c4661;
   opacity: 1;
 }
 
 input:-ms-input-placeholder, textarea:-ms-input-placeholder {
-  color: #919094;
+  color: #3c4661;
   opacity: 1;
 }
 
 input::placeholder,
 textarea::placeholder {
-  color: #919094;
+  color: #3c4661;
   opacity: 1;
 }
 

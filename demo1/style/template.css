@@ -81,6 +81,9 @@ body {
   .section {
     grid-template-columns: 0 100% 0;
   }
+  .section:last-of-type .container, .section:only-of-type .container {
+    padding-bottom: 24px;
+  }
 
   .container {
     padding-inline: 8px;
@@ -133,6 +136,9 @@ body {
 @media (min-width: 600px) and (max-width: 839px) {
   .section {
     grid-template-columns: 0 100% 0;
+  }
+  .section:last-of-type .container, .section:only-of-type .container {
+    padding-bottom: 24px;
   }
 
   .container {
@@ -187,6 +193,9 @@ body {
   .section {
     grid-template-columns: 0 100% 0;
   }
+  .section:last-of-type .container, .section:only-of-type .container {
+    padding-bottom: 36px;
+  }
 
   .container {
     padding-inline: 32px;
@@ -240,6 +249,9 @@ body {
   .section {
     grid-template-columns: 0 100% 0;
   }
+  .section:last-of-type .container, .section:only-of-type .container {
+    padding-bottom: 36px;
+  }
 
   .container {
     padding-inline: min(3.6111111111%, 52px);
@@ -292,6 +304,9 @@ body {
 @media (min-width: 1280px) and (max-width: 9999px) {
   .section {
     grid-template-columns: 1fr minmax(0, 1440px) 1fr;
+  }
+  .section:last-of-type .container, .section:only-of-type .container {
+    padding-bottom: 48px;
   }
 
   .container {

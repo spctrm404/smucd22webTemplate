@@ -1,3 +1,5 @@
+/* stylelint-disable no-descending-specificity */
+
 @import 'customizations';
 @import 'globalFunctions';
 
@@ -256,11 +258,11 @@ body {
 }
 
 @include eq('hnd') {
-  @include applyBreakpoint(0, 100%, 8px, 4, 16px, 16px);
+  @include applyBreakpoint(0, 100%, 16px, 4, 16px, 16px);
 }
 
 @include eq('tblSm') {
-  @include applyBreakpoint(0, 100%, 12px, 12, 16px, 16px);
+  @include applyBreakpoint(0, 100%, 24px, 12, 16px, 16px);
 }
 
 @include eq('tblLg') {
@@ -291,7 +293,7 @@ body {
 
 @include ge('hnd') {
   html {
-    @include getFontPropertiesFromStyle('body-md');
+    @include getFontPropertiesFromStyle('body-lg');
   }
   .container {
     @include createGridItemSizeClassesWithoutPrefix(4);
@@ -318,9 +320,6 @@ body {
 }
 
 @include ge('tblLg') {
-  html {
-    @include getFontPropertiesFromStyle('body-lg');
-  }
   .container {
     @include createGridItemSizeClassesWithPrefix(12, 'tblSm-ge');
     @include createGridItemSizeClassesWithPrefix(12, 'tblLg-ge');

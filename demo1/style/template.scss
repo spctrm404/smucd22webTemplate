@@ -1,10 +1,4 @@
 /* stylelint-disable no-descending-specificity */
-// to do
-// hidden - CHECKED
-// auto layout function
-// proper overflow hidden - CHECKED
-// reconsider breakpoints
-// gap problem - CHECKED
 
 @import 'customizations';
 @import 'globalFunctions';
@@ -23,6 +17,12 @@
     &:only-of-type {
       .container {
         padding-bottom: 1.5 * $gridGapY;
+        &--py-0 {
+          padding-block: 0;
+        }
+        &--pb-0 {
+          padding-bottom: 0;
+        }
       }
     }
   }
@@ -198,14 +198,6 @@ body {
   &:last-of-type,
   &:only-of-type {
     grid-template-rows: minmax(0, auto) 0;
-    .container {
-      &--py-0 {
-        padding-block: 0;
-      }
-      &--pb-0 {
-        padding-bottom: 0;
-      }
-    }
   }
   &__bg {
     position: relative;
@@ -266,11 +258,11 @@ body {
 }
 
 @include eq('hnd') {
-  @include applyBreakpoint(0, 100%, 8px, 4, 16px, 16px);
+  @include applyBreakpoint(0, 100%, 16px, 4, 16px, 16px);
 }
 
 @include eq('tblSm') {
-  @include applyBreakpoint(0, 100%, 12px, 12, 16px, 16px);
+  @include applyBreakpoint(0, 100%, 24px, 12, 16px, 16px);
 }
 
 @include eq('tblLg') {
@@ -301,7 +293,7 @@ body {
 
 @include ge('hnd') {
   html {
-    @include getFontPropertiesFromStyle('body-md');
+    @include getFontPropertiesFromStyle('body-lg');
   }
   .container {
     @include createGridItemSizeClassesWithoutPrefix(4);
@@ -328,9 +320,6 @@ body {
 }
 
 @include ge('tblLg') {
-  html {
-    @include getFontPropertiesFromStyle('body-lg');
-  }
   .container {
     @include createGridItemSizeClassesWithPrefix(12, 'tblSm-ge');
     @include createGridItemSizeClassesWithPrefix(12, 'tblLg-ge');

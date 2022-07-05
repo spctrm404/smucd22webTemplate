@@ -1,3 +1,4 @@
+/* stylelint-disable no-descending-specificity */
 body {
   background-color: #1c1c1c;
 }
@@ -85,7 +86,7 @@ body {
   }
 
   .container {
-    padding-inline: 8px;
+    padding-inline: 16px;
     padding-top: 24px;
     padding-bottom: 34px;
   }
@@ -147,7 +148,7 @@ body {
   }
 
   .container {
-    padding-inline: 12px;
+    padding-inline: 24px;
     padding-top: 24px;
     padding-bottom: 34px;
   }
@@ -382,10 +383,10 @@ body {
 }
 @media (min-width: 0px) {
   html {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 400;
-    line-height: 20px;
-    letter-spacing: 0.0178571429px;
+    line-height: 24px;
+    letter-spacing: 0.009375px;
   }
 
   .container .grid-w-half {
@@ -818,13 +819,6 @@ body {
   }
 }
 @media (min-width: 840px) {
-  html {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-    letter-spacing: 0.009375px;
-  }
-
   .container .tblSm-ge-grid-w-half {
     grid-column-end: span 6;
   }

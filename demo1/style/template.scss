@@ -258,7 +258,7 @@ body {
 }
 
 @include eq('hnd') {
-  @include applyBreakpoint(0, 100%, 16px, 4, 16px, 16px);
+  @include applyBreakpoint(0, 100%, 24px, 4, 16px, 16px);
 }
 
 @include eq('tblSm') {
@@ -266,14 +266,14 @@ body {
 }
 
 @include eq('tblLg') {
-  @include applyBreakpoint(0, 100%, 32px, 12, 24px, 24px);
+  @include applyBreakpoint(0, 100%, 36px, 12, 24px, 24px);
 }
 
 @include eq('lpt') {
   @include applyBreakpoint(
     0,
     100%,
-    min(calc(52 / 1440 * 100%), 52px),
+    min(calc(60 / 1440 * 100%), 60px),
     12,
     24px,
     24px
@@ -284,10 +284,10 @@ body {
   @include applyBreakpoint(
     1fr,
     minmax(0, 1440px),
-    min(calc(52 / 1440 * 100%), 52px),
+    min(calc(60 / 1440 * 100%), 60px),
     12,
-    32px,
-    32px
+    24px,
+    24px
   );
 }
 

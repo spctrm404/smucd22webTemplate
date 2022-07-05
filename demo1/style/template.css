@@ -86,7 +86,7 @@ body {
   }
 
   .container {
-    padding-inline: 16px;
+    padding-inline: 24px;
     padding-top: 24px;
     padding-bottom: 34px;
   }
@@ -210,7 +210,7 @@ body {
   }
 
   .container {
-    padding-inline: 32px;
+    padding-inline: 36px;
     padding-top: 36px;
     padding-bottom: 46px;
   }
@@ -272,7 +272,7 @@ body {
   }
 
   .container {
-    padding-inline: min(3.6111111111%, 52px);
+    padding-inline: min(4.1666666667%, 60px);
     padding-top: 36px;
     padding-bottom: 46px;
   }
@@ -324,7 +324,7 @@ body {
     grid-template-columns: 1fr minmax(0, 1440px) 1fr;
   }
   .section:last-of-type .container, .section:only-of-type .container {
-    padding-bottom: 48px;
+    padding-bottom: 36px;
   }
   .section:last-of-type .container--py-0, .section:only-of-type .container--py-0 {
     padding-block: 0;
@@ -334,15 +334,15 @@ body {
   }
 
   .container {
-    padding-inline: min(3.6111111111%, 52px);
-    padding-top: 48px;
-    padding-bottom: 58px;
+    padding-inline: min(4.1666666667%, 60px);
+    padding-top: 36px;
+    padding-bottom: 46px;
   }
   .container.grid {
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    row-gap: 32px;
-    -moz-column-gap: 32px;
-         column-gap: 32px;
+    row-gap: 24px;
+    -moz-column-gap: 24px;
+         column-gap: 24px;
   }
   .flex > *:first-child:nth-last-child(1), .flex > *:first-child:nth-last-child(1) ~ * {
     flex-basis: 100%;

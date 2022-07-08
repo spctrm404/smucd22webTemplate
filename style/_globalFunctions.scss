@@ -106,9 +106,9 @@
     $bpMap: map.get($breakponts, $value);
     $nextKey: map.get($bpMap, 'next-key');
     $bpNextMap: map.get($breakponts, $nextKey);
-    $maxWidth: 9999px;
+    $maxWidth: 9999rem;
     @if ($nextKey != '') {
-      $maxWidth: map.get($bpNextMap, 'min-width') - 1px;
+      $maxWidth: map.get($bpNextMap, 'min-width') - 0.0625rem;
     }
     @media (max-width: #{$maxWidth}) {
       @content;
@@ -121,10 +121,10 @@
     $bpMap: map.get($breakponts, $value);
     $minWidth: map.get($bpMap, 'min-width');
     $nextKey: map.get($bpMap, 'next-key');
-    $maxWidth: 9999px;
+    $maxWidth: 9999rem;
     @if ($nextKey != '') {
       $bpNextMap: map.get($breakponts, $nextKey);
-      $maxWidth: map.get($bpNextMap, 'min-width') - 1px;
+      $maxWidth: map.get($bpNextMap, 'min-width') - 0.0625rem;
     }
     @media (min-width: #{$minWidth}) and (max-width: #{$maxWidth}) {
       @content;
@@ -133,8 +133,8 @@
 }
 
 @mixin between($valueA, $valueB) {
-  $minWidth: 0px;
-  $maxWidth: 9999px;
+  $minWidth: 0rem;
+  $maxWidth: 9999rem;
   @if (type-of($valueA) == 'number') and (type-of($valueB) == 'number') {
     $minWidth: math.min($valueA, $valueB);
     $maxWidth: math.max($valueA, $valueB);
@@ -142,18 +142,18 @@
     $bpMapA: map.get($breakponts, $valueA);
     $minWidthA: map.get($bpMapA, 'min-width');
     $nextKeyA: map.get($bpMapA, 'next-key');
-    $maxWidthA: 9999px;
+    $maxWidthA: 9999rem;
     @if ($nextKeyA != '') {
       $bpNextMapA: map.get($breakponts, $nextKeyA);
-      $maxWidthA: map.get($bpNextMapA, 'min-width') - 1px;
+      $maxWidthA: map.get($bpNextMapA, 'min-width') - 0.0625rem;
     }
     $bpMapB: map.get($breakponts, $valueB);
     $minWidthB: map.get($bpMapB, 'min-width');
     $nextKeyB: map.get($bpMapB, 'next-key');
-    $maxWidthB: 9999px;
+    $maxWidthB: 9999rem;
     @if ($nextKeyB != '') {
       $bpNextMapB: map.get($breakponts, $nextKeyB);
-      $maxWidthB: map.get($bpNextMapB, 'min-width') - 1px;
+      $maxWidthB: map.get($bpNextMapB, 'min-width') - 0.0625rem;
     }
     $minWidth: math.min($minWidthA, $minWidthB);
     $maxWidth: math.max($maxWidthA, $maxWidthB);
@@ -161,10 +161,10 @@
     $bpMap: map.get($breakponts, $valueA);
     $minWidth: map.get($bpMap, 'min-width');
     $nextKey: map.get($bpMap, 'next-key');
-    $maxWidth: 9999px;
+    $maxWidth: 9999rem;
     @if ($nextKey != '') {
       $bpNextMap: map.get($breakponts, $nextKey);
-      $maxWidth: map.get($bpNextMap, 'min-width') - 1px;
+      $maxWidth: map.get($bpNextMap, 'min-width') - 0.0625rem;
     }
     $minWidth: math.min($minWidth, $valueB);
     $maxWidth: math.max($maxWidth, $valueB);
@@ -172,10 +172,10 @@
     $bpMap: map.get($breakponts, $valueB);
     $minWidth: map.get($bpMap, 'min-width');
     $nextKey: map.get($bpMap, 'next-key');
-    $maxWidth: 9999px;
+    $maxWidth: 9999rem;
     @if ($nextKey != '') {
       $bpNextMap: map.get($breakponts, $nextKey);
-      $maxWidth: map.get($bpNextMap, 'min-width') - 1px;
+      $maxWidth: map.get($bpNextMap, 'min-width') - 0.0625rem;
     }
     $minWidth: math.min($minWidth, $valueA);
     $maxWidth: math.max($maxWidth, $valueA);
@@ -189,7 +189,7 @@
   $isDirX: true,
   $alignX: 'l',
   $alignY: 't',
-  $gap: 0px,
+  $gap: 0rem,
   $isPacked: true,
   $isAlignBaseline: false
 ) {
@@ -237,7 +237,7 @@
 @mixin al(
   $isDirX: true,
   $align: 1,
-  $gap: 0px,
+  $gap: 0rem,
   $isPacked: true,
   $isAlignBaseline: false
 ) {

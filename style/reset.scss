@@ -30,6 +30,7 @@ html {
   //   );
   font-family: $fontFamilies, sans-serif;
   line-height: 1.5;
+  word-break: keep-all; //custom
   overflow-wrap: break-word; // custom
   tab-size: 4;
   cursor: default; //custom

@@ -258,42 +258,42 @@ body {
 }
 
 @include eq('hnd') {
-  @include applyBreakpoint(0, 100%, 24px, 4, 16px, 16px);
+  @include applyBreakpoint(0, 100%, 1.5rem, 4, 1rem, 1rem);
 }
 
 @include eq('tblSm') {
-  @include applyBreakpoint(0, 100%, 24px, 12, 16px, 16px);
+  @include applyBreakpoint(0, 100%, 1.5rem, 12, 1rem, 1rem);
 }
 
 @include eq('tblLg') {
-  @include applyBreakpoint(0, 100%, 36px, 12, 24px, 24px);
+  @include applyBreakpoint(0, 100%, 2.25rem, 12, 1.5rem, 1.5rem);
 }
 
 @include eq('lpt') {
   @include applyBreakpoint(
     0,
     100%,
-    min(calc(60 / 1440 * 100%), 60px),
+    min(calc(52 / 1440 * 100%), 3.25rem),
     12,
-    24px,
-    24px
+    1.5rem,
+    1.5rem
   );
 }
 
 @include eq('dsk') {
   @include applyBreakpoint(
     1fr,
-    minmax(0, 1440px),
-    min(calc(60 / 1440 * 100%), 60px),
+    minmax(0, 90rem),
+    min(calc(52 / 1440 * 100%), 3.25rem),
     12,
-    24px,
-    24px
+    2rem,
+    2rem
   );
 }
 
 @include ge('hnd') {
   html {
-    @include getFontPropertiesFromStyle('body-lg');
+    @include getFontPropertiesFromStyle('body-2-sm');
   }
   .container {
     @include createGridItemSizeClassesWithoutPrefix(4);
@@ -320,6 +320,9 @@ body {
 }
 
 @include ge('tblLg') {
+  html {
+    @include getFontPropertiesFromStyle('body-2-md');
+  }
   .container {
     @include createGridItemSizeClassesWithPrefix(12, 'tblSm-ge');
     @include createGridItemSizeClassesWithPrefix(12, 'tblLg-ge');
@@ -350,6 +353,9 @@ body {
 }
 
 @include ge('dsk') {
+  html {
+    @include getFontPropertiesFromStyle('body-2-lg');
+  }
   .container {
     @include createGridItemSizeClassesWithPrefix(12, 'tblSm-ge');
     @include createGridItemSizeClassesWithPrefix(12, 'tblLg-ge');

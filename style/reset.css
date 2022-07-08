@@ -10,6 +10,7 @@
 html {
   font-family: "pretendard", sans-serif;
   line-height: 1.5;
+  word-break: keep-all;
   overflow-wrap: break-word;
   -moz-tab-size: 4;
     -o-tab-size: 4;

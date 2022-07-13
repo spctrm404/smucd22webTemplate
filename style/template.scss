@@ -272,7 +272,33 @@ body {
     padding-bottom: $yGapSolivingPadding;
   }
   > * {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: flex-start;
     overflow: hidden;
+    .textWrap {
+      // max-width: 66.8053ch;
+      max-width: 60ch;
+      text-align: center;
+      &.textWrap--align {
+        &-left {
+          align-self: flex-start;
+        }
+        &-right {
+          align-self: flex-end;
+        }
+      }
+
+      &.text--align {
+        &-left {
+          text-align: left;
+        }
+        &-right {
+          text-align: right;
+        }
+      }
+    }
   }
 }
 

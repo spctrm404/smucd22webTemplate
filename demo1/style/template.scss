@@ -183,6 +183,25 @@
   }
 }
 
+@mixin createTextClasses($fontPrefix) {
+  @for $hierarchy from 1 through 3 {
+    $key: #{$fontPrefix} + '-body-' + #{$hierarchy};
+    .text-body-#{$hierarchy} {
+      @include getFontPropertiesFromStyle($key);
+    }
+    $key: #{$fontPrefix} + '-body-' + #{$hierarchy};
+    .text-body-#{$hierarchy}-dense {
+      @include getFontPropertiesFromStyle($key);
+    }
+  }
+  @for $hierarchy from 1 through 6 {
+    $key: #{$fontPrefix} + '-heading-' + #{$hierarchy};
+    .text-heading-#{$hierarchy} {
+      @include getFontPropertiesFromStyle($key);
+    }
+  }
+}
+
 body {
   background-color: getColorByToken('bg-dark');
 }
@@ -292,10 +311,9 @@ body {
 }
 
 @include ge('hnd') {
-  html {
-    @include getFontPropertiesFromStyle('body-2-sm');
-  }
+  @include createTextClasses('sm');
   .container {
+    @include getFontPropertiesFromStyle('sm-body-2');
     @include createGridItemSizeClassesWithoutPrefix(4);
     @include createGridItemModClasses(4);
   }
@@ -320,10 +338,9 @@ body {
 }
 
 @include ge('tblLg') {
-  html {
-    @include getFontPropertiesFromStyle('body-2-md');
-  }
+  @include createTextClasses('md');
   .container {
+    @include getFontPropertiesFromStyle('md-body-2');
     @include createGridItemSizeClassesWithPrefix(12, 'tblSm-ge');
     @include createGridItemSizeClassesWithPrefix(12, 'tblLg-ge');
   }
@@ -353,10 +370,9 @@ body {
 }
 
 @include ge('dsk') {
-  html {
-    @include getFontPropertiesFromStyle('body-2-lg');
-  }
+  @include createTextClasses('lg');
   .container {
+    @include getFontPropertiesFromStyle('lg-body-2');
     @include createGridItemSizeClassesWithPrefix(12, 'tblSm-ge');
     @include createGridItemSizeClassesWithPrefix(12, 'tblLg-ge');
     @include createGridItemSizeClassesWithPrefix(12, 'lpt-ge');

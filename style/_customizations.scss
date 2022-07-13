@@ -1,232 +1,262 @@
 $yGapSolivingPadding: 0.625rem;
 $fontFamilies: ('pretendard');
 $fontStyles: (
-  'heading-1-sm': (
+  'sm-heading-1': (
     'font-size': 4.5625rem,
     'font-weight': 700,
     'line-height': 5.5rem,
   ),
-  'heading-2-sm': (
+  'sm-heading-2': (
     'font-size': 3.625rem,
     'font-weight': 700,
     'line-height': 4.375rem,
   ),
-  'heading-3-sm': (
+  'sm-heading-3': (
     'font-size': 2.8125rem,
     'font-weight': 700,
     'line-height': 3.375rem,
   ),
-  'heading-4-sm': (
+  'sm-heading-4': (
     'font-size': 2.25rem,
     'font-weight': 700,
     'line-height': 2.75rem,
   ),
-  'heading-5-sm': (
+  'sm-heading-5': (
     'font-size': 1.75rem,
     'font-weight': 700,
     'line-height': 2.125rem,
   ),
-  'heading-6-sm': (
+  'sm-heading-6': (
     'font-size': 1.375rem,
     'font-weight': 700,
     'line-height': 1.625rem,
   ),
-  'body-1-sm': (
+  'sm-body-1': (
     'font-size': 1.125rem,
     'font-weight': 600,
     'line-height': 1.75rem,
   ),
-  'body-2-sm': (
+  'sm-body-2': (
     'font-size': 1rem,
     'font-weight': 600,
     'line-height': 1.625rem,
   ),
-  'body-3-sm': (
+  'sm-body-3': (
     'font-size': 0.875rem,
     'font-weight': 600,
     'line-height': 1.375rem,
   ),
-  'body-1-sm-dense': (
+  'sm-body-1-dense': (
     'font-size': 1.125rem,
     'font-weight': 600,
     'line-height': 1.625rem,
   ),
-  'body-2-sm-dense': (
+  'sm-body-2-dense': (
     'font-size': 1rem,
     'font-weight': 600,
     'line-height': 1.375rem,
   ),
-  'body-3-sm-dense': (
+  'sm-body-3-dense': (
     'font-size': 0.875rem,
     'font-weight': 600,
     'line-height': 1.25rem,
   ),
-  'heading-1-md': (
+  'md-heading-1': (
     'font-size': 5.75rem,
     'font-weight': 700,
     'line-height': 6.875rem,
   ),
-  'heading-2-md': (
+  'md-heading-2': (
     'font-size': 4.5625rem,
     'font-weight': 700,
     'line-height': 5.5rem,
   ),
-  'heading-3-md': (
+  'md-heading-3': (
     'font-size': 3.625rem,
     'font-weight': 700,
     'line-height': 4.375rem,
   ),
-  'heading-4-md': (
+  'md-heading-4': (
     'font-size': 2.8125rem,
     'font-weight': 700,
     'line-height': 3.375rem,
   ),
-  'heading-5-md': (
+  'md-heading-5': (
     'font-size': 2.25rem,
     'font-weight': 700,
     'line-height': 2.75rem,
   ),
-  'heading-6-md': (
+  'md-heading-6': (
     'font-size': 1.75rem,
     'font-weight': 700,
     'line-height': 2.125rem,
   ),
-  'body-1-md': (
+  'md-body-1': (
     'font-size': 1.25rem,
     'font-weight': 600,
     'line-height': 2rem,
   ),
-  'body-2-md': (
+  'md-body-2': (
     'font-size': 1.125rem,
     'font-weight': 600,
     'line-height': 1.75rem,
   ),
-  'body-3-md': (
+  'md-body-3': (
     'font-size': 1rem,
     'font-weight': 600,
     'line-height': 1.625rem,
   ),
-  'body-1-md-dense': (
+  'md-body-1-dense': (
     'font-size': 1.25rem,
     'font-weight': 600,
     'line-height': 1.75rem,
   ),
-  'body-2-md-dense': (
+  'md-body-2-dense': (
     'font-size': 1.125rem,
     'font-weight': 600,
     'line-height': 1.625rem,
   ),
-  'body-3-md-dense': (
+  'md-body-3-dense': (
     'font-size': 1rem,
     'font-weight': 600,
     'line-height': 1.375rem,
   ),
-  'heading-1-lg': (
+  'lg-heading-1': (
     'font-size': 7.3125rem,
     'font-weight': 700,
     'line-height': 8.75rem,
   ),
-  'heading-2-lg': (
+  'lg-heading-2': (
     'font-size': 5.75rem,
     'font-weight': 700,
     'line-height': 6.875rem,
   ),
-  'heading-3-lg': (
+  'lg-heading-3': (
     'font-size': 4.5625rem,
     'font-weight': 700,
     'line-height': 5.5rem,
   ),
-  'heading-4-lg': (
+  'lg-heading-4': (
     'font-size': 3.625rem,
     'font-weight': 700,
     'line-height': 4.375rem,
   ),
-  'heading-5-lg': (
+  'lg-heading-5': (
     'font-size': 2.8125rem,
     'font-weight': 700,
     'line-height': 3.375rem,
   ),
-  'heading-6-lg': (
+  'lg-heading-6': (
     'font-size': 2.25rem,
     'font-weight': 700,
     'line-height': 2.75rem,
   ),
-  'body-1-lg': (
+  'lg-body-1': (
     'font-size': 1.375rem,
     'font-weight': 600,
     'line-height': 2.25rem,
   ),
-  'body-2-lg': (
+  'lg-body-2': (
     'font-size': 1.25rem,
     'font-weight': 600,
     'line-height': 2rem,
   ),
-  'body-3-lg': (
+  'lg-body-3': (
     'font-size': 1.125rem,
     'font-weight': 600,
     'line-height': 1.75rem,
   ),
-  'body-1-lg-dense': (
+  'lg-body-1-dense': (
     'font-size': 1.375rem,
     'font-weight': 600,
     'line-height': 1.875rem,
   ),
-  'body-2-lg-dense': (
+  'lg-body-2-dense': (
     'font-size': 1.25rem,
     'font-weight': 600,
     'line-height': 1.75rem,
   ),
-  'body-3-lg-dense': (
+  'lg-body-3-dense': (
     'font-size': 1.125rem,
     'font-weight': 600,
     'line-height': 1.625rem,
   ),
 );
 $colorPalettes: (
-  'primary-blue': (
+  'primary': (
     0: #000000,
-    10: #00174d,
-    20: #002a78,
-    30: #214290,
-    40: #3d5ba9,
-    50: #5774c4,
-    60: #718ee0,
-    70: #8ba8fc,
-    80: #b1c5ff,
-    90: #dae2ff,
-    95: #eef0ff,
-    99: #fdfbff,
+    10: #000b61,
+    20: #132481,
+    30: #2e3c99,
+    40: #4756b3,
+    50: #606fcd,
+    60: #7c8be9,
+    70: #99a7ff,
+    80: #b8c1ff,
+    90: #dbdeff,
+    95: #f0f0ff,
+    99: #fefaff,
+    100: #ffffff,
+  ),
+  'secondary': (
+    0: #000000,
+    10: #151c1e,
+    20: #293133,
+    30: #40484a,
+    40: #575f60,
+    50: #71787a,
+    60: #8a9193,
+    70: #a3acae,
+    80: #bfc8ca,
+    90: #dbe4e6,
+    95: #ebf3f4,
+    99: #f5fdff,
+    100: #ffffff,
+  ),
+  'tertiary': (
+    0: #000000,
+    10: #241700,
+    20: #422e00,
+    30: #5c4300,
+    40: #785b12,
+    50: #92732a,
+    60: #af8c41,
+    70: #caa658,
+    80: #e7c16e,
+    90: #ffdf99,
+    95: #fff0d1,
+    99: #fffcfa,
     100: #ffffff,
   ),
   'neutral': (
+    0: #000000,
+    10: #1c1b1d,
+    20: #313032,
+    30: #474648,
+    40: #5f5e60,
+    50: #787679,
+    60: #929092,
+    70: #adaaad,
+    80: #c8c6c8,
+    90: #e5e1e4,
+    95: #f3f0f2,
+    99: #fffbfe,
     100: #ffffff,
-    99: #fcfcfc,
-    95: #f0f0f0,
-    90: #e2e2e2,
-    80: #c6c6c6,
-    70: #ababab,
-    60: #919191,
-    50: #777777,
-    40: #5e5e5e,
-    30: #474747,
-    20: #303030,
-    10: #1c1c1c,
-    00: #000000,
   ),
   'neutral-variant': (
+    0: #000000,
+    10: #1b1b1b,
+    20: #303030,
+    30: #474747,
+    40: #5e5e5e,
+    50: #777777,
+    60: #919191,
+    70: #ababab,
+    80: #c6c6c6,
+    90: #e2e2e2,
+    95: #f1f1f1,
+    99: #fcfcfc,
     100: #ffffff,
-    99: #fdfbff,
-    95: #edf0ff,
-    90: #d9e2ff,
-    80: #bcc6e6,
-    70: #a1abca,
-    60: #8690af,
-    50: #6d7794,
-    40: #545e7a,
-    30: #3c4661,
-    20: #263049,
-    10: #101b33,
-    00: #000000,
   ),
 );
 $colorTokens: (

@@ -183,6 +183,25 @@
   }
 }
 
+@mixin createTextClasses($fontPrefix) {
+  @for $hierarchy from 1 through 3 {
+    $key: #{$fontPrefix} + '-body-' + #{$hierarchy};
+    .text-body-#{$hierarchy} {
+      @include getFontPropertiesFromStyle($key);
+    }
+    $key: #{$fontPrefix} + '-body-' + #{$hierarchy};
+    .text-body-#{$hierarchy}-dense {
+      @include getFontPropertiesFromStyle($key);
+    }
+  }
+  @for $hierarchy from 1 through 6 {
+    $key: #{$fontPrefix} + '-heading-' + #{$hierarchy};
+    .text-heading-#{$hierarchy} {
+      @include getFontPropertiesFromStyle($key);
+    }
+  }
+}
+
 body {
   background-color: getColorByToken('bg-dark');
 }
@@ -266,14 +285,15 @@ body {
 }
 
 @include eq('tblLg') {
-  @include applyBreakpoint(0, 100%, 2.25rem, 12, 1.5rem, 1.5rem);
+  // @include applyBreakpoint(0, 100%, 2.25rem, 12, 1.5rem, 1.5rem);
+  @include applyBreakpoint(1fr, 52.5rem, 2.25rem, 12, 1.5rem, 1.5rem);
 }
 
 @include eq('lpt') {
   @include applyBreakpoint(
     0,
     100%,
-    min(calc(52 / 1440 * 100%), 3.25rem),
+    min(calc(60 / 1440 * 100%), 3.75rem),
     12,
     1.5rem,
     1.5rem
@@ -281,21 +301,28 @@ body {
 }
 
 @include eq('dsk') {
+  // @include applyBreakpoint(
+  //   1fr,
+  //   minmax(0, 90rem),
+  //   min(calc(52 / 1440 * 100%), 3.25rem),
+  //   12,
+  //   2rem,
+  //   2rem
+  // );
   @include applyBreakpoint(
     1fr,
     minmax(0, 90rem),
-    min(calc(52 / 1440 * 100%), 3.25rem),
+    min(calc(60 / 1440 * 100%), 3.75rem),
     12,
-    2rem,
-    2rem
+    1.5rem,
+    1.5rem
   );
 }
 
 @include ge('hnd') {
-  html {
-    @include getFontPropertiesFromStyle('body-2-sm');
-  }
+  @include createTextClasses('sm');
   .container {
+    @include getFontPropertiesFromStyle('sm-body-2');
     @include createGridItemSizeClassesWithoutPrefix(4);
     @include createGridItemModClasses(4);
   }
@@ -320,10 +347,9 @@ body {
 }
 
 @include ge('tblLg') {
-  html {
-    @include getFontPropertiesFromStyle('body-2-md');
-  }
+  @include createTextClasses('md');
   .container {
+    @include getFontPropertiesFromStyle('md-body-2');
     @include createGridItemSizeClassesWithPrefix(12, 'tblSm-ge');
     @include createGridItemSizeClassesWithPrefix(12, 'tblLg-ge');
   }
@@ -337,7 +363,9 @@ body {
 }
 
 @include ge('lpt') {
+  @include createTextClasses('lg');
   .container {
+    @include getFontPropertiesFromStyle('lg-body-2');
     @include createGridItemSizeClassesWithPrefix(12, 'tblSm-ge');
     @include createGridItemSizeClassesWithPrefix(12, 'tblLg-ge');
     @include createGridItemSizeClassesWithPrefix(12, 'lpt-ge');
@@ -353,9 +381,6 @@ body {
 }
 
 @include ge('dsk') {
-  html {
-    @include getFontPropertiesFromStyle('body-2-lg');
-  }
   .container {
     @include createGridItemSizeClassesWithPrefix(12, 'tblSm-ge');
     @include createGridItemSizeClassesWithPrefix(12, 'tblLg-ge');
@@ -379,6 +404,14 @@ body {
 
 @include le('tblSm') {
   @include createHiddenClasses('tblSm-le');
+  // .section {
+  //   &__bg {
+  //     display: none;
+  //   }
+  // }
+  // .container {
+  //   grid-column: 1 #{'/'} span 3;
+  // }
 }
 
 @include le('tblLg') {
@@ -387,12 +420,4 @@ body {
 
 @include le('lpt') {
   @include createHiddenClasses('lpt-le');
-  .section {
-    &__bg {
-      display: none;
-    }
-  }
-  .container {
-    grid-column: 1 #{'/'} span 3;
-  }
 }

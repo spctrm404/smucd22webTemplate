@@ -1,6 +1,11 @@
 /* stylelint-disable no-descending-specificity */
 /* stylelint-disable no-duplicate-selectors */
 
+// todo
+// make placeholder for font
+// make it compact
+
+@use 'sass:string';
 @import 'customizations';
 @import 'globalFunctions';
 
@@ -16,21 +21,15 @@
     grid-template-columns: $sectionSideW $sectionCenterW $sectionSideW;
     &:last-of-type,
     &:only-of-type {
-      .container {
-        padding-bottom: 1.5 * $gridGapY;
-        &--py-0 {
-          padding-block: 0;
-        }
-        &--pb-0 {
-          padding-bottom: 0;
-        }
+      > .container {
+        padding-bottom: 0;
       }
     }
   }
   .container {
     padding-inline: $containerPaddingX;
-    padding-top: 1.5 * $gridGapY;
-    padding-bottom: 1.5 * $gridGapY + $yGapSolivingPadding;
+    padding-top: 3 * $gridGapY;
+    padding-bottom: $yGapSolivingPadding;
     &.grid {
       grid-template-columns: repeat($gridColumnNum, minmax(0, 1fr));
       row-gap: $gridGapY;
@@ -38,6 +37,39 @@
     }
     @at-root .flex {
       @include flexItemEvenSizeDistributor($gridColumnNum);
+    }
+  }
+  %apply-padding-x {
+    padding-inline: $containerPaddingX;
+  }
+  %apply-padding-t {
+    padding-top: 3 * $gridGapY;
+  }
+  %apply-padding-b {
+    padding-bottom: 3 * $gridGapY;
+  }
+  %apply-padding-t-half {
+    padding-top: 1.5 * $gridGapY;
+  }
+  %apply-padding-b-half {
+    padding-bottom: 1.5 * $gridGapY;
+  }
+  %apply-padding-y {
+    padding-block: 3 * $gridGapY;
+  }
+  %apply-padding-y-half {
+    padding-block: 1.5 * $gridGapY;
+  }
+  %apply-gap-x {
+    column-gap: $gridGapX;
+  }
+  %apply-gap-y {
+    row-gap: $gridGapY;
+  }
+  .smucd.section--type-text {
+    .container {
+      row-gap: $gridGapY;
+      column-gap: $gridGapX;
     }
   }
 }
@@ -173,12 +205,14 @@
 }
 
 @mixin createHiddenClasses($bpPrefix: '') {
+  $className: #{&};
+  $className: string.slice($className, 2);
   @if ($bpPrefix == '') {
-    .section--hidden {
+    #{&}.#{&}--hidden {
       display: none;
     }
   } @else {
-    .#{$bpPrefix}-section--hidden {
+    #{&}.#{$bpPrefix}-#{$className}--hidden {
       display: none;
     }
   }
@@ -187,17 +221,17 @@
 @mixin createTextClasses($fontPrefix) {
   @for $hierarchy from 1 through 3 {
     $key: #{$fontPrefix} + '-body-' + #{$hierarchy};
-    .text-body-#{$hierarchy} {
+    .font-body-#{$hierarchy} {
       @include getFontPropertiesFromStyle($key);
     }
     $key: #{$fontPrefix} + '-body-' + #{$hierarchy};
-    .text-body-#{$hierarchy}-dense {
+    .font-body-#{$hierarchy}-dense {
       @include getFontPropertiesFromStyle($key);
     }
   }
   @for $hierarchy from 1 through 6 {
     $key: #{$fontPrefix} + '-heading-' + #{$hierarchy};
-    .text-heading-#{$hierarchy} {
+    .font-heading-#{$hierarchy} {
       @include getFontPropertiesFromStyle($key);
     }
   }
@@ -264,13 +298,6 @@ body {
   }
   &#{&}--py-0 {
     padding-top: 0;
-    padding-bottom: $yGapSolivingPadding;
-  }
-  &#{&}--pt-0 {
-    padding-top: 0;
-  }
-  &#{&}--pb-0 {
-    padding-bottom: $yGapSolivingPadding;
   }
   > * {
     overflow: hidden;
@@ -278,42 +305,93 @@ body {
 }
 
 .smucd.section {
-  .container {
+  > .container {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
-    > * {
-      width: 100%;
-    }
-    .textWrap {
-      max-width: 10ch;
-      text-align: center;
-      &--wrapAlign {
-        &-left {
-          align-self: flex-start;
-        }
-        &-right {
-          align-self: flex-end;
-        }
-      }
-      &--textAlign {
-        &-left {
-          text-align: left;
-        }
-        &-right {
-          text-align: right;
-        }
-      }
-    }
   }
   &--type {
-    &-media {
-      .container {
-        padding-inline: 0;
+    &-text {
+      > .container > * {
+        max-width: 60ch;
+        text-align: center;
+        &.text--boxAlign {
+          &-left {
+            align-self: flex-start;
+          }
+          &-right {
+            align-self: flex-end;
+          }
+        }
+        &.text--textAlign {
+          &-left {
+            text-align: left;
+          }
+          &-right {
+            text-align: right;
+          }
+        }
       }
     }
-    &-text {
+    &-media {
+      > .container {
+        align-items: stretch;
+        padding-inline: 0;
+      }
+      &.smucd:nth-last-of-type(2) > .container {
+        padding-bottom: 0;
+      }
+    }
+    &-header {
+      > .container {
+        align-items: stretch;
+        padding-inline: 0;
+        padding-top: 0;
+        > .info {
+          @extend %apply-padding-x;
+          @extend %apply-padding-t;
+          @extend %apply-padding-b-half;
+          @include al($align: 4, $gap: 1rem);
+          color: getColorByToken('onSurface-dark');
+          background-color: getColorByToken('bg-dark');
+          > .profilePic {
+            width: 3em;
+            aspect-ratio: 1 #{'/'} 1;
+            background-color: getColorByToken('color-dark', 'primary');
+            border-radius: 9999rem;
+          }
+        }
+      }
+    }
+    &-footer {
+      > .container {
+        align-items: stretch;
+        padding-inline: 0;
+        > .designInfo {
+          @extend %apply-padding-x;
+          @extend %apply-padding-y;
+          @include al($align: 5);
+          color: getColorByToken('onSurface-dark');
+          background-color: getColorByToken('surface-1-dark');
+        }
+        > .designerInfo {
+          @extend %apply-padding-x;
+          @extend %apply-padding-y;
+          @include al($align: 4, $gap: 1rem);
+          color: getColorByToken('onSurface-dark');
+          background-color: getColorByToken('surface-3-dark');
+          > .profilePic {
+            width: 3em;
+            aspect-ratio: 1 #{'/'} 1;
+            background-color: getColorByToken('color-dark', 'primary');
+            border-radius: 9999rem;
+          }
+        }
+      }
+      .smucd.section--type-media + & > .container {
+        padding-top: 0;
+      }
     }
   }
 }
@@ -372,11 +450,13 @@ body {
     @include createGridItemSizeClassesWithPrefix(12, 'tblSm-ge');
   }
   .section {
+    @at-root {
+      @include createHiddenClasses('tblSm-ge');
+    }
     .container {
       @include createFlexItemModClasses(12, 'tblSm-ge');
     }
   }
-  @include createHiddenClasses('tblSm-ge');
 }
 
 @include ge('tblLg') {
@@ -387,12 +467,14 @@ body {
     @include createGridItemSizeClassesWithPrefix(12, 'tblLg-ge');
   }
   .section {
+    @at-root {
+      @include createHiddenClasses('tblLg-ge');
+    }
     .container {
       @include createFlexItemModClasses(12, 'tblSm-ge');
       @include createFlexItemModClasses(12, 'tblLg-ge');
     }
   }
-  @include createHiddenClasses('tblLg-ge');
 }
 
 @include ge('lpt') {
@@ -404,13 +486,15 @@ body {
     @include createGridItemSizeClassesWithPrefix(12, 'lpt-ge');
   }
   .section {
+    @at-root {
+      @include createHiddenClasses('lpt-ge');
+    }
     .container {
       @include createFlexItemModClasses(12, 'tblSm-ge');
       @include createFlexItemModClasses(12, 'tblLg-ge');
       @include createFlexItemModClasses(12, 'lpt-ge');
     }
   }
-  @include createHiddenClasses('lpt-ge');
 }
 
 @include ge('dsk') {
@@ -421,6 +505,9 @@ body {
     @include createGridItemSizeClassesWithPrefix(12, 'dsk-ge');
   }
   .section {
+    @at-root {
+      @include createHiddenClasses('dsk-ge');
+    }
     .container {
       @include createFlexItemModClasses(12, 'tblSm-ge');
       @include createFlexItemModClasses(12, 'tblLg-ge');
@@ -428,21 +515,36 @@ body {
       @include createFlexItemModClasses(12, 'dsk-ge');
     }
   }
-  @include createHiddenClasses('dsk-ge');
 }
 
 @include le('hnd') {
-  @include createHiddenClasses('hnd');
+  .section {
+    @at-root {
+      @include createHiddenClasses('hnd-le');
+    }
+  }
 }
 
 @include le('tblSm') {
-  @include createHiddenClasses('tblSm-le');
+  .section {
+    @at-root {
+      @include createHiddenClasses('tblSm-le');
+    }
+  }
 }
 
 @include le('tblLg') {
-  @include createHiddenClasses('tblLg-le');
+  .section {
+    @at-root {
+      @include createHiddenClasses('tblLg-le');
+    }
+  }
 }
 
 @include le('lpt') {
-  @include createHiddenClasses('lpt-le');
+  .section {
+    @at-root {
+      @include createHiddenClasses('lpt-le');
+    }
+  }
 }

@@ -1,4 +1,5 @@
 /* stylelint-disable no-descending-specificity */
+/* stylelint-disable no-duplicate-selectors */
 
 @import 'customizations';
 @import 'globalFunctions';
@@ -246,7 +247,8 @@ body {
       grid-auto-rows: minmax(0, 1fr);
     }
   }
-  &.flex {
+  &.flex,
+  %flex {
     display: flex;
     flex-wrap: wrap;
     align-items: stretch;
@@ -258,7 +260,8 @@ body {
   &--h-full {
     min-height: 100vh;
   }
-  &#{&}--px-0 {
+  &#{&}--px-0,
+  %px-0 {
     padding-inline: 0;
   }
   &#{&}--py-0 {
@@ -272,35 +275,50 @@ body {
     padding-bottom: $yGapSolivingPadding;
   }
   > * {
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    justify-content: flex-start;
     overflow: hidden;
-    .textWrap {
-      // max-width: 66.8053ch;
-      max-width: 60ch;
-      text-align: center;
-      &.textWrap--align {
-        &-left {
-          align-self: flex-start;
-        }
-        &-right {
-          align-self: flex-end;
-        }
-      }
+  }
+}
 
-      &.text--align {
-        &-left {
-          text-align: left;
-        }
-        &-right {
-          text-align: right;
-        }
+.smucd.section {
+  &--type {
+    &-media {
+      > .container {
+        @extend %px-0;
+      }
+    }
+    &-text {
+      > .container {
       }
     }
   }
 }
+
+// display: flex;
+//     flex-flow: column nowrap;
+//     align-items: center;
+//     justify-content: flex-start;
+//     .textWrap {
+//       // max-width: 66.8053ch;
+//       max-width: 60ch;
+//       text-align: center;
+//       &.textWrap--align {
+//         &-left {
+//           align-self: flex-start;
+//         }
+//         &-right {
+//           align-self: flex-end;
+//         }
+//       }
+
+//       &.text--align {
+//         &-left {
+//           text-align: left;
+//         }
+//         &-right {
+//           text-align: right;
+//         }
+//       }
+//     }
 
 @include eq('hnd') {
   @include applyBreakpoint(0, 100%, 1.5rem, 4, 1rem, 1rem);
@@ -311,7 +329,6 @@ body {
 }
 
 @include eq('tblLg') {
-  // @include applyBreakpoint(0, 100%, 2.25rem, 12, 1.5rem, 1.5rem);
   @include applyBreakpoint(1fr, 52.5rem, 2.25rem, 12, 1.5rem, 1.5rem);
 }
 
@@ -327,14 +344,6 @@ body {
 }
 
 @include eq('dsk') {
-  // @include applyBreakpoint(
-  //   1fr,
-  //   minmax(0, 90rem),
-  //   min(calc(52 / 1440 * 100%), 3.25rem),
-  //   12,
-  //   2rem,
-  //   2rem
-  // );
   @include applyBreakpoint(
     1fr,
     minmax(0, 90rem),
@@ -430,14 +439,6 @@ body {
 
 @include le('tblSm') {
   @include createHiddenClasses('tblSm-le');
-  // .section {
-  //   &__bg {
-  //     display: none;
-  //   }
-  // }
-  // .container {
-  //   grid-column: 1 #{'/'} span 3;
-  // }
 }
 
 @include le('tblLg') {

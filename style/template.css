@@ -1,4 +1,5 @@
 /* stylelint-disable no-descending-specificity */
+/* stylelint-disable no-duplicate-selectors */
 body {
   background-color: #1c1b1d;
 }
@@ -54,7 +55,8 @@ body {
 .container--h-full {
   min-height: 100vh;
 }
-.container.container--px-0 {
+.container.container--px-0,
+.container .smucd.section--type-media > .container {
   padding-inline: 0;
 }
 .container.container--py-0 {
@@ -68,27 +70,7 @@ body {
   padding-bottom: 0.625rem;
 }
 .container > * {
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: flex-start;
   overflow: hidden;
-}
-.container > * .textWrap {
-  max-width: 60ch;
-  text-align: center;
-}
-.container > * .textWrap.textWrap--align-left {
-  align-self: flex-start;
-}
-.container > * .textWrap.textWrap--align-right {
-  align-self: flex-end;
-}
-.container > * .textWrap.text--align-left {
-  text-align: left;
-}
-.container > * .textWrap.text--align-right {
-  text-align: right;
 }
 
 @media (min-width: 0rem) and (max-width: 37.4375rem) {

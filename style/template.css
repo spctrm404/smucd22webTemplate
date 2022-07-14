@@ -79,10 +79,10 @@ body {
   justify-content: center;
 }
 .smucd.section .container > * {
-  flex-basis: 100%;
+  width: 100%;
 }
 .smucd.section .container .textWrap {
-  max-width: 60ch;
+  max-width: 10ch;
   text-align: center;
 }
 .smucd.section .container .textWrap--wrapAlign-left {

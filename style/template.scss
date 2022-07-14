@@ -247,8 +247,7 @@ body {
       grid-auto-rows: minmax(0, 1fr);
     }
   }
-  &.flex,
-  %flex {
+  &.flex {
     display: flex;
     flex-wrap: wrap;
     align-items: stretch;
@@ -260,8 +259,7 @@ body {
   &--h-full {
     min-height: 100vh;
   }
-  &#{&}--px-0,
-  %px-0 {
+  &#{&}--px-0 {
     padding-inline: 0;
   }
   &#{&}--py-0 {
@@ -280,45 +278,46 @@ body {
 }
 
 .smucd.section {
-  &--type {
-    &-media {
-      > .container {
-        @extend %px-0;
-      }
+  .container {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    > * {
+      flex-basis: 100%;
     }
-    &-text {
-      > .container {
+    .textWrap {
+      // max-width: 66.8053ch;
+      max-width: 60ch;
+      text-align: center;
+      &--wrapAlign {
+        &-left {
+          align-self: flex-start;
+        }
+        &-right {
+          align-self: flex-end;
+        }
+      }
+      &--textAlign {
+        &-left {
+          text-align: left;
+        }
+        &-right {
+          text-align: right;
+        }
       }
     }
   }
+  &--type {
+    &-media {
+      .container {
+        padding-inline: 0;
+      }
+    }
+    &-text {
+    }
+  }
 }
-
-// display: flex;
-//     flex-flow: column nowrap;
-//     align-items: center;
-//     justify-content: flex-start;
-//     .textWrap {
-//       // max-width: 66.8053ch;
-//       max-width: 60ch;
-//       text-align: center;
-//       &.textWrap--align {
-//         &-left {
-//           align-self: flex-start;
-//         }
-//         &-right {
-//           align-self: flex-end;
-//         }
-//       }
-
-//       &.text--align {
-//         &-left {
-//           text-align: left;
-//         }
-//         &-right {
-//           text-align: right;
-//         }
-//       }
-//     }
 
 @include eq('hnd') {
   @include applyBreakpoint(0, 100%, 1.5rem, 4, 1rem, 1rem);

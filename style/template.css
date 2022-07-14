@@ -55,8 +55,7 @@ body {
 .container--h-full {
   min-height: 100vh;
 }
-.container.container--px-0,
-.container .smucd.section--type-media > .container {
+.container.container--px-0 {
   padding-inline: 0;
 }
 .container.container--py-0 {
@@ -73,6 +72,34 @@ body {
   overflow: hidden;
 }
 
+.smucd.section .container {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+}
+.smucd.section .container > * {
+  flex-basis: 100%;
+}
+.smucd.section .container .textWrap {
+  max-width: 60ch;
+  text-align: center;
+}
+.smucd.section .container .textWrap--wrapAlign-left {
+  align-self: flex-start;
+}
+.smucd.section .container .textWrap--wrapAlign-right {
+  align-self: flex-end;
+}
+.smucd.section .container .textWrap--textAlign-left {
+  text-align: left;
+}
+.smucd.section .container .textWrap--textAlign-right {
+  text-align: right;
+}
+.smucd.section--type-media .container {
+  padding-inline: 0;
+}
 @media (min-width: 0rem) and (max-width: 37.4375rem) {
   .section {
     grid-template-columns: 0 100% 0;

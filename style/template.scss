@@ -221,17 +221,20 @@
 @mixin createTextClasses($fontPrefix) {
   @for $hierarchy from 1 through 3 {
     $key: #{$fontPrefix} + '-body-' + #{$hierarchy};
-    .font-body-#{$hierarchy} {
+    .font-body-#{$hierarchy},
+    %font-body-#{$hierarchy} {
       @include getFontPropertiesFromStyle($key);
     }
     $key: #{$fontPrefix} + '-body-' + #{$hierarchy};
-    .font-body-#{$hierarchy}-dense {
+    .font-body-#{$hierarchy}-dense,
+    %font-body-#{$hierarchy}-dense {
       @include getFontPropertiesFromStyle($key);
     }
   }
   @for $hierarchy from 1 through 6 {
     $key: #{$fontPrefix} + '-heading-' + #{$hierarchy};
-    .font-heading-#{$hierarchy} {
+    .font-heading-#{$hierarchy},
+    %font-heading-#{$hierarchy} {
       @include getFontPropertiesFromStyle($key);
     }
   }
@@ -352,14 +355,25 @@ body {
           @extend %apply-padding-x;
           @extend %apply-padding-t;
           @extend %apply-padding-b-half;
-          @include al($align: 4, $gap: 1rem);
+          @include al($align: 4, $gap: 1em);
           color: getColorByToken('onSurface-dark');
           background-color: getColorByToken('bg-dark');
           > .profilePic {
-            width: 3em;
+            flex-shrink: 0;
+            width: 4em;
             aspect-ratio: 1 #{'/'} 1;
             background-color: getColorByToken('color-dark', 'primary');
             border-radius: 9999rem;
+          }
+          > .wrap {
+            @include al($isDirX: false, $align: 1, $gap: 0.25em);
+            .title {
+              @extend %font-body-1-dense;
+              font-weight: 700 !important;
+            }
+            .name {
+              @extend %font-body-3-dense;
+            }
           }
         }
       }
@@ -369,6 +383,7 @@ body {
         align-items: stretch;
         padding-inline: 0;
         > .designInfo {
+          @extend %font-heading-5;
           @extend %apply-padding-x;
           @extend %apply-padding-y;
           @include al($align: 5);
@@ -378,14 +393,25 @@ body {
         > .designerInfo {
           @extend %apply-padding-x;
           @extend %apply-padding-y;
-          @include al($align: 4, $gap: 1rem);
+          @include al($align: 4, $gap: 1em);
           color: getColorByToken('onSurface-dark');
           background-color: getColorByToken('surface-3-dark');
           > .profilePic {
-            width: 3em;
+            flex-shrink: 0;
+            width: 4em;
             aspect-ratio: 1 #{'/'} 1;
             background-color: getColorByToken('color-dark', 'primary');
             border-radius: 9999rem;
+          }
+          > .wrap {
+            @include al($isDirX: false, $align: 1, $gap: 0.25em);
+            .name {
+              @extend %font-body-2-dense;
+              font-weight: 700 !important;
+            }
+            .quote {
+              @extend %font-body-3-dense;
+            }
           }
         }
       }

@@ -30,14 +30,6 @@
     padding-inline: $containerPaddingX;
     padding-top: 3 * $gridGapY;
     padding-bottom: $yGapSolivingPadding;
-    &.grid {
-      grid-template-columns: repeat($gridColumnNum, minmax(0, 1fr));
-      row-gap: $gridGapY;
-      column-gap: $gridGapX;
-    }
-    @at-root .flex {
-      @include flexItemEvenSizeDistributor($gridColumnNum);
-    }
   }
   %apply-padding-x {
     padding-inline: $containerPaddingX;
@@ -45,17 +37,26 @@
   %apply-padding-t {
     padding-top: 3 * $gridGapY;
   }
-  %apply-padding-b {
-    padding-bottom: 3 * $gridGapY;
+  %apply-padding-t-double {
+    padding-top: 6 * $gridGapY;
   }
   %apply-padding-t-half {
     padding-top: 1.5 * $gridGapY;
+  }
+  %apply-padding-b {
+    padding-bottom: 3 * $gridGapY;
+  }
+  %apply-padding-b-double {
+    padding-bottom: 6 * $gridGapY;
   }
   %apply-padding-b-half {
     padding-bottom: 1.5 * $gridGapY;
   }
   %apply-padding-y {
     padding-block: 3 * $gridGapY;
+  }
+  %apply-padding-y-double {
+    padding-block: 1.5 * $gridGapY;
   }
   %apply-padding-y-half {
     padding-block: 1.5 * $gridGapY;
@@ -70,150 +71,6 @@
     .container {
       row-gap: $gridGapY;
       column-gap: $gridGapX;
-    }
-  }
-}
-
-@mixin createGridItemModClasses($columnNum, $bpPrefix: '') {
-  @if ($bpPrefix == '') {
-    @for $i from 1 through $columnNum {
-      @if (($i != $columnNum) and ($i != calc($columnNum / 2))) {
-        .grid-w-#{$i} {
-          grid-column-end: span $i;
-        }
-      }
-      .grid-h-#{$i} {
-        grid-row-end: span $i;
-      }
-    }
-    @for $start from 1 through $columnNum {
-      .grid-x-#{$start} {
-        grid-column-start: $start;
-      }
-      .grid-y-#{$start} {
-        grid-row-start: $start;
-      }
-      @for $to from 1 through ($columnNum - ($start - 1)) {
-        .grid-x-#{$start}-w-#{$to} {
-          grid-column: $start #{'/'} span $to;
-        }
-      }
-      @for $to from 1 through (12 - ($start - 1)) {
-        .grid-y-#{$start}-h-#{$to} {
-          grid-row: $start #{'/'} span $to;
-        }
-      }
-    }
-  } @else {
-    @for $i from 1 through $columnNum {
-      @if (($i != $columnNum) and ($i != calc($columnNum / 2))) {
-        .#{$bpPrefix}-grid-w-#{$i} {
-          grid-column-end: span $i;
-        }
-      }
-      .#{$bpPrefix}-grid-h-#{$i} {
-        grid-row-end: span $i;
-      }
-    }
-    @for $start from 1 through $columnNum {
-      .#{$bpPrefix}-grid-x-#{$start} {
-        grid-column-start: $start;
-      }
-      .#{$bpPrefix}-grid-y-#{$start} {
-        grid-row-start: $start;
-      }
-      @for $to from 1 through ($columnNum - ($start - 1)) {
-        .#{$bpPrefix}-grid-x-#{$start}-w-#{$to} {
-          grid-column: $start #{'/'} span $to;
-        }
-      }
-      @for $to from 1 through (12 - ($start - 1)) {
-        .#{$bpPrefix}-grid-y-#{$start}-h-#{$to} {
-          grid-row: $start #{'/'} span $to;
-        }
-      }
-    }
-  }
-}
-
-@mixin createGridItemSizeClassesWithoutPrefix($columnNum) {
-  .grid-w-half {
-    grid-column-end: span calc($columnNum / 2);
-  }
-  .grid-w-full {
-    grid-column-end: span $columnNum;
-  }
-}
-
-@mixin createGridItemSizeClassesWithPrefix($columnNum, $bpPrefix: '') {
-  .#{$bpPrefix}-grid-w-half {
-    grid-column-end: span calc($columnNum / 2);
-  }
-  .#{$bpPrefix}-grid-w-full {
-    grid-column-end: span $columnNum;
-  }
-}
-
-@mixin flexItemEvenSizeDistributor($columnNum) {
-  @for $i from 1 through 12 {
-    & > *:first-child:nth-last-child(#{$i}),
-    & > *:first-child:nth-last-child(#{$i}) ~ * {
-      @if ($i > $columnNum) {
-        flex-basis: calc(100% / $columnNum);
-      } @else {
-        $calibratedI: (($i - 1) % $columnNum) + 1;
-        flex-basis: calc(100% / $calibratedI);
-      }
-    }
-  }
-}
-
-@mixin createFlexItemModClasses($columnNum, $bpPrefix: '') {
-  @if ($bpPrefix == '') {
-    .flex-w-full {
-      flex-basis: 100%;
-    }
-    .flex-w-half {
-      flex-basis: calc(100% / 2);
-    }
-    @for $divisor from 2 through $columnNum {
-      @for $dividend from 1 to $divisor {
-        @if (calc($dividend / $divisor) != calc(1 / 2)) {
-          .flex-w-#{$dividend}-#{$divisor} {
-            flex-basis: calc(100% / $divisor * $dividend);
-          }
-        }
-      }
-    }
-  } @else {
-    .#{$bpPrefix}-flex-w-full {
-      flex-basis: 100%;
-    }
-    .#{$bpPrefix}-flex-w-half {
-      flex-basis: calc(100% / 2);
-    }
-    @for $divisor from 2 through $columnNum {
-      @for $dividend from 1 to $divisor {
-        @if (calc($dividend / $divisor) != calc(1 / 2)) {
-          .#{$bpPrefix}-flex-w-#{$dividend}-#{$divisor} {
-            flex-basis: calc(100% / $divisor * $dividend);
-          }
-        }
-      }
-    }
-  }
-}
-
-@mixin createHiddenClasses($bpPrefix: '') {
-  $className: #{&};
-  $className: string.slice($className, 2);
-  @if ($bpPrefix == '') {
-    #{&}.#{&}--hidden {
-      display: none;
-    }
-  } @else {
-    #{&}.#{$bpPrefix}-#{$className}--hidden {
-      display: none;
     }
   }
 }
@@ -244,6 +101,21 @@ body {
   background-color: getColorByToken('bg-dark');
 }
 
+.container {
+  display: flex;
+  flex-flow: column nowrap;
+  grid-row: 1 #{'/'} span 2;
+  grid-column: 2 #{'/'} span 1;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+  background-color: getColorByToken('bg-light');
+  > * {
+    overflow: hidden;
+  }
+}
+
 .section {
   position: relative;
   display: grid;
@@ -255,64 +127,6 @@ body {
   &:last-of-type,
   &:only-of-type {
     grid-template-rows: minmax(0, auto) 0;
-  }
-  &__bg {
-    position: relative;
-    z-index: -1;
-    &--left {
-      grid-row: 1 #{'/'} span 2;
-      grid-column: 1 #{'/'} span 1;
-      background-color: transparent;
-    }
-    &--right {
-      grid-row: 1 #{'/'} span 2;
-      grid-column: 3 #{'/'} span 1;
-      background-color: transparent;
-    }
-  }
-}
-
-.container {
-  grid-row: 1 #{'/'} span 2;
-  grid-column: 2 #{'/'} span 1;
-  width: 100%;
-  overflow: hidden;
-  background-color: getColorByToken('bg-light');
-  &.grid {
-    display: grid;
-    &--rowH-even {
-      grid-auto-rows: minmax(0, 1fr);
-    }
-  }
-  &.flex {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: stretch;
-    justify-content: center;
-  }
-  &#{&}--w-full {
-    grid-column: 1 #{'/'} span 3;
-  }
-  &--h-full {
-    min-height: 100vh;
-  }
-  &#{&}--px-0 {
-    padding-inline: 0;
-  }
-  &#{&}--py-0 {
-    padding-top: 0;
-  }
-  > * {
-    overflow: hidden;
-  }
-}
-
-.smucd.section {
-  > .container {
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    justify-content: center;
   }
   &--type {
     &-text {
@@ -342,46 +156,47 @@ body {
         align-items: stretch;
         padding-inline: 0;
       }
-      &.smucd:nth-last-of-type(2) > .container {
+      &.section:nth-last-of-type(2) > .container {
         padding-bottom: 0;
+      }
+    }
+    &-header,
+    &-footer {
+      > .container {
+        align-items: stretch;
+        padding-inline: 0;
+        .profilePic {
+          flex-shrink: 0;
+          width: 3.5em;
+          aspect-ratio: 1 #{'/'} 1;
+          background-color: getColorByToken('color-dark', 'primary');
+          border-radius: 9999rem;
+        }
       }
     }
     &-header {
       > .container {
-        align-items: stretch;
-        padding-inline: 0;
+        @extend %apply-padding-x;
+        @extend %apply-padding-t-double;
+        @extend %apply-padding-b;
+        @include al($align: 4, $gap: 1em);
         padding-top: 0;
-        > .info {
-          @extend %apply-padding-x;
-          @extend %apply-padding-t;
-          @extend %apply-padding-b-half;
-          @include al($align: 4, $gap: 1em);
-          color: getColorByToken('onSurface-dark');
-          background-color: getColorByToken('bg-dark');
-          > .profilePic {
-            flex-shrink: 0;
-            width: 4em;
-            aspect-ratio: 1 #{'/'} 1;
-            background-color: getColorByToken('color-dark', 'primary');
-            border-radius: 9999rem;
+        color: getColorByToken('onSurface-dark');
+        background-color: getColorByToken('bg-dark');
+        > .wrap {
+          @include al($isDirX: false, $align: 1, $gap: 0.25em);
+          > .title {
+            @extend %font-body-1-dense;
+            font-weight: 700 !important;
           }
-          > .wrap {
-            @include al($isDirX: false, $align: 1, $gap: 0.25em);
-            .title {
-              @extend %font-body-1-dense;
-              font-weight: 700 !important;
-            }
-            .name {
-              @extend %font-body-3-dense;
-            }
+          > .name {
+            @extend %font-body-3-dense;
           }
         }
       }
     }
     &-footer {
       > .container {
-        align-items: stretch;
-        padding-inline: 0;
         > .designInfo {
           @extend %font-heading-5;
           @extend %apply-padding-x;
@@ -392,32 +207,79 @@ body {
         }
         > .designerInfo {
           @extend %apply-padding-x;
-          @extend %apply-padding-y;
+          @extend %apply-padding-t;
           @include al($align: 4, $gap: 1em);
           color: getColorByToken('onSurface-dark');
           background-color: getColorByToken('surface-3-dark');
-          > .profilePic {
-            flex-shrink: 0;
-            width: 4em;
-            aspect-ratio: 1 #{'/'} 1;
-            background-color: getColorByToken('color-dark', 'primary');
-            border-radius: 9999rem;
-          }
           > .wrap {
             @include al($isDirX: false, $align: 1, $gap: 0.25em);
-            .name {
+            > .name {
               @extend %font-body-2-dense;
               font-weight: 700 !important;
             }
-            .quote {
+            > .quote {
               @extend %font-body-3-dense;
             }
           }
         }
+        > .otherWorks {
+          @extend %apply-padding-x;
+          @extend %apply-padding-y;
+          color: getColorByToken('onSurface-dark');
+          background-color: getColorByToken('surface-3-dark');
+          > .work {
+            @extend %font-body-3;
+            aspect-ratio: 16 #{'/'} 9;
+            color: getColorByToken('onSurface-dark');
+            background-color: getColorByToken(
+              'color-container-light',
+              'primary'
+            );
+            > .wrap {
+              align-self: stretch;
+              width: 100%;
+              height: 100%;
+              padding: 1.25em;
+              background: linear-gradient(
+                rgba(0, 0, 0, 0) 0%,
+                rgba(0, 0, 0, 0.6) 81%
+              );
+              opacity: 0;
+              transition: opacity 100ms;
+              @include al($isDirX: false, $align: 7, $gap: 0.25em);
+              &:hover {
+                opacity: 1;
+              }
+              > * {
+                align-self: stretch;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              }
+              > .title {
+                font-weight: 700;
+              }
+            }
+          }
+        }
       }
-      .smucd.section--type-media + & > .container {
+      .section--type-media + & > .container {
         padding-top: 0;
       }
+    }
+  }
+  &__bg {
+    position: relative;
+    z-index: -1;
+    &--left {
+      grid-row: 1 #{'/'} span 2;
+      grid-column: 1 #{'/'} span 1;
+      background-color: transparent;
+    }
+    &--right {
+      grid-row: 1 #{'/'} span 2;
+      grid-column: 3 #{'/'} span 1;
+      background-color: transparent;
     }
   }
 }
@@ -460,28 +322,11 @@ body {
   @include createTextClasses('sm');
   .container {
     @include getFontPropertiesFromStyle('sm-body-2');
-    @include createGridItemSizeClassesWithoutPrefix(4);
-    @include createGridItemModClasses(4);
   }
-  .section {
-    .container {
-      @include createFlexItemModClasses(4);
-    }
-  }
-}
-
-@include ge('tblSm') {
-  .container {
-    @include createGridItemSizeClassesWithoutPrefix(12);
-    @include createGridItemSizeClassesWithPrefix(12, 'tblSm-ge');
-  }
-  .section {
-    @at-root {
-      @include createHiddenClasses('tblSm-ge');
-    }
-    .container {
-      @include createFlexItemModClasses(12, 'tblSm-ge');
-    }
+  .otherWorks {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1.5rem;
   }
 }
 
@@ -489,17 +334,11 @@ body {
   @include createTextClasses('md');
   .container {
     @include getFontPropertiesFromStyle('md-body-2');
-    @include createGridItemSizeClassesWithPrefix(12, 'tblSm-ge');
-    @include createGridItemSizeClassesWithPrefix(12, 'tblLg-ge');
   }
-  .section {
-    @at-root {
-      @include createHiddenClasses('tblLg-ge');
-    }
-    .container {
-      @include createFlexItemModClasses(12, 'tblSm-ge');
-      @include createFlexItemModClasses(12, 'tblLg-ge');
-    }
+  .otherWorks {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1.5rem;
   }
 }
 
@@ -507,70 +346,5 @@ body {
   @include createTextClasses('lg');
   .container {
     @include getFontPropertiesFromStyle('lg-body-2');
-    @include createGridItemSizeClassesWithPrefix(12, 'tblSm-ge');
-    @include createGridItemSizeClassesWithPrefix(12, 'tblLg-ge');
-    @include createGridItemSizeClassesWithPrefix(12, 'lpt-ge');
-  }
-  .section {
-    @at-root {
-      @include createHiddenClasses('lpt-ge');
-    }
-    .container {
-      @include createFlexItemModClasses(12, 'tblSm-ge');
-      @include createFlexItemModClasses(12, 'tblLg-ge');
-      @include createFlexItemModClasses(12, 'lpt-ge');
-    }
-  }
-}
-
-@include ge('dsk') {
-  .container {
-    @include createGridItemSizeClassesWithPrefix(12, 'tblSm-ge');
-    @include createGridItemSizeClassesWithPrefix(12, 'tblLg-ge');
-    @include createGridItemSizeClassesWithPrefix(12, 'lpt-ge');
-    @include createGridItemSizeClassesWithPrefix(12, 'dsk-ge');
-  }
-  .section {
-    @at-root {
-      @include createHiddenClasses('dsk-ge');
-    }
-    .container {
-      @include createFlexItemModClasses(12, 'tblSm-ge');
-      @include createFlexItemModClasses(12, 'tblLg-ge');
-      @include createFlexItemModClasses(12, 'lpt-ge');
-      @include createFlexItemModClasses(12, 'dsk-ge');
-    }
-  }
-}
-
-@include le('hnd') {
-  .section {
-    @at-root {
-      @include createHiddenClasses('hnd-le');
-    }
-  }
-}
-
-@include le('tblSm') {
-  .section {
-    @at-root {
-      @include createHiddenClasses('tblSm-le');
-    }
-  }
-}
-
-@include le('tblLg') {
-  .section {
-    @at-root {
-      @include createHiddenClasses('tblLg-le');
-    }
-  }
-}
-
-@include le('lpt') {
-  .section {
-    @at-root {
-      @include createHiddenClasses('lpt-le');
-    }
   }
 }

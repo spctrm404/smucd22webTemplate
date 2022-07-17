@@ -1,5 +1,11 @@
 /* stylelint-disable no-descending-specificity */
+/* stylelint-disable no-duplicate-selectors */
 
+// todo
+// make placeholder for font
+// make it compact
+
+@use 'sass:string';
 @import 'customizations';
 @import 'globalFunctions';
 
@@ -15,21 +21,15 @@
     grid-template-columns: $sectionSideW $sectionCenterW $sectionSideW;
     &:last-of-type,
     &:only-of-type {
-      .container {
-        padding-bottom: 1.5 * $gridGapY;
-        &--py-0 {
-          padding-block: 0;
-        }
-        &--pb-0 {
-          padding-bottom: 0;
-        }
+      > .container {
+        padding-bottom: 0;
       }
     }
   }
   .container {
     padding-inline: $containerPaddingX;
-    padding-top: 1.5 * $gridGapY;
-    padding-bottom: 1.5 * $gridGapY + $yGapSolivingPadding;
+    padding-top: 3 * $gridGapY;
+    padding-bottom: $yGapSolivingPadding;
     &.grid {
       grid-template-columns: repeat($gridColumnNum, minmax(0, 1fr));
       row-gap: $gridGapY;
@@ -37,6 +37,39 @@
     }
     @at-root .flex {
       @include flexItemEvenSizeDistributor($gridColumnNum);
+    }
+  }
+  %apply-padding-x {
+    padding-inline: $containerPaddingX;
+  }
+  %apply-padding-t {
+    padding-top: 3 * $gridGapY;
+  }
+  %apply-padding-b {
+    padding-bottom: 3 * $gridGapY;
+  }
+  %apply-padding-t-half {
+    padding-top: 1.5 * $gridGapY;
+  }
+  %apply-padding-b-half {
+    padding-bottom: 1.5 * $gridGapY;
+  }
+  %apply-padding-y {
+    padding-block: 3 * $gridGapY;
+  }
+  %apply-padding-y-half {
+    padding-block: 1.5 * $gridGapY;
+  }
+  %apply-gap-x {
+    column-gap: $gridGapX;
+  }
+  %apply-gap-y {
+    row-gap: $gridGapY;
+  }
+  .smucd.section--type-text {
+    .container {
+      row-gap: $gridGapY;
+      column-gap: $gridGapX;
     }
   }
 }
@@ -172,12 +205,14 @@
 }
 
 @mixin createHiddenClasses($bpPrefix: '') {
+  $className: #{&};
+  $className: string.slice($className, 2);
   @if ($bpPrefix == '') {
-    .section--hidden {
+    #{&}.#{&}--hidden {
       display: none;
     }
   } @else {
-    .#{$bpPrefix}-section--hidden {
+    #{&}.#{$bpPrefix}-#{$className}--hidden {
       display: none;
     }
   }
@@ -186,17 +221,20 @@
 @mixin createTextClasses($fontPrefix) {
   @for $hierarchy from 1 through 3 {
     $key: #{$fontPrefix} + '-body-' + #{$hierarchy};
-    .text-body-#{$hierarchy} {
+    .font-body-#{$hierarchy},
+    %font-body-#{$hierarchy} {
       @include getFontPropertiesFromStyle($key);
     }
     $key: #{$fontPrefix} + '-body-' + #{$hierarchy};
-    .text-body-#{$hierarchy}-dense {
+    .font-body-#{$hierarchy}-dense,
+    %font-body-#{$hierarchy}-dense {
       @include getFontPropertiesFromStyle($key);
     }
   }
   @for $hierarchy from 1 through 6 {
     $key: #{$fontPrefix} + '-heading-' + #{$hierarchy};
-    .text-heading-#{$hierarchy} {
+    .font-heading-#{$hierarchy},
+    %font-heading-#{$hierarchy} {
       @include getFontPropertiesFromStyle($key);
     }
   }
@@ -263,16 +301,124 @@ body {
   }
   &#{&}--py-0 {
     padding-top: 0;
-    padding-bottom: $yGapSolivingPadding;
-  }
-  &#{&}--pt-0 {
-    padding-top: 0;
-  }
-  &#{&}--pb-0 {
-    padding-bottom: $yGapSolivingPadding;
   }
   > * {
     overflow: hidden;
+  }
+}
+
+.smucd.section {
+  > .container {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+  }
+  &--type {
+    &-text {
+      > .container > * {
+        max-width: 60ch;
+        text-align: center;
+        &.text--boxAlign {
+          &-left {
+            align-self: flex-start;
+          }
+          &-right {
+            align-self: flex-end;
+          }
+        }
+        &.text--textAlign {
+          &-left {
+            text-align: left;
+          }
+          &-right {
+            text-align: right;
+          }
+        }
+      }
+    }
+    &-media {
+      > .container {
+        align-items: stretch;
+        padding-inline: 0;
+      }
+      &.smucd:nth-last-of-type(2) > .container {
+        padding-bottom: 0;
+      }
+    }
+    &-header {
+      > .container {
+        align-items: stretch;
+        padding-inline: 0;
+        padding-top: 0;
+        > .info {
+          @extend %apply-padding-x;
+          @extend %apply-padding-t;
+          @extend %apply-padding-b-half;
+          @include al($align: 4, $gap: 1em);
+          color: getColorByToken('onSurface-dark');
+          background-color: getColorByToken('bg-dark');
+          > .profilePic {
+            flex-shrink: 0;
+            width: 3.5em;
+            aspect-ratio: 1 #{'/'} 1;
+            background-color: getColorByToken('color-dark', 'primary');
+            border-radius: 9999rem;
+          }
+          > .wrap {
+            @include al($isDirX: false, $align: 1, $gap: 0.25em);
+            .title {
+              @extend %font-body-1-dense;
+              font-weight: 700 !important;
+            }
+            .name {
+              @extend %font-body-3-dense;
+            }
+          }
+        }
+      }
+    }
+    &-footer {
+      > .container {
+        align-items: stretch;
+        padding-inline: 0;
+        > .designInfo {
+          @extend %font-heading-5;
+          @extend %apply-padding-x;
+          @extend %apply-padding-y;
+          @include al($align: 5);
+          color: getColorByToken('onSurface-dark');
+          background-color: getColorByToken('surface-1-dark');
+        }
+        > .designerInfo {
+          @extend %apply-padding-x;
+          @extend %apply-padding-y;
+          @include al($align: 4, $gap: 1em);
+          color: getColorByToken('onSurface-dark');
+          background-color: getColorByToken('surface-3-dark');
+          > .profilePic {
+            flex-shrink: 0;
+            width: 3.5em;
+            aspect-ratio: 1 #{'/'} 1;
+            background-color: getColorByToken('color-dark', 'primary');
+            border-radius: 9999rem;
+          }
+          > .wrap {
+            @include al($isDirX: false, $align: 1, $gap: 0.25em);
+            .name {
+              @extend %font-body-2-dense;
+              font-weight: 700 !important;
+            }
+            .quote {
+              @extend %font-body-3-dense;
+            }
+          }
+        }
+      }
+      .smucd.section--type-media + & > .container {
+        padding-top: 0;
+      }
+    }
   }
 }
 
@@ -285,14 +431,14 @@ body {
 }
 
 @include eq('tblLg') {
-  @include applyBreakpoint(0, 100%, 2.25rem, 12, 1.5rem, 1.5rem);
+  @include applyBreakpoint(1fr, 52.5rem, 2.25rem, 12, 1.5rem, 1.5rem);
 }
 
 @include eq('lpt') {
   @include applyBreakpoint(
     0,
     100%,
-    min(calc(52 / 1440 * 100%), 3.25rem),
+    min(calc(60 / 1440 * 100%), 3.75rem),
     12,
     1.5rem,
     1.5rem
@@ -303,10 +449,10 @@ body {
   @include applyBreakpoint(
     1fr,
     minmax(0, 90rem),
-    min(calc(52 / 1440 * 100%), 3.25rem),
+    min(calc(60 / 1440 * 100%), 3.75rem),
     12,
-    2rem,
-    2rem
+    1.5rem,
+    1.5rem
   );
 }
 
@@ -330,11 +476,13 @@ body {
     @include createGridItemSizeClassesWithPrefix(12, 'tblSm-ge');
   }
   .section {
+    @at-root {
+      @include createHiddenClasses('tblSm-ge');
+    }
     .container {
       @include createFlexItemModClasses(12, 'tblSm-ge');
     }
   }
-  @include createHiddenClasses('tblSm-ge');
 }
 
 @include ge('tblLg') {
@@ -345,40 +493,47 @@ body {
     @include createGridItemSizeClassesWithPrefix(12, 'tblLg-ge');
   }
   .section {
+    @at-root {
+      @include createHiddenClasses('tblLg-ge');
+    }
     .container {
       @include createFlexItemModClasses(12, 'tblSm-ge');
       @include createFlexItemModClasses(12, 'tblLg-ge');
     }
   }
-  @include createHiddenClasses('tblLg-ge');
 }
 
 @include ge('lpt') {
-  .container {
-    @include createGridItemSizeClassesWithPrefix(12, 'tblSm-ge');
-    @include createGridItemSizeClassesWithPrefix(12, 'tblLg-ge');
-    @include createGridItemSizeClassesWithPrefix(12, 'lpt-ge');
-  }
-  .section {
-    .container {
-      @include createFlexItemModClasses(12, 'tblSm-ge');
-      @include createFlexItemModClasses(12, 'tblLg-ge');
-      @include createFlexItemModClasses(12, 'lpt-ge');
-    }
-  }
-  @include createHiddenClasses('lpt-ge');
-}
-
-@include ge('dsk') {
   @include createTextClasses('lg');
   .container {
     @include getFontPropertiesFromStyle('lg-body-2');
     @include createGridItemSizeClassesWithPrefix(12, 'tblSm-ge');
     @include createGridItemSizeClassesWithPrefix(12, 'tblLg-ge');
     @include createGridItemSizeClassesWithPrefix(12, 'lpt-ge');
+  }
+  .section {
+    @at-root {
+      @include createHiddenClasses('lpt-ge');
+    }
+    .container {
+      @include createFlexItemModClasses(12, 'tblSm-ge');
+      @include createFlexItemModClasses(12, 'tblLg-ge');
+      @include createFlexItemModClasses(12, 'lpt-ge');
+    }
+  }
+}
+
+@include ge('dsk') {
+  .container {
+    @include createGridItemSizeClassesWithPrefix(12, 'tblSm-ge');
+    @include createGridItemSizeClassesWithPrefix(12, 'tblLg-ge');
+    @include createGridItemSizeClassesWithPrefix(12, 'lpt-ge');
     @include createGridItemSizeClassesWithPrefix(12, 'dsk-ge');
   }
   .section {
+    @at-root {
+      @include createHiddenClasses('dsk-ge');
+    }
     .container {
       @include createFlexItemModClasses(12, 'tblSm-ge');
       @include createFlexItemModClasses(12, 'tblLg-ge');
@@ -386,29 +541,36 @@ body {
       @include createFlexItemModClasses(12, 'dsk-ge');
     }
   }
-  @include createHiddenClasses('dsk-ge');
 }
 
 @include le('hnd') {
-  @include createHiddenClasses('hnd');
+  .section {
+    @at-root {
+      @include createHiddenClasses('hnd-le');
+    }
+  }
 }
 
 @include le('tblSm') {
-  @include createHiddenClasses('tblSm-le');
+  .section {
+    @at-root {
+      @include createHiddenClasses('tblSm-le');
+    }
+  }
 }
 
 @include le('tblLg') {
-  @include createHiddenClasses('tblLg-le');
+  .section {
+    @at-root {
+      @include createHiddenClasses('tblLg-le');
+    }
+  }
 }
 
 @include le('lpt') {
-  @include createHiddenClasses('lpt-le');
   .section {
-    &__bg {
-      display: none;
+    @at-root {
+      @include createHiddenClasses('lpt-le');
     }
-  }
-  .container {
-    grid-column: 1 #{'/'} span 3;
   }
 }

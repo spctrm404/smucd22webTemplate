@@ -224,7 +224,8 @@ body {
         }
         > .otherWorks {
           @extend %apply-padding-x;
-          @extend %apply-padding-y;
+          @extend %apply-padding-t-half;
+          @extend %apply-padding-b;
           color: getColorByToken('onSurface-dark');
           background-color: getColorByToken('surface-3-dark');
           > .work {
@@ -326,6 +327,7 @@ body {
   .otherWorks {
     display: grid;
     grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr);
     gap: 1.5rem;
   }
 }
@@ -337,6 +339,7 @@ body {
   }
   .otherWorks {
     display: grid;
+    grid-template-rows: minmax(0, 1fr);
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 1.5rem;
   }

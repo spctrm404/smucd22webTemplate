@@ -192,10 +192,13 @@ body {
   .section--type-header > .container {
     padding-top: 6rem;
   }
-  .section--type-header > .container {
+  .section--type-footer > .container > .otherWorks {
+    padding-top: 1.5rem;
+  }
+  .section--type-header > .container, .section--type-footer > .container > .otherWorks {
     padding-bottom: 3rem;
   }
-  .section--type-footer > .container > .designInfo, .section--type-footer > .container > .otherWorks {
+  .section--type-footer > .container > .designInfo {
     padding-block: 3rem;
   }
   .smucd.section--type-text .container {
@@ -225,10 +228,13 @@ body {
   .section--type-header > .container {
     padding-top: 6rem;
   }
-  .section--type-header > .container {
+  .section--type-footer > .container > .otherWorks {
+    padding-top: 1.5rem;
+  }
+  .section--type-header > .container, .section--type-footer > .container > .otherWorks {
     padding-bottom: 3rem;
   }
-  .section--type-footer > .container > .designInfo, .section--type-footer > .container > .otherWorks {
+  .section--type-footer > .container > .designInfo {
     padding-block: 3rem;
   }
   .smucd.section--type-text .container {
@@ -258,10 +264,13 @@ body {
   .section--type-header > .container {
     padding-top: 9rem;
   }
-  .section--type-header > .container {
+  .section--type-footer > .container > .otherWorks {
+    padding-top: 2.25rem;
+  }
+  .section--type-header > .container, .section--type-footer > .container > .otherWorks {
     padding-bottom: 4.5rem;
   }
-  .section--type-footer > .container > .designInfo, .section--type-footer > .container > .otherWorks {
+  .section--type-footer > .container > .designInfo {
     padding-block: 4.5rem;
   }
   .smucd.section--type-text .container {
@@ -291,10 +300,13 @@ body {
   .section--type-header > .container {
     padding-top: 9rem;
   }
-  .section--type-header > .container {
+  .section--type-footer > .container > .otherWorks {
+    padding-top: 2.25rem;
+  }
+  .section--type-header > .container, .section--type-footer > .container > .otherWorks {
     padding-bottom: 4.5rem;
   }
-  .section--type-footer > .container > .designInfo, .section--type-footer > .container > .otherWorks {
+  .section--type-footer > .container > .designInfo {
     padding-block: 4.5rem;
   }
   .smucd.section--type-text .container {
@@ -324,10 +336,13 @@ body {
   .section--type-header > .container {
     padding-top: 9rem;
   }
-  .section--type-header > .container {
+  .section--type-footer > .container > .otherWorks {
+    padding-top: 2.25rem;
+  }
+  .section--type-header > .container, .section--type-footer > .container > .otherWorks {
     padding-bottom: 4.5rem;
   }
-  .section--type-footer > .container > .designInfo, .section--type-footer > .container > .otherWorks {
+  .section--type-footer > .container > .designInfo {
     padding-block: 4.5rem;
   }
   .smucd.section--type-text .container {
@@ -411,6 +426,7 @@ body {
   .otherWorks {
     display: grid;
     grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr);
     gap: 1.5rem;
   }
 }
@@ -488,6 +504,7 @@ body {
   }
   .otherWorks {
     display: grid;
+    grid-template-rows: minmax(0, 1fr);
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 1.5rem;
   }

@@ -53,13 +53,16 @@
     padding-bottom: 1.5 * $gridGapY;
   }
   %apply-padding-y {
-    padding-block: 3 * $gridGapY;
+    padding-top: 3 * $gridGapY;
+    padding-bottom: 3 * $gridGapY;
   }
   %apply-padding-y-double {
-    padding-block: 1.5 * $gridGapY;
+    padding-top: 6 * $gridGapY;
+    padding-bottom: 6 * $gridGapY;
   }
   %apply-padding-y-half {
-    padding-block: 1.5 * $gridGapY;
+    padding-top: 1.5 * $gridGapY;
+    padding-bottom: 1.5 * $gridGapY;
   }
   %apply-gap-x {
     column-gap: $gridGapX;
@@ -67,8 +70,8 @@
   %apply-gap-y {
     row-gap: $gridGapY;
   }
-  .smucd.section--type-text {
-    .container {
+  .section--type-text {
+    > .container {
       row-gap: $gridGapY;
       column-gap: $gridGapX;
     }
@@ -82,7 +85,7 @@
     %font-body-#{$hierarchy} {
       @include getFontPropertiesFromStyle($key);
     }
-    $key: #{$fontPrefix} + '-body-' + #{$hierarchy};
+    $key: #{$fontPrefix} + '-body-' + #{$hierarchy} + '-dense';
     .font-body-#{$hierarchy}-dense,
     %font-body-#{$hierarchy}-dense {
       @include getFontPropertiesFromStyle($key);
@@ -101,27 +104,11 @@ body {
   background-color: getColorByToken('bg-dark');
 }
 
-.container {
-  display: flex;
-  flex-flow: column nowrap;
-  grid-row: 1 #{'/'} span 2;
-  grid-column: 2 #{'/'} span 1;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  overflow: hidden;
-  background-color: getColorByToken('bg-light');
-  > * {
-    overflow: hidden;
-  }
-}
-
 .section {
   position: relative;
   display: grid;
   grid-template-rows: minmax(0, auto) $yGapSolivingPadding;
-  &:not(:first-of-type),
-  &:not(:only-of-type) {
+  &:not(:first-of-type) {
     margin-top: -1 * $yGapSolivingPadding;
   }
   &:last-of-type,
@@ -129,24 +116,30 @@ body {
     grid-template-rows: minmax(0, auto) 0;
   }
   &--type {
+    &-text,
+    &-media {
+      background-color: getColorByToken('bg-light');
+    }
     &-text {
-      > .container > * {
-        max-width: 60ch;
-        text-align: center;
-        &.text--boxAlign {
-          &-left {
-            align-self: flex-start;
+      > .container {
+        > * {
+          max-width: 60ch;
+          text-align: center;
+          &.text--boxAlign {
+            &-left {
+              align-self: flex-start;
+            }
+            &-right {
+              align-self: flex-end;
+            }
           }
-          &-right {
-            align-self: flex-end;
-          }
-        }
-        &.text--textAlign {
-          &-left {
-            text-align: left;
-          }
-          &-right {
-            text-align: right;
+          &.text--textAlign {
+            &-left {
+              text-align: left;
+            }
+            &-right {
+              text-align: right;
+            }
           }
         }
       }
@@ -165,32 +158,19 @@ body {
       > .container {
         align-items: stretch;
         padding-inline: 0;
-        .profilePic {
-          flex-shrink: 0;
-          width: 3.5em;
-          aspect-ratio: 1 #{'/'} 1;
-          background-color: getColorByToken('color-dark', 'primary');
-          border-radius: 9999rem;
-        }
       }
     }
     &-header {
+      background-color: getColorByToken('bg-dark');
       > .container {
         @extend %apply-padding-x;
-        @extend %apply-padding-t-double;
-        @extend %apply-padding-b;
-        @include al($align: 4, $gap: 1em);
-        padding-top: 0;
+        @extend %apply-padding-t;
+        @extend %apply-padding-b-half;
         color: getColorByToken('onSurface-dark');
-        background-color: getColorByToken('bg-dark');
-        > .wrap {
-          @include al($isDirX: false, $align: 1, $gap: 0.25em);
-          > .title {
-            @extend %font-body-1-dense;
-            font-weight: 700 !important;
-          }
-          > .name {
-            @extend %font-body-3-dense;
+        .profile {
+          @extend %font-body-1-dense;
+          &__title {
+            font-weight: 700;
           }
         }
       }
@@ -198,68 +178,24 @@ body {
     &-footer {
       > .container {
         > .designInfo {
-          @extend %font-heading-5;
+          @extend %font-heading-6;
           @extend %apply-padding-x;
           @extend %apply-padding-y;
           @include al($align: 5);
           color: getColorByToken('onSurface-dark');
+          text-align: center;
           background-color: getColorByToken('surface-1-dark');
         }
         > .designerInfo {
           @extend %apply-padding-x;
-          @extend %apply-padding-t;
-          @include al($align: 4, $gap: 1em);
+          @extend %apply-padding-y;
           color: getColorByToken('onSurface-dark');
           background-color: getColorByToken('surface-3-dark');
-          > .wrap {
-            @include al($isDirX: false, $align: 1, $gap: 0.25em);
-            > .name {
-              @extend %font-body-2-dense;
-              font-weight: 700 !important;
-            }
-            > .quote {
-              @extend %font-body-3-dense;
-            }
-          }
-        }
-        > .otherWorks {
-          @extend %apply-padding-x;
-          @extend %apply-padding-t-half;
-          @extend %apply-padding-b;
-          color: getColorByToken('onSurface-dark');
-          background-color: getColorByToken('surface-3-dark');
-          > .work {
-            @extend %font-body-3;
-            aspect-ratio: 16 #{'/'} 9;
-            color: getColorByToken('onSurface-dark');
-            background-color: getColorByToken(
-              'color-container-light',
-              'primary'
-            );
-            > .wrap {
-              align-self: stretch;
-              width: 100%;
-              height: 100%;
-              padding: 1.25em;
-              background: linear-gradient(
-                rgba(0, 0, 0, 0) 0%,
-                rgba(0, 0, 0, 0.6) 81%
-              );
-              opacity: 0;
-              transition: opacity 100ms;
-              @include al($isDirX: false, $align: 7, $gap: 0.25em);
-              &:hover {
-                opacity: 1;
-              }
-              > * {
-                align-self: stretch;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-              }
-              > .title {
-                font-weight: 700;
-              }
+          .profile {
+            @extend %font-body-2-dense;
+            @extend %apply-padding-b-half;
+            &__name {
+              font-weight: 700;
             }
           }
         }
@@ -271,17 +207,85 @@ body {
   }
   &__bg {
     position: relative;
-    z-index: -1;
+    z-index: 1;
     &--left {
       grid-row: 1 #{'/'} span 2;
       grid-column: 1 #{'/'} span 1;
-      background-color: transparent;
+      background-color: getColorByToken('bg-dark');
     }
     &--right {
       grid-row: 1 #{'/'} span 2;
       grid-column: 3 #{'/'} span 1;
-      background-color: transparent;
+      background-color: getColorByToken('bg-dark');
     }
+  }
+}
+
+.container {
+  z-index: 2;
+  display: flex;
+  flex-flow: column nowrap;
+  grid-row: 1 #{'/'} span 2;
+  grid-column: 2 #{'/'} span 1;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  > * {
+    overflow: hidden;
+  }
+}
+
+.profile {
+  @include al($align: 4, $gap: 0.75em);
+  &__pic {
+    flex-shrink: 0;
+    width: 3.5em;
+    aspect-ratio: 1 #{'/'} 1;
+    background-color: getColorByToken('color-dark', 'primary');
+    border-radius: 9999rem;
+  }
+  &__wrap {
+    @include al($isDirX: false, $align: 1, $gap: 8px);
+  }
+  &__title {
+    @extend %font-body-1-dense;
+  }
+  &__name {
+    @extend %font-body-2-dense;
+  }
+  &__quote {
+    @extend %font-body-3-dense;
+  }
+}
+
+.work {
+  @extend %font-body-3;
+  @include al($isDirX: false, $align: 8);
+  aspect-ratio: 16 #{'/'} 9;
+  color: getColorByToken('onSurface-dark');
+  background-color: getColorByToken('color-container-light', 'primary');
+  &:hover {
+    .work__wrap {
+      opacity: 1;
+    }
+  }
+  &__wrap {
+    @include al($isDirX: false, $align: 7, $gap: 2px);
+    align-self: stretch;
+    height: calc((6 * 1.2) * 1em + 2em + 2px);
+    padding: 1em 1.25em;
+    background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 81%);
+    opacity: 0;
+    transition: opacity 100ms;
+    > * {
+      align-self: stretch;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+  &__title {
+    font-weight: 700;
   }
 }
 
@@ -312,11 +316,15 @@ body {
   @include applyBreakpoint(
     1fr,
     minmax(0, 90rem),
-    min(calc(60 / 1440 * 100%), 3.75rem),
+    calc(60 / 1440 * 100%),
     12,
     1.5rem,
     1.5rem
   );
+}
+
+@media (min-width: 1440px) {
+  @include applyBreakpoint(1fr, 90rem, 3.75rem, 12, 1.5rem, 1.5rem);
 }
 
 @include ge('hnd') {
@@ -332,17 +340,26 @@ body {
   }
 }
 
-@include ge('tblLg') {
-  @include createTextClasses('md');
-  .container {
-    @include getFontPropertiesFromStyle('md-body-2');
-  }
+@include ge('tblSm') {
   .otherWorks {
     display: grid;
     grid-template-rows: minmax(0, 1fr);
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 1.5rem;
   }
+}
+
+@include ge('tblLg') {
+  @include createTextClasses('md');
+  .container {
+    @include getFontPropertiesFromStyle('md-body-2');
+  }
+  // .otherWorks {
+  //   display: grid;
+  //   grid-template-rows: minmax(0, 1fr);
+  //   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  //   gap: 1.5rem;
+  // }
 }
 
 @include ge('lpt') {

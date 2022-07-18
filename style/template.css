@@ -4,31 +4,19 @@ body {
   background-color: #1c1b1d;
 }
 
-.container {
-  display: flex;
-  flex-flow: column nowrap;
-  grid-row: 1 / span 2;
-  grid-column: 2 / span 1;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  overflow: hidden;
-  background-color: #fffbfe;
-}
-.container > * {
-  overflow: hidden;
-}
-
 .section {
   position: relative;
   display: grid;
   grid-template-rows: minmax(0, auto) 0.625rem;
 }
-.section:not(:first-of-type), .section:not(:only-of-type) {
+.section:not(:first-of-type) {
   margin-top: -0.625rem;
 }
 .section:last-of-type, .section:only-of-type {
   grid-template-rows: minmax(0, auto) 0;
+}
+.section--type-text, .section--type-media {
+  background-color: #fffbfe;
 }
 .section--type-text > .container > * {
   max-width: 60ch;
@@ -57,34 +45,14 @@ body {
   align-items: stretch;
   padding-inline: 0;
 }
-.section--type-header > .container .profilePic, .section--type-footer > .container .profilePic {
-  flex-shrink: 0;
-  width: 3.5em;
-  aspect-ratio: 1 / 1;
-  background-color: #b8c1ff;
-  border-radius: 9999rem;
-}
-.section--type-header > .container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  gap: 1em;
-  align-items: center;
-  justify-content: flex-start;
-  padding-top: 0;
-  color: #c8c6c8;
+.section--type-header {
   background-color: #1c1b1d;
 }
-.section--type-header > .container > .wrap {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  gap: 0.25em;
-  align-items: flex-start;
-  justify-content: flex-start;
+.section--type-header > .container {
+  color: #c8c6c8;
 }
-.section--type-header > .container > .wrap > .title {
-  font-weight: 700 !important;
+.section--type-header > .container .profile__title {
+  font-weight: 700;
 }
 .section--type-footer > .container > .designInfo {
   display: flex;
@@ -94,63 +62,14 @@ body {
   align-items: center;
   justify-content: center;
   color: #c8c6c8;
+  text-align: center;
   background-color: rgb(37, 36, 38);
 }
 .section--type-footer > .container > .designerInfo {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  gap: 1em;
-  align-items: center;
-  justify-content: flex-start;
   color: #c8c6c8;
   background-color: rgb(47, 46, 48);
 }
-.section--type-footer > .container > .designerInfo > .wrap {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  gap: 0.25em;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-.section--type-footer > .container > .designerInfo > .wrap > .name {
-  font-weight: 700 !important;
-}
-.section--type-footer > .container > .otherWorks {
-  color: #c8c6c8;
-  background-color: rgb(47, 46, 48);
-}
-.section--type-footer > .container > .otherWorks > .work {
-  aspect-ratio: 16 / 9;
-  color: #c8c6c8;
-  background-color: #dbdeff;
-}
-.section--type-footer > .container > .otherWorks > .work > .wrap {
-  align-self: stretch;
-  width: 100%;
-  height: 100%;
-  padding: 1.25em;
-  background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 81%);
-  opacity: 0;
-  transition: opacity 100ms;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  gap: 0.25em;
-  align-items: flex-start;
-  justify-content: flex-end;
-}
-.section--type-footer > .container > .otherWorks > .work > .wrap:hover {
-  opacity: 1;
-}
-.section--type-footer > .container > .otherWorks > .work > .wrap > * {
-  align-self: stretch;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.section--type-footer > .container > .otherWorks > .work > .wrap > .title {
+.section--type-footer > .container > .designerInfo .profile__name {
   font-weight: 700;
 }
 .section--type-media + .section--type-footer > .container {
@@ -158,17 +77,92 @@ body {
 }
 .section__bg {
   position: relative;
-  z-index: -1;
+  z-index: 1;
 }
 .section__bg--left {
   grid-row: 1 / span 2;
   grid-column: 1 / span 1;
-  background-color: transparent;
+  background-color: #1c1b1d;
 }
 .section__bg--right {
   grid-row: 1 / span 2;
   grid-column: 3 / span 1;
-  background-color: transparent;
+  background-color: #1c1b1d;
+}
+
+.container {
+  z-index: 2;
+  display: flex;
+  flex-flow: column nowrap;
+  grid-row: 1 / span 2;
+  grid-column: 2 / span 1;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.container > * {
+  overflow: hidden;
+}
+
+.profile {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 0.75em;
+  align-items: center;
+  justify-content: flex-start;
+}
+.profile__pic {
+  flex-shrink: 0;
+  width: 3.5em;
+  aspect-ratio: 1 / 1;
+  background-color: #b8c1ff;
+  border-radius: 9999rem;
+}
+.profile__wrap {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 8px;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.work {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0rem;
+  align-items: center;
+  justify-content: flex-end;
+  aspect-ratio: 16 / 9;
+  color: #c8c6c8;
+  background-color: #dbdeff;
+}
+.work:hover .work__wrap {
+  opacity: 1;
+}
+.work__wrap {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 2px;
+  align-items: flex-start;
+  justify-content: flex-end;
+  align-self: stretch;
+  height: calc(9.2em + 2px);
+  padding: 1em 1.25em;
+  background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 81%);
+  opacity: 0;
+  transition: opacity 100ms;
+}
+.work__wrap > * {
+  align-self: stretch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.work__title {
+  font-weight: 700;
 }
 
 @media (min-width: 0rem) and (max-width: 37.4375rem) {
@@ -183,25 +177,20 @@ body {
     padding-top: 3rem;
     padding-bottom: 0.625rem;
   }
-  .section--type-header > .container, .section--type-footer > .container > .designInfo, .section--type-footer > .container > .designerInfo, .section--type-footer > .container > .otherWorks {
+  .section--type-header > .container, .section--type-footer > .container > .designInfo, .section--type-footer > .container > .designerInfo {
     padding-inline: 1.5rem;
   }
-  .section--type-footer > .container > .designerInfo {
+  .section--type-header > .container {
     padding-top: 3rem;
   }
-  .section--type-header > .container {
-    padding-top: 6rem;
+  .section--type-header > .container, .section--type-footer > .container > .designerInfo .profile {
+    padding-bottom: 1.5rem;
   }
-  .section--type-footer > .container > .otherWorks {
-    padding-top: 1.5rem;
-  }
-  .section--type-header > .container, .section--type-footer > .container > .otherWorks {
+  .section--type-footer > .container > .designInfo, .section--type-footer > .container > .designerInfo {
+    padding-top: 3rem;
     padding-bottom: 3rem;
   }
-  .section--type-footer > .container > .designInfo {
-    padding-block: 3rem;
-  }
-  .smucd.section--type-text .container {
+  .section--type-text > .container {
     row-gap: 1rem;
     -moz-column-gap: 1rem;
          column-gap: 1rem;
@@ -219,25 +208,20 @@ body {
     padding-top: 3rem;
     padding-bottom: 0.625rem;
   }
-  .section--type-header > .container, .section--type-footer > .container > .designInfo, .section--type-footer > .container > .designerInfo, .section--type-footer > .container > .otherWorks {
+  .section--type-header > .container, .section--type-footer > .container > .designInfo, .section--type-footer > .container > .designerInfo {
     padding-inline: 1.5rem;
   }
-  .section--type-footer > .container > .designerInfo {
+  .section--type-header > .container {
     padding-top: 3rem;
   }
-  .section--type-header > .container {
-    padding-top: 6rem;
+  .section--type-header > .container, .section--type-footer > .container > .designerInfo .profile {
+    padding-bottom: 1.5rem;
   }
-  .section--type-footer > .container > .otherWorks {
-    padding-top: 1.5rem;
-  }
-  .section--type-header > .container, .section--type-footer > .container > .otherWorks {
+  .section--type-footer > .container > .designInfo, .section--type-footer > .container > .designerInfo {
+    padding-top: 3rem;
     padding-bottom: 3rem;
   }
-  .section--type-footer > .container > .designInfo {
-    padding-block: 3rem;
-  }
-  .smucd.section--type-text .container {
+  .section--type-text > .container {
     row-gap: 1rem;
     -moz-column-gap: 1rem;
          column-gap: 1rem;
@@ -255,25 +239,20 @@ body {
     padding-top: 4.5rem;
     padding-bottom: 0.625rem;
   }
-  .section--type-header > .container, .section--type-footer > .container > .designInfo, .section--type-footer > .container > .designerInfo, .section--type-footer > .container > .otherWorks {
+  .section--type-header > .container, .section--type-footer > .container > .designInfo, .section--type-footer > .container > .designerInfo {
     padding-inline: 2.25rem;
   }
-  .section--type-footer > .container > .designerInfo {
+  .section--type-header > .container {
     padding-top: 4.5rem;
   }
-  .section--type-header > .container {
-    padding-top: 9rem;
+  .section--type-header > .container, .section--type-footer > .container > .designerInfo .profile {
+    padding-bottom: 2.25rem;
   }
-  .section--type-footer > .container > .otherWorks {
-    padding-top: 2.25rem;
-  }
-  .section--type-header > .container, .section--type-footer > .container > .otherWorks {
+  .section--type-footer > .container > .designInfo, .section--type-footer > .container > .designerInfo {
+    padding-top: 4.5rem;
     padding-bottom: 4.5rem;
   }
-  .section--type-footer > .container > .designInfo {
-    padding-block: 4.5rem;
-  }
-  .smucd.section--type-text .container {
+  .section--type-text > .container {
     row-gap: 1.5rem;
     -moz-column-gap: 1.5rem;
          column-gap: 1.5rem;
@@ -291,31 +270,26 @@ body {
     padding-top: 4.5rem;
     padding-bottom: 0.625rem;
   }
-  .section--type-header > .container, .section--type-footer > .container > .designInfo, .section--type-footer > .container > .designerInfo, .section--type-footer > .container > .otherWorks {
+  .section--type-header > .container, .section--type-footer > .container > .designInfo, .section--type-footer > .container > .designerInfo {
     padding-inline: min(4.1666666667%, 3.75rem);
   }
-  .section--type-footer > .container > .designerInfo {
+  .section--type-header > .container {
     padding-top: 4.5rem;
   }
-  .section--type-header > .container {
-    padding-top: 9rem;
+  .section--type-header > .container, .section--type-footer > .container > .designerInfo .profile {
+    padding-bottom: 2.25rem;
   }
-  .section--type-footer > .container > .otherWorks {
-    padding-top: 2.25rem;
-  }
-  .section--type-header > .container, .section--type-footer > .container > .otherWorks {
+  .section--type-footer > .container > .designInfo, .section--type-footer > .container > .designerInfo {
+    padding-top: 4.5rem;
     padding-bottom: 4.5rem;
   }
-  .section--type-footer > .container > .designInfo {
-    padding-block: 4.5rem;
-  }
-  .smucd.section--type-text .container {
+  .section--type-text > .container {
     row-gap: 1.5rem;
     -moz-column-gap: 1.5rem;
          column-gap: 1.5rem;
   }
 }
-@media (min-width: 80rem) and (max-width: 9999rem) {
+@media (min-width: 80rem) {
   .section {
     grid-template-columns: 1fr minmax(0, 90rem) 1fr;
   }
@@ -323,29 +297,55 @@ body {
     padding-bottom: 0;
   }
   .container {
-    padding-inline: min(4.1666666667%, 3.75rem);
+    padding-inline: 4.1666666667%;
     padding-top: 4.5rem;
     padding-bottom: 0.625rem;
   }
-  .section--type-header > .container, .section--type-footer > .container > .designInfo, .section--type-footer > .container > .designerInfo, .section--type-footer > .container > .otherWorks {
-    padding-inline: min(4.1666666667%, 3.75rem);
-  }
-  .section--type-footer > .container > .designerInfo {
-    padding-top: 4.5rem;
+  .section--type-header > .container, .section--type-footer > .container > .designInfo, .section--type-footer > .container > .designerInfo {
+    padding-inline: 4.1666666667%;
   }
   .section--type-header > .container {
-    padding-top: 9rem;
+    padding-top: 4.5rem;
   }
-  .section--type-footer > .container > .otherWorks {
-    padding-top: 2.25rem;
+  .section--type-header > .container, .section--type-footer > .container > .designerInfo .profile {
+    padding-bottom: 2.25rem;
   }
-  .section--type-header > .container, .section--type-footer > .container > .otherWorks {
+  .section--type-footer > .container > .designInfo, .section--type-footer > .container > .designerInfo {
+    padding-top: 4.5rem;
     padding-bottom: 4.5rem;
   }
-  .section--type-footer > .container > .designInfo {
-    padding-block: 4.5rem;
+  .section--type-text > .container {
+    row-gap: 1.5rem;
+    -moz-column-gap: 1.5rem;
+         column-gap: 1.5rem;
   }
-  .smucd.section--type-text .container {
+}
+@media (min-width: 1440px) {
+  .section {
+    grid-template-columns: 1fr 90rem 1fr;
+  }
+  .section:last-of-type > .container, .section:only-of-type > .container {
+    padding-bottom: 0;
+  }
+  .container {
+    padding-inline: 3.75rem;
+    padding-top: 4.5rem;
+    padding-bottom: 0.625rem;
+  }
+  .section--type-header > .container, .section--type-footer > .container > .designInfo, .section--type-footer > .container > .designerInfo {
+    padding-inline: 3.75rem;
+  }
+  .section--type-header > .container {
+    padding-top: 4.5rem;
+  }
+  .section--type-header > .container, .section--type-footer > .container > .designerInfo .profile {
+    padding-bottom: 2.25rem;
+  }
+  .section--type-footer > .container > .designInfo, .section--type-footer > .container > .designerInfo {
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
+  }
+  .section--type-text > .container {
     row-gap: 1.5rem;
     -moz-column-gap: 1.5rem;
          column-gap: 1.5rem;
@@ -358,10 +358,11 @@ body {
     line-height: 1.75rem;
   }
   .font-body-1-dense,
-.section--type-header > .container > .wrap > .title {
+.section--type-header > .container .profile,
+.profile__title {
     font-size: 1.125rem;
     font-weight: 500;
-    line-height: 1.75rem;
+    line-height: 1.375rem;
   }
   .font-body-2 {
     font-size: 1rem;
@@ -369,23 +370,23 @@ body {
     line-height: 1.5rem;
   }
   .font-body-2-dense,
-.section--type-footer > .container > .designerInfo > .wrap > .name {
+.section--type-footer > .container > .designerInfo .profile,
+.profile__name {
     font-size: 1rem;
     font-weight: 500;
-    line-height: 1.5rem;
+    line-height: 1.25rem;
   }
   .font-body-3,
-.section--type-footer > .container > .otherWorks > .work {
+.work {
     font-size: 0.875rem;
     font-weight: 500;
     line-height: 1.375rem;
   }
   .font-body-3-dense,
-.section--type-header > .container > .wrap > .name,
-.section--type-footer > .container > .designerInfo > .wrap > .quote {
+.profile__quote {
     font-size: 0.875rem;
     font-weight: 500;
-    line-height: 1.375rem;
+    line-height: 1rem;
   }
   .font-heading-1 {
     font-size: 4.5625rem;
@@ -407,13 +408,13 @@ body {
     font-weight: 700;
     line-height: 2.75rem;
   }
-  .font-heading-5,
-.section--type-footer > .container > .designInfo {
+  .font-heading-5 {
     font-size: 1.75rem;
     font-weight: 700;
     line-height: 2.125rem;
   }
-  .font-heading-6 {
+  .font-heading-6,
+.section--type-footer > .container > .designInfo {
     font-size: 1.375rem;
     font-weight: 700;
     line-height: 1.625rem;
@@ -430,6 +431,14 @@ body {
     gap: 1.5rem;
   }
 }
+@media (min-width: 37.5rem) {
+  .otherWorks {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+}
 @media (min-width: 52.5rem) {
   .font-body-1 {
     font-size: 1.25rem;
@@ -437,10 +446,11 @@ body {
     line-height: 1.875rem;
   }
   .font-body-1-dense,
-.section--type-header > .container > .wrap > .title {
+.section--type-header > .container .profile,
+.profile__title {
     font-size: 1.25rem;
     font-weight: 500;
-    line-height: 1.875rem;
+    line-height: 1.5rem;
   }
   .font-body-2 {
     font-size: 1.125rem;
@@ -448,23 +458,23 @@ body {
     line-height: 1.75rem;
   }
   .font-body-2-dense,
-.section--type-footer > .container > .designerInfo > .wrap > .name {
+.section--type-footer > .container > .designerInfo .profile,
+.profile__name {
     font-size: 1.125rem;
     font-weight: 500;
-    line-height: 1.75rem;
+    line-height: 1.375rem;
   }
   .font-body-3,
-.section--type-footer > .container > .otherWorks > .work {
+.work {
     font-size: 1rem;
     font-weight: 500;
     line-height: 1.5rem;
   }
   .font-body-3-dense,
-.section--type-header > .container > .wrap > .name,
-.section--type-footer > .container > .designerInfo > .wrap > .quote {
+.profile__quote {
     font-size: 1rem;
     font-weight: 500;
-    line-height: 1.5rem;
+    line-height: 1.25rem;
   }
   .font-heading-1 {
     font-size: 5.75rem;
@@ -486,13 +496,13 @@ body {
     font-weight: 700;
     line-height: 3.375rem;
   }
-  .font-heading-5,
-.section--type-footer > .container > .designInfo {
+  .font-heading-5 {
     font-size: 2.25rem;
     font-weight: 700;
     line-height: 2.75rem;
   }
-  .font-heading-6 {
+  .font-heading-6,
+.section--type-footer > .container > .designInfo {
     font-size: 1.75rem;
     font-weight: 700;
     line-height: 2.125rem;
@@ -502,12 +512,6 @@ body {
     font-weight: 500;
     line-height: 1.75rem;
   }
-  .otherWorks {
-    display: grid;
-    grid-template-rows: minmax(0, 1fr);
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 1.5rem;
-  }
 }
 @media (min-width: 64rem) {
   .font-body-1 {
@@ -516,10 +520,11 @@ body {
     line-height: 2.125rem;
   }
   .font-body-1-dense,
-.section--type-header > .container > .wrap > .title {
+.section--type-header > .container .profile,
+.profile__title {
     font-size: 1.375rem;
     font-weight: 500;
-    line-height: 2.125rem;
+    line-height: 1.75rem;
   }
   .font-body-2 {
     font-size: 1.25rem;
@@ -527,23 +532,23 @@ body {
     line-height: 1.875rem;
   }
   .font-body-2-dense,
-.section--type-footer > .container > .designerInfo > .wrap > .name {
+.section--type-footer > .container > .designerInfo .profile,
+.profile__name {
     font-size: 1.25rem;
     font-weight: 500;
-    line-height: 1.875rem;
+    line-height: 1.5rem;
   }
   .font-body-3,
-.section--type-footer > .container > .otherWorks > .work {
+.work {
     font-size: 1.125rem;
     font-weight: 500;
     line-height: 1.75rem;
   }
   .font-body-3-dense,
-.section--type-header > .container > .wrap > .name,
-.section--type-footer > .container > .designerInfo > .wrap > .quote {
+.profile__quote {
     font-size: 1.125rem;
     font-weight: 500;
-    line-height: 1.75rem;
+    line-height: 1.375rem;
   }
   .font-heading-1 {
     font-size: 7.3125rem;
@@ -565,13 +570,13 @@ body {
     font-weight: 700;
     line-height: 4.375rem;
   }
-  .font-heading-5,
-.section--type-footer > .container > .designInfo {
+  .font-heading-5 {
     font-size: 2.8125rem;
     font-weight: 700;
     line-height: 3.375rem;
   }
-  .font-heading-6 {
+  .font-heading-6,
+.section--type-footer > .container > .designInfo {
     font-size: 2.25rem;
     font-weight: 700;
     line-height: 2.75rem;

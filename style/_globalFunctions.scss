@@ -125,9 +125,13 @@
     @if ($nextKey != '') {
       $bpNextMap: map.get($breakponts, $nextKey);
       $maxWidth: map.get($bpNextMap, 'min-width') - 0.0625rem;
-    }
-    @media (min-width: #{$minWidth}) and (max-width: #{$maxWidth}) {
-      @content;
+      @media (min-width: #{$minWidth}) and (max-width: #{$maxWidth}) {
+        @content;
+      }
+    } @else {
+      @media (min-width: #{$minWidth}) {
+        @content;
+      }
     }
   }
 }

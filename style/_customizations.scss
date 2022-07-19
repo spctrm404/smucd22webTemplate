@@ -488,6 +488,10 @@ $breakponts: (
   ),
   'dsk': (
     'min-width': 80rem,
+    'next-key': 'max',
+  ),
+  'max': (
+    'min-width': 90rem,
     'next-key': '',
   ),
 );

@@ -17,9 +17,9 @@
   $gridGapX,
   $gridGapY
 ) {
+  $paddingMultiplier: 1.5;
   .container {
     padding-inline: $containerPaddingX;
-    padding-top: 3 * $gridGapY;
     padding-bottom: $yGapSolivingPadding;
   }
   .section {
@@ -27,43 +27,55 @@
     &:last-of-type > .container {
       padding-bottom: 0;
     }
-    &--type-text > .container {
-      row-gap: $gridGapY;
-      column-gap: $gridGapX;
+    &--type-text {
+      > .container {
+        row-gap: $gridGapY;
+        column-gap: $gridGapX;
+        padding-top: $paddingMultiplier * $gridGapY;
+        padding-bottom: $paddingMultiplier * $gridGapY + $yGapSolivingPadding;
+      }
+      &.text-head {
+        > .container {
+          padding-top: 2 * $paddingMultiplier * $gridGapY;
+        }
+      }
+      &.text-tail {
+        > .container {
+          padding-bottom: 2 * $paddingMultiplier * $gridGapY +
+            $yGapSolivingPadding;
+        }
+      }
     }
   }
   %apply-padding-x {
     padding-inline: $containerPaddingX;
   }
   %apply-padding-t {
-    padding-top: 3 * $gridGapY;
+    padding-top: $paddingMultiplier * $gridGapY;
   }
   %apply-padding-t-double {
-    padding-top: 6 * $gridGapY;
+    padding-top: 2 * $paddingMultiplier * $gridGapY;
   }
-  %apply-padding-t-half {
-    padding-top: 1.5 * $gridGapY;
+  %apply-padding-t-triple {
+    padding-top: 3 * $paddingMultiplier * $gridGapY;
   }
   %apply-padding-b {
-    padding-bottom: 3 * $gridGapY;
+    padding-bottom: $paddingMultiplier * $gridGapY;
   }
   %apply-padding-b-double {
-    padding-bottom: 6 * $gridGapY;
+    padding-bottom: 2 * $paddingMultiplier * $gridGapY;
   }
-  %apply-padding-b-half {
-    padding-bottom: 1.5 * $gridGapY;
+  %apply-padding-b-triple {
+    padding-bottom: 3 * $paddingMultiplier * $gridGapY;
   }
   %apply-padding-y {
-    padding-top: 3 * $gridGapY;
-    padding-bottom: 3 * $gridGapY;
+    padding-block: $paddingMultiplier * $gridGapY;
   }
   %apply-padding-y-double {
-    padding-top: 6 * $gridGapY;
-    padding-bottom: 6 * $gridGapY;
+    padding-block: 2 * $paddingMultiplier * $gridGapY;
   }
-  %apply-padding-y-half {
-    padding-top: 1.5 * $gridGapY;
-    padding-bottom: 1.5 * $gridGapY;
+  %apply-padding-y-triple {
+    padding-block: 3 * $paddingMultiplier * $gridGapY;
   }
   %apply-gap-x {
     column-gap: $gridGapX;
@@ -131,26 +143,38 @@ body {
   &--type {
     &-text,
     &-media {
-      background-color: getColorByToken('bg-light');
+      background-color: #fff;
     }
-    &-text > .container > * {
-      max-width: 60ch;
-      text-align: center;
-      &.text {
-        &--boxAlign {
-          &-left {
-            align-self: flex-start;
-          }
-          &-right {
-            align-self: flex-end;
-          }
+    &-text {
+      color: getColorByToken('onSurface-light');
+      // background-color: getColorByToken('bg-light');
+      a {
+        color: getColorByToken('color-light', 'primary');
+        text-decoration: underline;
+        text-underline-position: under;
+        &:hover {
+          color: getColorByToken('onSurface-variant-light');
         }
-        &--textAlign {
-          &-left {
-            text-align: left;
-          }
-          &-right {
-            text-align: right;
+      }
+      > .container > * {
+        width: 100%;
+        max-width: 70ch;
+        &.text {
+          // &--boxAlign {
+          //   &-left {
+          //     align-self: flex-start;
+          //   }
+          //   &-right {
+          //     align-self: flex-end;
+          //   }
+          // }
+          &--textAlign {
+            &-center {
+              text-align: center;
+            }
+            &-right {
+              text-align: right;
+            }
           }
         }
       }
@@ -159,10 +183,17 @@ body {
       > .container {
         align-items: stretch;
         padding-inline: 0;
+        * {
+          flex-shrink: 0;
+        }
+        lottie-player {
+          align-self: center;
+          height: auto;
+        }
       }
-      &.section:nth-last-of-type(2) > .container {
-        padding-bottom: 0;
-      }
+      // &.section:nth-last-of-type(2) > .container {
+      //   padding-bottom: 0;
+      // }
     }
     &-header,
     &-footer {
@@ -175,8 +206,8 @@ body {
       background-color: getColorByToken('bg-dark');
       > .container {
         @extend %apply-padding-x;
-        @extend %apply-padding-t;
-        @extend %apply-padding-b-half;
+        @extend %apply-padding-t-triple;
+        @extend %apply-padding-b-double;
         color: getColorByToken('onSurface-dark');
         .profile {
           @extend %font-body-1-dense;
@@ -191,7 +222,7 @@ body {
         .designInfo {
           @extend %font-heading-6;
           @extend %apply-padding-x;
-          @extend %apply-padding-y;
+          @extend %apply-padding-y-double;
           @include al($align: 5);
           color: getColorByToken('onSurface-dark');
           text-align: center;
@@ -199,12 +230,13 @@ body {
         }
         .designerInfo {
           @extend %apply-padding-x;
-          @extend %apply-padding-y;
+          @extend %apply-padding-t-triple;
+          @extend %apply-padding-b-double;
           color: getColorByToken('onSurface-dark');
           background-color: getColorByToken('surface-3-dark');
           .profile {
-            @extend %font-body-2-dense;
-            @extend %apply-padding-b-half;
+            @extend %font-body-1-dense;
+            @extend %apply-padding-b;
             &__name {
               font-weight: 700;
             }
@@ -215,9 +247,9 @@ body {
           }
         }
       }
-      .section--type-media + & > .container {
-        padding-top: 0;
-      }
+      // .section--type-media + & > .container {
+      //   padding-top: 0;
+      // }
     }
   }
   &__bg {
@@ -239,13 +271,13 @@ body {
   @include al($align: 4, $gap: 0.75em);
   &__pic {
     flex-shrink: 0;
-    width: 3.5em;
+    width: 3em;
     aspect-ratio: 1 #{'/'} 1;
     background-color: getColorByToken('color-dark', 'primary');
     border-radius: 9999rem;
   }
   &__wrap {
-    @include al($isDirX: false, $align: 1, $gap: 8px);
+    @include al($isDirX: false, $align: 1, $gap: 4px);
   }
   &__title {
     @extend %font-body-1-dense;
